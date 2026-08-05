@@ -39,9 +39,9 @@ export default function TechSlider() {
           {duplicatedTech.map((tech, index) => (
             <div 
               key={index} 
-              className="mx-4 md:mx-6 flex flex-col items-center justify-center group cursor-pointer"
+              className="mx-3 md:mx-6 flex flex-col items-center justify-center group cursor-pointer"
             >
-              <div className="relative w-24 h-24 md:w-28 md:h-28 bg-[var(--color-surface)] rounded-2xl shadow-[var(--shadow-neu-out)] group-hover:shadow-[var(--shadow-neu-in)] transition-all duration-300 flex items-center justify-center p-6">
+              <div className="relative w-20 h-20 md:w-28 md:h-28 bg-[var(--color-surface)] rounded-2xl shadow-[var(--shadow-neu-out)] group-hover:shadow-[var(--shadow-neu-in)] transition-all duration-300 flex items-center justify-center p-4 md:p-6">
                 <div className="relative w-full h-full">
                   <Image 
                     src={`/logo-asset/${tech.file}`}

@@ -51,7 +51,7 @@ export default function Hero() {
           <div className="font-inter text-xl md:text-3xl text-[var(--color-textMain)] font-bold mb-10 flex flex-wrap justify-center md:justify-start items-center h-12">
             <span className="mr-3">I am a</span>
             <span 
-              className="inline-block px-4 py-2 bg-[var(--color-surface)] rounded-xl shadow-[var(--shadow-neu-in)] text-[var(--color-accent)] min-w-[280px] text-left"
+              className="inline-block px-4 py-2 bg-[var(--color-surface)] rounded-xl shadow-[var(--shadow-neu-in)] text-[var(--color-accent)] min-w-[240px] sm:min-w-[280px] text-left"
             >
               {displayText}
               <span className="animate-pulse border-r-2 border-[var(--color-accent)] ml-1 h-full inline-block">&nbsp;</span>
