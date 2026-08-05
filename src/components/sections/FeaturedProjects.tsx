@@ -71,7 +71,7 @@ export default function FeaturedProjects() {
   return (
     <section id="projects" className="py-24 relative bg-[var(--color-surface)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-12 text-center md:text-left">
+        <div className="mb-12 text-center md:text-left" data-aos="fade-up">
           <h2 className="font-poppins font-black text-4xl md:text-5xl text-[var(--color-textMain)] inline-block relative pb-2 drop-shadow-sm">
             Featured Projects
           </h2>
@@ -81,6 +81,8 @@ export default function FeaturedProjects() {
           {visibleProjects.map((project, index) => (
             <div 
               key={index}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
               className="bg-[var(--color-surface)] rounded-3xl overflow-hidden 
                          shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)]
                          transition-shadow duration-300 group flex flex-col h-full cursor-pointer p-6"

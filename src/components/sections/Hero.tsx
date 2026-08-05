@@ -42,7 +42,7 @@ export default function Hero() {
     <section id="home" className="min-h-[75vh] flex flex-col md:flex-row items-center justify-center relative overflow-hidden pt-32 pb-8 bg-[var(--color-surface)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full flex flex-col-reverse md:flex-row items-center gap-12">
         {/* Text Content */}
-        <div className="w-full md:w-1/2 text-center md:text-left">
+        <div className="w-full md:w-1/2 text-center md:text-left" data-aos="fade-right">
           <h1 className="font-poppins font-black text-5xl md:text-6xl lg:text-7xl tracking-tight text-[var(--color-textMain)] mb-6 leading-tight drop-shadow-sm">
             Hi, I am <br className="hidden md:block lg:hidden" />
             Raditya Rai Zeeshan
@@ -73,7 +73,7 @@ export default function Hero() {
         </div>
 
         {/* Profile Image */}
-        <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+        <div className="w-full md:w-1/2 flex justify-center md:justify-end" data-aos="fade-left" data-aos-delay="200">
           <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full bg-[var(--color-surface)] p-3 shadow-[var(--shadow-neu-out)]">
             <div className="relative w-full h-full overflow-hidden rounded-full shadow-[var(--shadow-neu-in)] p-1">
               <Image 

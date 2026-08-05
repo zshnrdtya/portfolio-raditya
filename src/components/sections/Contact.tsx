@@ -22,11 +22,11 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 relative bg-[var(--color-surface)]">
       <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
-        <h2 className="font-poppins font-black text-4xl md:text-5xl text-[var(--color-textMain)] inline-block relative mb-6 drop-shadow-sm">
+        <h2 className="font-poppins font-black text-4xl md:text-5xl text-[var(--color-textMain)] inline-block relative mb-6 drop-shadow-sm" data-aos="fade-up">
           Let's Connect
         </h2>
         
-        <p className="font-inter font-medium text-lg text-[var(--color-textMain)] mb-16 max-w-2xl mx-auto bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-2xl p-6">
+        <p className="font-inter font-medium text-lg text-[var(--color-textMain)] mb-16 max-w-2xl mx-auto bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-2xl p-6" data-aos="fade-up" data-aos-delay="100">
           Have a project in mind or just want to say hi? Feel free to reach out to me directly through any of the channels below!
         </p>
         
@@ -35,6 +35,8 @@ export default function Contact() {
             info.type === "map" ? (
               <div 
                 key={index}
+                data-aos="fade-up"
+                data-aos-delay={index * 150 + 200}
                 className="bg-[var(--color-surface)] rounded-3xl p-6 shadow-[var(--shadow-neu-out)] flex flex-col gap-4"
               >
                 <div className="w-full aspect-video rounded-2xl overflow-hidden shadow-[var(--shadow-neu-in)] p-2 bg-[var(--color-surface)]">
@@ -66,6 +68,8 @@ export default function Contact() {
                 href={info.link}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-aos="fade-up"
+                data-aos-delay={index * 150 + 200}
                 className="group bg-[var(--color-surface)] rounded-3xl p-8 shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] transition-all duration-300 flex flex-col items-center justify-center gap-6 cursor-pointer"
               >
                 <div className="w-20 h-20 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] group-hover:shadow-[var(--shadow-neu-in)] group-hover:text-[var(--color-accent)] text-[var(--color-textMain)] flex items-center justify-center transition-all duration-300">

@@ -28,7 +28,7 @@ export default function AboutMe() {
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           
           {/* Profile & Bio Section */}
-          <div className="w-full lg:w-5/12">
+          <div className="w-full lg:w-5/12" data-aos="fade-up">
             <h2 className="font-poppins font-black text-4xl md:text-5xl text-[var(--color-textMain)] inline-block relative mb-12 pb-2 drop-shadow-sm">
               About Me
             </h2>
@@ -58,7 +58,7 @@ export default function AboutMe() {
           </div>
           
           {/* Timeline Section */}
-          <div className="w-full lg:w-7/12 lg:pt-24">
+          <div className="w-full lg:w-7/12 lg:pt-24" data-aos="fade-up" data-aos-delay="200">
             <h3 className="font-poppins font-black text-3xl text-[var(--color-textMain)] mb-12 drop-shadow-sm">Education History</h3>
             
             <div className="relative ml-3 md:ml-4 space-y-12">
@@ -66,7 +66,7 @@ export default function AboutMe() {
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-full"></div>
 
               {timeline.map((item, index) => (
-                <div key={index} className="relative pl-8 md:pl-12 group">
+                <div key={index} className="relative pl-8 md:pl-12 group" data-aos="fade-up" data-aos-delay={index * 150 + 300}>
                   {/* Timeline embossed dot */}
                   <div className="absolute -left-[6px] top-2 w-4 h-4 rounded-full bg-[var(--color-accent)] shadow-[var(--shadow-neu-out)] 
                                 group-hover:scale-125 transition-transform duration-300 z-10"></div>

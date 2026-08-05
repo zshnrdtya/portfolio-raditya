@@ -3,6 +3,7 @@ import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import AOSProvider from "@/components/providers/AOSProvider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -28,11 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${inter.variable} h-full antialiased scroll-smooth`}>
       <body className="min-h-full flex flex-col font-inter bg-primaryBlue text-offWhite overflow-x-hidden">
-        <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
+        <AOSProvider>
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+        </AOSProvider>
       </body>
     </html>
   );

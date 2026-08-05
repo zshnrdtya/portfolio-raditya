@@ -37,7 +37,7 @@ export default function DesignCorner() {
   return (
     <section id="design" className="py-24 relative bg-[var(--color-surface)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-16 text-center">
+        <div className="mb-16 text-center" data-aos="fade-up">
           <h2 className="font-poppins font-black text-4xl md:text-5xl text-[var(--color-textMain)] inline-block relative pb-2 drop-shadow-sm">
             Design Corner
           </h2>
@@ -50,6 +50,8 @@ export default function DesignCorner() {
           {visibleDesigns.map((design, index) => (
             <div 
               key={index}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
               onClick={() => setSelectedImage(design.image)}
               className="group relative aspect-square rounded-3xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] transition-shadow duration-300 p-4 flex flex-col items-center justify-center cursor-pointer"
             >
