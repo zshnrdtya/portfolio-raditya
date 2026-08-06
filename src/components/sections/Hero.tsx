@@ -10,7 +10,8 @@ export default function Hero() {
     "Ui/Ux Designer",
     "BackEnd Enthusiast",
     "Web Enthusiast",
-    "Fullstack Developer"
+    "Fullstack Developer",
+    "PPT & Academic Writing"
   ];
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
