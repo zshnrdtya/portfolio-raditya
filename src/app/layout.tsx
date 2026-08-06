@@ -17,8 +17,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Raditya Rai Zeeshan - Portfolio",
-  description: "Software Engineer / Founder of Z-Project",
+  title: "Raditya Rai Zeeshan | Fullstack Web Developer",
+  description: "Portofolio resmi Raditya Rai Zeeshan. Seorang Fullstack Web Developer yang berfokus pada pembuatan website modern, responsif, dan interaktif.",
+  keywords: ["Raditya Rai Zeeshan", "Portofolio Raditya", "Web Developer", "Fullstack Developer", "Frontend Next.js", "Z - Project"],
+  authors: [{ name: "Raditya Rai Zeeshan" }],
+  openGraph: {
+    title: "Raditya Rai Zeeshan | Portfolio",
+    description: "Portofolio resmi Raditya Rai Zeeshan. Fullstack Web Developer.",
+    url: "https://radityarz.my.id",
+    siteName: "Raditya Rai Zeeshan Portfolio",
+    locale: "id_ID",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -27,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${inter.variable} h-full antialiased scroll-smooth`}>
-      <body className="min-h-full flex flex-col font-inter bg-primaryBlue text-offWhite overflow-x-hidden">
+    <html lang="id" className={`${poppins.variable} ${inter.variable} h-full antialiased scroll-smooth`}>
+      <body className="min-h-full flex flex-col font-inter bg-surface text-textMain overflow-x-hidden">
         <AOSProvider>
           <Navbar />
           <main className="flex-grow">
