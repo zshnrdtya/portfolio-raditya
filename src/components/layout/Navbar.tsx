@@ -110,7 +110,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => handleNavClick(link.href)}
                   className="font-inter text-base font-bold text-[var(--color-textMain)] hover:text-[var(--color-accent)] px-4 py-3 bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-xl text-center transition-all duration-300"
                 >
                   {link.name}
