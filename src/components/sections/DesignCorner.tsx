@@ -10,7 +10,7 @@ export default function DesignCorner() {
 
   const designs = [
     { title: "Batik Nasional", image: "Cerita Instagram Selamat Hari Batik Nasional Ilustrasi Cokelat dan Putih.png", tools: "Canva" },
-    { title: "DGBK 1", image: "DGBK1.png", tools: "Canva" },
+    { title: "Design Baju", image: "DGBK1.png", tools: "Canva" },
     { title: "Flyer AYP JDCI", image: "FLYER AYP JDCI.png", tools: "Canva" },
     { title: "Hari Pemuda", image: "Merah Putih Ilustrasi Selamat Hari Pemuda Konten Instagram.png", tools: "Canva" },
     { title: "Kesaktian Pancasila", image: "Merah Putih Sederhana Hari Kesaktian Pancasila Cerita Instagram.png", tools: "Canva" },
