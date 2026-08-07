@@ -6,15 +6,12 @@ import { useState, useEffect } from "react";
 
 export default function Hero() {
   const roles = [
-    "FrontEnd Developer",
-    "Ui/Ux Designer",
-    "BackEnd Enthusiast",
-    "Web Enthusiast",
     "Fullstack Developer",
-    "PPT & Academic Writing"
+    "UI/UX Designer",
+    "Founder of Z - Project"
   ];
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
+  const [displayText, setDisplayText] = useState("Fullstack Developer");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
@@ -44,10 +41,16 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full flex flex-col-reverse md:flex-row items-center gap-12">
         {/* Text Content */}
         <div className="w-full md:w-1/2 text-center md:text-left" data-aos="fade-right">
-          <h1 className="font-poppins font-black text-5xl md:text-6xl lg:text-7xl tracking-tight text-[var(--color-textMain)] mb-6 leading-tight drop-shadow-sm">
+          <h1 className="font-poppins font-black text-5xl md:text-6xl lg:text-7xl tracking-tight text-slate-900 mb-6 leading-tight drop-shadow-sm">
             Hi, I am <br className="hidden md:block lg:hidden" />
             Raditya Rai Zeeshan
           </h1>
+          
+          <div className="mb-8 flex justify-center md:justify-start" data-aos="fade-up" data-aos-delay="100">
+            <span className="inline-block px-5 py-2 bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] rounded-full text-sm md:text-base font-semibold text-slate-700 border border-white/20">
+              Founder & Lead Developer at Z - Project
+            </span>
+          </div>
           
           <div className="font-inter text-xl md:text-3xl text-[var(--color-textMain)] font-bold mb-10 flex flex-wrap justify-center md:justify-start items-center h-12">
             <span className="mr-3">I am a</span>

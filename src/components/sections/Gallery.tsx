@@ -51,7 +51,7 @@ const Gallery = () => {
   return (
     <section id="gallery" className="py-20 bg-[var(--color-surface)] overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-center font-poppins text-[var(--color-textMain)]" data-aos="fade-up">
+        <h2 className="text-3xl md:text-4xl font-bold text-center font-poppins text-slate-900" data-aos="fade-up">
           Gallery
         </h2>
       </div>

@@ -38,7 +38,7 @@ export default function DesignCorner() {
     <section id="design" className="py-24 relative bg-[var(--color-surface)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-16 text-center" data-aos="fade-up">
-          <h2 className="font-poppins font-black text-4xl md:text-5xl text-[var(--color-textMain)] inline-block relative pb-2 drop-shadow-sm">
+          <h2 className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative pb-2 drop-shadow-sm">
             Design Corner
           </h2>
           <p className="font-inter font-medium text-[var(--color-textMain)] mt-6 max-w-2xl mx-auto opacity-80">

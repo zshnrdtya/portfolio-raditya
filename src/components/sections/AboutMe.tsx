@@ -29,7 +29,7 @@ export default function AboutMe() {
           
           {/* Profile & Bio Section */}
           <div className="w-full lg:w-5/12" data-aos="fade-up">
-            <h2 className="font-poppins font-black text-4xl md:text-5xl text-[var(--color-textMain)] inline-block relative mb-12 pb-2 drop-shadow-sm">
+            <h2 className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative mb-12 pb-2 drop-shadow-sm">
               About Me
             </h2>
             

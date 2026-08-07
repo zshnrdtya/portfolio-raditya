@@ -22,7 +22,7 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 relative bg-[var(--color-surface)]">
       <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
-        <h2 className="font-poppins font-black text-4xl md:text-5xl text-[var(--color-textMain)] inline-block relative mb-6 drop-shadow-sm" data-aos="fade-up">
+        <h2 className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative mb-6 drop-shadow-sm" data-aos="fade-up">
           Let's Connect
         </h2>
         

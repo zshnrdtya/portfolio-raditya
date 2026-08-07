@@ -49,7 +49,7 @@ export default function SplashScreen() {
 
           {/* Philosophical Tagline */}
           <motion.p
-            className="text-xs md:text-sm text-slate-500 opacity-80 tracking-wide font-light text-center max-w-[280px] md:max-w-md mx-auto mb-10"
+            className="text-xs md:text-sm text-slate-700 opacity-80 tracking-wide font-light text-center max-w-[280px] md:max-w-md mx-auto mb-10"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
