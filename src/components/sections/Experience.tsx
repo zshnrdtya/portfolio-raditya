@@ -12,12 +12,20 @@ const Experience = () => {
       logoPosition: "left"
     },
     {
+      title: "Assistant Coach & Head of Equipment",
+      company: "Al-Hidayah Marching Band (2024 - 2025)",
+      description: "Responsible for managing equipment, as well as training and leading marching band members to maintain synchronization, discipline, and maximum performance in every event.",
+      badges: ["Leadership", "Team Management", "Event Organizing", "Problem Solving"],
+      logo: "/foto-raditya/logombalhid.jpg",
+      logoPosition: "right"
+    },
+    {
       title: "FullStack Developer (Internship)",
       company: "Indi Technology",
       description: "Responsible as a FullStack Developer intern at Indi Technology in developing a modern company profile application. Actively implemented 3D scrollytelling interactive features, managed the application deployment process to the production environment, and comprehensively conducted Quality Assurance (QA) testing to ensure optimal and bug-free system performance.",
       badges: ["Next.js", "React", "Laravel", "Inertia.js"],
       logo: "/foto-raditya/logoindi.png",
-      logoPosition: "right"
+      logoPosition: "left"
     }
   ];
 
@@ -25,7 +33,7 @@ const Experience = () => {
     <section id="experience" className="py-20 bg-surface">
       <div className="container mx-auto px-6 max-w-4xl">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 font-poppins text-textMain" data-aos="fade-up">
-          Work Experience
+          Experience & Leadership
         </h2>
 
         <div className="relative">

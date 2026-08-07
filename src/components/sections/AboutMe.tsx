@@ -47,12 +47,13 @@ export default function AboutMe() {
             
             <div className="font-inter text-[var(--color-textMain)] font-medium leading-relaxed text-lg bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-2xl p-6 text-justify">
               <p>
-                My name is <strong className="font-black text-[var(--color-accent)]">Raditya Rai Zeeshan</strong>, I am 17 years old, born on October 30, 2008. 
-                I am a Software and Game Development (PPLG) student with a strong interest in technology, 
-                particularly in website and application development.
+                My name is <strong className="font-black text-[var(--color-accent)]">Raditya Rai Zeeshan</strong>, a 17-year-old Software and Game Development (PPLG) student at SMKN 1 Depok. Since being introduced to programming, I have been fascinated by how digital systems can provide meaningful, real-world solutions.
               </p>
               <p className="mt-4">
-                Since being introduced to programming, I have been fascinated by how digital systems can be built and utilized to provide meaningful solutions.
+                I am a Full-Stack Developer and the Founder of Z - Project, specializing in building interactive websites, mobile applications, and premium user interfaces. My technical journey is balanced by a strong foundation in leadership and teamwork, shaped by my experience as an Assistant Coach in the Al-Hidayah Marching Band.
+              </p>
+              <p className="mt-4">
+                Whether I am structuring a complex database or orchestrating a team, my philosophy remains the same: <span className="italic">"It's not the problem that is flawed; fix the mindset, and the problem solves itself."</span>
               </p>
             </div>
           </div>

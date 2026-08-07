@@ -6,6 +6,7 @@ import Experience from "@/components/sections/Experience";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import DesignCorner from "@/components/sections/DesignCorner";
 import AboutMe from "@/components/sections/AboutMe";
+import Gallery from "@/components/sections/Gallery";
 import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
 
@@ -20,6 +21,7 @@ export default function Home() {
       <FeaturedProjects />
       <DesignCorner />
       <AboutMe />
+      <Gallery />
       <Testimonials />
       <Contact />
     </main>
