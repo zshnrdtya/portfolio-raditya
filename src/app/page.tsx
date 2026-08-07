@@ -3,6 +3,7 @@ import Hero from "@/components/sections/Hero";
 import Statistics from "@/components/sections/Statistics";
 import TechSlider from "@/components/sections/TechSlider";
 import Experience from "@/components/sections/Experience";
+import Achievements from "@/components/sections/Achievements";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import DesignCorner from "@/components/sections/DesignCorner";
 import AboutMe from "@/components/sections/AboutMe";
@@ -18,6 +19,7 @@ export default function Home() {
       <Statistics />
       <TechSlider />
       <Experience />
+      <Achievements />
       <FeaturedProjects />
       <DesignCorner />
       <AboutMe />

@@ -5,7 +5,6 @@ import Image from 'next/image';
 
 // Menggunakan Static Import agar Next.js secara otomatis membaca resolusi & aspect ratio asli setiap foto (Portrait/Landscape)
 import img1 from '../../../public/gallery/WhatsApp Image 2026-08-07 at 10.30.38.jpeg';
-import img2 from '../../../public/gallery/WhatsApp Image 2026-08-07 at 10.30.41 (1).jpeg';
 import img3 from '../../../public/gallery/WhatsApp Image 2026-08-07 at 10.30.41.jpeg';
 import img4 from '../../../public/gallery/WhatsApp Image 2026-08-07 at 10.30.53 (1).jpeg';
 import img5 from '../../../public/gallery/WhatsApp Image 2026-08-07 at 10.30.53.jpeg';
@@ -26,7 +25,6 @@ import img19 from '../../../public/gallery/WhatsApp Image 2026-08-07 at 10.33.16
 
 const initialImages = [
   { id: 1, src: img1, title: 'Gallery Photo 1' },
-  { id: 2, src: img2, title: 'Gallery Photo 2' },
   { id: 3, src: img3, title: 'Gallery Photo 3' },
   { id: 4, src: img4, title: 'Gallery Photo 4' },
   { id: 5, src: img5, title: 'Gallery Photo 5' },
