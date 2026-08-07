@@ -74,6 +74,10 @@ const Gallery = () => {
                     src={image.src} 
                     alt={image.title}
                     placeholder="blur" // Bonus: Efek blur otomatis saat loading karena kita menggunakan static import!
+                    quality={65}
+                    sizes="(max-width: 768px) 100vw, 350px"
+                    priority={index < 6}
+                    loading={index >= 6 ? "eager" : undefined}
                     className="h-full w-auto object-contain rounded-xl transition-transform duration-500 ease-in-out group-hover/frame:scale-105" 
                   />
                 </div>
