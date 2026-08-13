@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url dan directUrl sudah dipindah ke prisma.config.ts (Prisma v7)
+}
+
+// Tabel 1: Pesan dari Form Kontak
+model ContactMessage {
+  id        String   @id @default(cuid())
+  nama      String
+  email     String
+  pesan     String
+  createdAt DateTime @default(now())
+}
+
+// Tabel 2: Like & View Counter per Project
+model ProjectStat {
+  id        String   @id @default(cuid())
+  slug      String   @unique // Contoh: "futsal-hub", "sambel-gondes"
+  likes     Int      @default(0)
+  views     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
