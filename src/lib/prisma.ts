@@ -6,18 +6,28 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-// Gunakan DIRECT_URL untuk koneksi langsung (bypass Supabase pooler)
-// sehingga Prisma ORM dapat bekerja dengan baik di server-side
-const adapter = new PrismaPg({
-  connectionString: process.env.DIRECT_URL ?? process.env.DATABASE_URL!,
-});
+function createPrismaClient(): PrismaClient {
+  const connectionString =
+    process.env.DIRECT_URL ?? process.env.DATABASE_URL;
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
+  if (!connectionString) {
+    throw new Error(
+      "[prisma.ts] DATABASE_URL atau DIRECT_URL belum diset di environment variables."
+    );
+  }
+
+  const adapter = new PrismaPg({ connectionString });
+
+  return new PrismaClient({
     adapter,
-    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
+    log:
+      process.env.NODE_ENV === "development"
+        ? ["query", "error", "warn"]
+        : ["error"],
   });
+}
+
+export const prisma = globalForPrisma.prisma ?? createPrismaClient();
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;

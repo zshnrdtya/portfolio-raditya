@@ -13,7 +13,11 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (
+      !email ||
+      typeof email !== "string" ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
       return NextResponse.json(
         { error: "Format email tidak valid." },
         { status: 400 }
@@ -38,10 +42,25 @@ export async function POST(req: NextRequest) {
       { success: true, id: message.id },
       { status: 201 }
     );
-  } catch (error) {
-    console.error("[API /contact] Error:", error);
+  } catch (error: unknown) {
+    // Log detail lengkap agar terbaca di Vercel Logs
+    console.error("Contact API Error:", error);
+
+    if (error instanceof Error) {
+      console.error("Contact API Error message:", error.message);
+      console.error("Contact API Error stack:", error.stack);
+    }
+
+    // Tampilkan pesan error di response saat development
+    const isDev = process.env.NODE_ENV === "development";
+    const detail =
+      isDev && error instanceof Error ? error.message : undefined;
+
     return NextResponse.json(
-      { error: "Terjadi kesalahan pada server. Silakan coba lagi." },
+      {
+        error: "Terjadi kesalahan pada server. Silakan coba lagi.",
+        ...(detail ? { detail } : {}),
+      },
       { status: 500 }
     );
   }
