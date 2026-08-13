@@ -40,8 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/src/generated/prisma
-/generated
+# Generated Prisma client dikecualikan dari gitignore
+# karena di-generate ulang via postinstall: prisma generate
+# /src/generated/prisma
+# /generated
 
 # Prisma CLI agent skills (auto-generated)
 .agents/
