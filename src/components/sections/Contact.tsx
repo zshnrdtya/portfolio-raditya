@@ -35,20 +35,30 @@ export default function Contact() {
     setMessage("");
 
     try {
+      // POST ke /api/contact dengan body { nama, email, pesan }
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          nama: form.nama,
+          email: form.email,
+          pesan: form.pesan,
+        }),
       });
+
       const data = await res.json();
 
       if (!res.ok) {
+        // Tampilkan pesan error dari API (validasi atau server error)
         setStatus("error");
         setMessage(data.error ?? "Terjadi kesalahan. Silakan coba lagi.");
       } else {
+        // res.ok = true (status 200/201) — pesan berhasil tersimpan
         setStatus("success");
         setMessage("Pesanmu berhasil terkirim! Saya akan segera menghubungi kamu. 🎉");
         setForm({ nama: "", email: "", pesan: "" });
+        // Auto-reset ke idle setelah 5 detik agar user bisa kirim lagi
+        setTimeout(() => setStatus("idle"), 5000);
       }
     } catch {
       setStatus("error");
@@ -222,7 +232,7 @@ export default function Contact() {
             <button
               id="contact-submit-btn"
               type="submit"
-              disabled={status === "loading"}
+              disabled={status === "loading" || status === "success"}
               className="w-full py-3 px-6 rounded-2xl font-poppins font-bold text-white bg-[var(--color-accent)] shadow-[var(--shadow-neu-out)] hover:brightness-110 active:shadow-[var(--shadow-neu-in)] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {status === "loading" ? (
