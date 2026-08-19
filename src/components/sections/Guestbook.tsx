@@ -1,0 +1,289 @@
+'use client';
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import Image from 'next/image';
+import { MessageSquare, Send, LogIn, LogOut, Clock, User } from 'lucide-react';
+
+interface GuestbookMessage {
+  id: string;
+  body: string;
+  author_name: string;
+  avatar_url: string | null;
+  createdAt: string;
+}
+
+const MAX_CHARS = 500;
+
+const Guestbook = () => {
+  const { data: session, status } = useSession();
+  const [messages, setMessages] = useState<GuestbookMessage[]>([]);
+  const [body, setBody] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch approved messages
+  const fetchMessages = useCallback(async () => {
+    try {
+      const res = await fetch('/api/guestbook');
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch guestbook:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]);
+
+  // Show toast notification
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 4000);
+  };
+
+  // Submit message
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!body.trim() || body.trim().length < 3) return;
+    if (body.trim().length > MAX_CHARS) return;
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch('/api/guestbook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ body: body.trim() }),
+      });
+
+      if (res.ok) {
+        setBody('');
+        showToast('✅ Pesan dikirim dan menunggu persetujuan admin.');
+      } else {
+        const data = await res.json();
+        showToast(`❌ ${data.error || 'Gagal mengirim pesan.'}`);
+      }
+    } catch {
+      showToast('❌ Terjadi kesalahan jaringan.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Format relative time
+  const timeAgo = (dateStr: string) => {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'Baru saja';
+    if (mins < 60) return `${mins} menit lalu`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${hours} jam lalu`;
+    const days = Math.floor(hours / 24);
+    if (days < 30) return `${days} hari lalu`;
+    return new Date(dateStr).toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
+
+  const charsLeft = MAX_CHARS - body.length;
+
+  return (
+    <section id="guestbook" className="py-20 bg-surface">
+      <div className="container mx-auto px-6 max-w-3xl">
+        {/* Section Title */}
+        <h2
+          className="text-3xl md:text-4xl font-bold text-center mb-4 font-poppins text-slate-900"
+          data-aos="fade-up"
+        >
+          Buku Tamu
+        </h2>
+        <p
+          className="text-center text-textMain/60 mb-12 text-sm md:text-base"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          Tinggalkan pesan, kesan, atau sapaan — dengan atau tanpa login.
+        </p>
+
+        {/* Auth & Form Card */}
+        <div
+          className="bg-surface shadow-neu-out rounded-3xl p-6 md:p-8 mb-10"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          {/* Auth Status */}
+          <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+            {status === 'authenticated' && session?.user ? (
+              <div className="flex items-center gap-3">
+                {session.user.image && (
+                  <Image
+                    src={session.user.image}
+                    alt={session.user.name || 'Avatar'}
+                    width={36}
+                    height={36}
+                    className="rounded-full border-2 border-accent/30"
+                  />
+                )}
+                <div>
+                  <p className="text-sm font-semibold text-textMain">
+                    {session.user.name}
+                  </p>
+                  <p className="text-xs text-textMain/50">Signed in via GitHub</p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 text-textMain/50">
+                <User size={16} />
+                <span className="text-sm">Posting sebagai Anonymous</span>
+              </div>
+            )}
+
+            <div>
+              {status === 'authenticated' ? (
+                <button
+                  onClick={() => signOut()}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-surface shadow-neu-in rounded-full text-textMain/70 hover:text-red-600 transition-colors cursor-pointer"
+                >
+                  <LogOut size={13} />
+                  Sign Out
+                </button>
+              ) : (
+                <button
+                  onClick={() => signIn('github')}
+                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold bg-[#24292e] text-white rounded-full hover:bg-[#1b1f23] transition-colors cursor-pointer"
+                >
+                  <LogIn size={13} />
+                  Sign in with GitHub
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit}>
+            <div className="relative">
+              <textarea
+                id="guestbook-input"
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                placeholder="Tulis pesan, kesan, atau sapaan kamu di sini..."
+                maxLength={MAX_CHARS}
+                rows={3}
+                className="w-full bg-surface shadow-neu-in rounded-2xl p-4 pr-12 text-sm text-textMain placeholder:text-textMain/40 resize-none focus:outline-none focus:ring-2 focus:ring-accent/30 transition-shadow"
+              />
+              {/* Character counter */}
+              <span
+                className={`absolute bottom-3 right-4 text-xs ${
+                  charsLeft < 50 ? 'text-red-500' : 'text-textMain/30'
+                }`}
+              >
+                {body.length}/{MAX_CHARS}
+              </span>
+            </div>
+
+            <div className="flex justify-end mt-3">
+              <button
+                type="submit"
+                disabled={isSubmitting || body.trim().length < 3}
+                className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white text-sm font-semibold rounded-full hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer shadow-lg shadow-accent/20"
+              >
+                <Send size={14} />
+                {isSubmitting ? 'Mengirim...' : 'Kirim Pesan'}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* Toast Notification */}
+        {toast && (
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#1e293b] text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-medium animate-bounce-in max-w-[90vw]">
+            {toast}
+          </div>
+        )}
+
+        {/* Messages List */}
+        <div data-aos="fade-up" data-aos-delay="300">
+          <div className="flex items-center gap-2 mb-6">
+            <MessageSquare size={18} className="text-accent" />
+            <h3 className="text-lg font-semibold font-poppins text-textMain">
+              Pesan Terbaru
+            </h3>
+            <span className="ml-auto text-xs text-textMain/40">
+              {messages.length} pesan
+            </span>
+          </div>
+
+          {isLoading ? (
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="bg-surface shadow-neu-out rounded-2xl p-5 animate-pulse"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-surface shadow-neu-in" />
+                    <div className="h-3 w-24 rounded-full bg-surface shadow-neu-in" />
+                  </div>
+                  <div className="h-3 w-full rounded-full bg-surface shadow-neu-in mb-2" />
+                  <div className="h-3 w-2/3 rounded-full bg-surface shadow-neu-in" />
+                </div>
+              ))}
+            </div>
+          ) : messages.length === 0 ? (
+            <div className="text-center py-12 text-textMain/40">
+              <MessageSquare size={40} className="mx-auto mb-3 opacity-30" />
+              <p className="text-sm">Belum ada pesan. Jadilah yang pertama! 🎉</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {messages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className="bg-surface shadow-neu-out rounded-2xl p-5 hover:shadow-[10px_10px_20px_rgba(150,175,161,0.8),-10px_-10px_20px_rgba(255,255,255,1)] transition-shadow duration-300"
+                >
+                  <div className="flex items-center gap-3 mb-2.5">
+                    {msg.avatar_url ? (
+                      <Image
+                        src={msg.avatar_url}
+                        alt={msg.author_name}
+                        width={32}
+                        height={32}
+                        className="rounded-full border-2 border-accent/20"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                        <User size={14} className="text-accent" />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-textMain truncate">
+                        {msg.author_name}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1 text-textMain/35 shrink-0">
+                      <Clock size={11} />
+                      <span className="text-[11px]">{timeAgo(msg.createdAt)}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-textMain/80 leading-relaxed pl-11">
+                    {msg.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Guestbook;

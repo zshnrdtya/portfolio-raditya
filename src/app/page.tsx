@@ -9,6 +9,7 @@ import DesignCorner from "@/components/sections/DesignCorner";
 import AboutMe from "@/components/sections/AboutMe";
 import Gallery from "@/components/sections/Gallery";
 import Testimonials from "@/components/sections/Testimonials";
+import Guestbook from "@/components/sections/Guestbook";
 import Contact from "@/components/sections/Contact";
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
       <AboutMe />
       <Gallery />
       <Testimonials />
+      <Guestbook />
       <Contact />
     </main>
   );

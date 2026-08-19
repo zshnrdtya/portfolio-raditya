@@ -27,3 +27,8 @@ export type ContactMessage = Prisma.ContactMessageModel
  * 
  */
 export type ProjectStat = Prisma.ProjectStatModel
+/**
+ * Model Guestbook
+ * 
+ */
+export type Guestbook = Prisma.GuestbookModel

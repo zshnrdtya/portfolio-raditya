@@ -52,7 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   ContactMessage: 'ContactMessage',
-  ProjectStat: 'ProjectStat'
+  ProjectStat: 'ProjectStat',
+  Guestbook: 'Guestbook'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -93,6 +94,18 @@ export const ProjectStatScalarFieldEnum = {
 export type ProjectStatScalarFieldEnum = (typeof ProjectStatScalarFieldEnum)[keyof typeof ProjectStatScalarFieldEnum]
 
 
+export const GuestbookScalarFieldEnum = {
+  id: 'id',
+  body: 'body',
+  author_name: 'author_name',
+  avatar_url: 'avatar_url',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type GuestbookScalarFieldEnum = (typeof GuestbookScalarFieldEnum)[keyof typeof GuestbookScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -107,4 +120,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

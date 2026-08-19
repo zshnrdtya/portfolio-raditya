@@ -398,7 +398,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   ContactMessage: 'ContactMessage',
-  ProjectStat: 'ProjectStat'
+  ProjectStat: 'ProjectStat',
+  Guestbook: 'Guestbook'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -414,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "contactMessage" | "projectStat"
+    modelProps: "contactMessage" | "projectStat" | "guestbook"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -566,6 +567,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Guestbook: {
+      payload: Prisma.$GuestbookPayload<ExtArgs>
+      fields: Prisma.GuestbookFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuestbookFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuestbookFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>
+        }
+        findFirst: {
+          args: Prisma.GuestbookFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuestbookFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>
+        }
+        findMany: {
+          args: Prisma.GuestbookFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>[]
+        }
+        create: {
+          args: Prisma.GuestbookCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>
+        }
+        createMany: {
+          args: Prisma.GuestbookCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuestbookCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>[]
+        }
+        delete: {
+          args: Prisma.GuestbookDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>
+        }
+        update: {
+          args: Prisma.GuestbookUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuestbookDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuestbookUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuestbookUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>[]
+        }
+        upsert: {
+          args: Prisma.GuestbookUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuestbookPayload>
+        }
+        aggregate: {
+          args: Prisma.GuestbookAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuestbook>
+        }
+        groupBy: {
+          args: Prisma.GuestbookGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuestbookGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuestbookCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuestbookCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -627,6 +702,18 @@ export const ProjectStatScalarFieldEnum = {
 export type ProjectStatScalarFieldEnum = (typeof ProjectStatScalarFieldEnum)[keyof typeof ProjectStatScalarFieldEnum]
 
 
+export const GuestbookScalarFieldEnum = {
+  id: 'id',
+  body: 'body',
+  author_name: 'author_name',
+  avatar_url: 'avatar_url',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type GuestbookScalarFieldEnum = (typeof GuestbookScalarFieldEnum)[keyof typeof GuestbookScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -641,6 +728,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -857,6 +952,7 @@ export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaC
 export type GlobalOmitConfig = {
   contactMessage?: Prisma.ContactMessageOmit
   projectStat?: Prisma.ProjectStatOmit
+  guestbook?: Prisma.GuestbookOmit
 }
 
 /* Types for Logging */

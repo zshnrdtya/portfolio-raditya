@@ -10,4 +10,5 @@
  */
 export type * from './models/ContactMessage'
 export type * from './models/ProjectStat'
+export type * from './models/Guestbook'
 export type * from './commonInputTypes'

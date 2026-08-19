@@ -25,3 +25,13 @@ model ProjectStat {
   views     Int      @default(0)
   updatedAt DateTime @updatedAt
 }
+
+// Tabel 3: Buku Tamu (Guestbook) dengan moderasi
+model Guestbook {
+  id          String   @id @default(cuid())
+  body        String
+  author_name String   @default("Anonymous")
+  avatar_url  String?
+  status      String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  createdAt   DateTime @default(now())
+}
