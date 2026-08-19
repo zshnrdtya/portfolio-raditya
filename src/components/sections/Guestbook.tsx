@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { MessageSquare, Send, LogIn, LogOut, Clock, User } from 'lucide-react';
+import { MessageSquare, Send, LogIn, LogOut, Clock, User, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface GuestbookMessage {
   id: string;
@@ -22,6 +22,9 @@ const Guestbook = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const ITEMS_PER_PAGE = 3;
 
   // Fetch approved messages
   const fetchMessages = useCallback(async () => {
@@ -64,6 +67,7 @@ const Guestbook = () => {
 
       if (res.ok) {
         setBody('');
+        setCurrentPage(1); // Reset to page 1 after submitting
         showToast('✅ Message sent and pending admin approval.');
       } else {
         const data = await res.json();
@@ -94,6 +98,12 @@ const Guestbook = () => {
   };
 
   const charsLeft = MAX_CHARS - body.length;
+
+  const totalPages = Math.ceil(messages.length / ITEMS_PER_PAGE);
+  const paginatedMessages = messages.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
     <section id="guestbook" className="py-20 bg-surface">
@@ -244,7 +254,7 @@ const Guestbook = () => {
             </div>
           ) : (
             <div className="space-y-4">
-              {messages.map((msg) => (
+              {paginatedMessages.map((msg) => (
                 <div
                   key={msg.id}
                   className="bg-surface shadow-neu-out rounded-2xl p-5 hover:shadow-[10px_10px_20px_rgba(150,175,161,0.8),-10px_-10px_20px_rgba(255,255,255,1)] transition-shadow duration-300"
@@ -278,6 +288,31 @@ const Guestbook = () => {
                   </p>
                 </div>
               ))}
+            </div>
+          )}
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="w-10 h-10 rounded-full flex items-center justify-center bg-surface shadow-neu-out hover:shadow-neu-in disabled:opacity-30 disabled:shadow-neu-out disabled:cursor-not-allowed transition-all text-textMain"
+                aria-label="Previous page"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <span className="text-sm font-medium text-textMain/70 font-poppins">
+                {currentPage} / {totalPages}
+              </span>
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="w-10 h-10 rounded-full flex items-center justify-center bg-surface shadow-neu-out hover:shadow-neu-in disabled:opacity-30 disabled:shadow-neu-out disabled:cursor-not-allowed transition-all text-textMain"
+                aria-label="Next page"
+              >
+                <ChevronRight size={18} />
+              </button>
             </div>
           )}
         </div>
