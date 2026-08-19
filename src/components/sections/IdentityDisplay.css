@@ -84,16 +84,22 @@
   }
 }
 
-/* ---------- Lanyard strap (the fabric part) ---------- */
-.lanyard-strap {
+/* ---------- Lanyard strap positioner (centering wrapper) ---------- */
+.lanyard-strap-positioner {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ---------- Lanyard strap (the fabric part) ---------- */
+.lanyard-strap {
   width: 18px;
   height: 105px;
   border-radius: 4px 4px 0 0;
-  z-index: 1;
+  transform-origin: top center;
   overflow: hidden;
 }
 
@@ -168,28 +174,37 @@
   );
 }
 
-/* ---------- Metallic clip ---------- */
-.lanyard-clip {
+/* ---------- Metallic clip positioner (centering wrapper) ---------- */
+.lanyard-clip-positioner {
   position: absolute;
   top: 90px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
+  pointer-events: none;
+}
+
+/* ---------- Metallic clip ---------- */
+.lanyard-clip {
   width: 28px;
   height: 32px;
 }
 
 @media (min-width: 640px) {
-  .lanyard-clip {
+  .lanyard-clip-positioner {
     top: 118px;
+  }
+  .lanyard-clip {
     width: 32px;
     height: 36px;
   }
 }
 
 @media (min-width: 768px) {
-  .lanyard-clip {
+  .lanyard-clip-positioner {
     top: 136px;
+  }
+  .lanyard-clip {
     width: 36px;
     height: 40px;
   }
@@ -283,53 +298,25 @@
   height: auto;
   border-radius: 12px;
   overflow: visible;
-  transform: perspective(800px) rotateX(2deg) rotateY(0deg);
   transform-style: preserve-3d;
-  transition:
-    transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    box-shadow 0.45s ease;
+  transition: box-shadow 0.45s ease;
   box-shadow:
     0 15px 35px rgba(0, 0, 0, 0.18),
     0 5px 15px rgba(0, 0, 0, 0.1),
     0 0 0 1px rgba(0, 0, 0, 0.04);
-  cursor: pointer;
-  z-index: 2;
+  cursor: grab;
+  z-index: 10;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 }
 
-.id-card-3d:hover {
-  transform: perspective(800px) rotateX(-3deg) rotateY(5deg) translateY(-8px);
+.id-card-3d:active {
+  cursor: grabbing;
   box-shadow:
     0 25px 50px rgba(0, 0, 0, 0.22),
     0 10px 25px rgba(0, 0, 0, 0.12),
     -8px 15px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* Hover swing for the whole wrapper */
-.lanyard-card-wrapper:hover .id-card-3d {
-  transform: perspective(800px) rotateX(-3deg) rotateY(5deg) translateY(-8px);
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.22),
-    0 10px 25px rgba(0, 0, 0, 0.12),
-    -8px 15px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* Subtle swing animation at rest */
-@keyframes gentleSwing {
-  0%, 100% {
-    transform: perspective(800px) rotateX(2deg) rotateY(0deg) rotate(-0.5deg);
-  }
-  50% {
-    transform: perspective(800px) rotateX(2deg) rotateY(0deg) rotate(0.5deg);
-  }
-}
-
-.lanyard-card-wrapper:not(:hover) .id-card-3d {
-  animation: gentleSwing 4s ease-in-out infinite;
-}
-
-/* Second card slightly offset in timing */
-.lanyard-card-wrapper:nth-child(2):not(:hover) .id-card-3d {
-  animation-delay: 1.2s;
 }
 
 /* Hole punch at the top of the card */

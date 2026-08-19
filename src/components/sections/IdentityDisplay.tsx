@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import './IdentityDisplay.css';
 
 interface CardProps {
@@ -13,24 +14,52 @@ interface CardProps {
 const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
   const lanyardClass = lanyardColor === 'blue' ? 'lanyard-blue' : 'lanyard-maroon';
 
+  // Track the card's vertical drag displacement
+  const dragY = useMotionValue(0);
+
+  // Map drag Y → lanyard scaleY (stretch effect)
+  const strapScaleY = useTransform(dragY, [0, 120], [1, 1.9]);
+
+  // Map drag Y → clip vertical offset (follows the card down)
+  const clipY = useTransform(dragY, [0, 120], [0, 70]);
+
   return (
     <div className="lanyard-card-wrapper" data-aos="fade-up">
-      {/* Lanyard strap going upward */}
-      <div className={`lanyard-strap ${lanyardClass}`}>
-        <div className="lanyard-strap-inner" />
+      {/* Positioning wrapper for strap — handles centering via CSS */}
+      <div className="lanyard-strap-positioner">
+        {/* Animated strap — only scaleY, no translateX conflict */}
+        <motion.div
+          className={`lanyard-strap ${lanyardClass}`}
+          style={{ scaleY: strapScaleY }}
+        >
+          <div className="lanyard-strap-inner" />
+        </motion.div>
       </div>
 
-      {/* Metal clip at junction */}
-      <div className="lanyard-clip">
-        <div className="clip-body">
-          <div className="clip-jaw clip-jaw-left" />
-          <div className="clip-jaw clip-jaw-right" />
-          <div className="clip-ring" />
-        </div>
+      {/* Positioning wrapper for clip — handles centering via CSS */}
+      <div className="lanyard-clip-positioner">
+        {/* Animated clip — only y offset */}
+        <motion.div
+          className="lanyard-clip"
+          style={{ y: clipY }}
+        >
+          <div className="clip-body">
+            <div className="clip-jaw clip-jaw-left" />
+            <div className="clip-jaw clip-jaw-right" />
+            <div className="clip-ring" />
+          </div>
+        </motion.div>
       </div>
 
-      {/* ID card with hole punch */}
-      <div className="id-card-3d">
+      {/* Draggable ID card */}
+      <motion.div
+        className="id-card-3d"
+        drag={true}
+        dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
+        dragElastic={0.4}
+        style={{ y: dragY }}
+        whileDrag={{ scale: 1.03 }}
+      >
         <div className="card-hole-punch" />
         <div className="id-card-image-container">
           <Image
@@ -40,10 +69,11 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
             height={900}
             sizes="(max-width: 768px) 45vw, 280px"
             className="id-card-image"
+            draggable={false}
             priority
           />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
