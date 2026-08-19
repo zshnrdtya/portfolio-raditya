@@ -28,10 +28,14 @@ model ProjectStat {
 
 // Tabel 3: Buku Tamu (Guestbook) dengan moderasi
 model Guestbook {
-  id          String   @id @default(cuid())
+  id          String      @id @default(cuid())
   body        String
-  author_name String   @default("Anonymous")
+  author_name String      @default("Anonymous")
   avatar_url  String?
-  status      String   @default("PENDING") // PENDING | APPROVED | REJECTED
-  createdAt   DateTime @default(now())
+  status      String      @default("PENDING") // PENDING | APPROVED | REJECTED
+  likes       Int         @default(0)
+  parentId    String?
+  parent      Guestbook?  @relation("GuestbookReplies", fields: [parentId], references: [id])
+  replies     Guestbook[] @relation("GuestbookReplies")
+  createdAt   DateTime    @default(now())
 }

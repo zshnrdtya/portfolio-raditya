@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
-import { MessageSquare, Send, LogIn, LogOut, Clock, User, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MessageSquare, Send, LogIn, LogOut, Clock, User, ChevronLeft, ChevronRight, Heart, Reply } from 'lucide-react';
 
 interface GuestbookMessage {
   id: string;
@@ -11,6 +11,8 @@ interface GuestbookMessage {
   author_name: string;
   avatar_url: string | null;
   createdAt: string;
+  likes: number;
+  replies?: GuestbookMessage[];
 }
 
 const MAX_CHARS = 500;
@@ -23,6 +25,10 @@ const Guestbook = () => {
   const [toast, setToast] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  const [replyBody, setReplyBody] = useState('');
+  const [isReplying, setIsReplying] = useState(false);
+  const [likedMessages, setLikedMessages] = useState<Set<string>>(new Set());
 
   const ITEMS_PER_PAGE = 3;
 
@@ -77,6 +83,60 @@ const Guestbook = () => {
       showToast('❌ A network error occurred.');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleReplySubmit = async (e: React.FormEvent, parentId: string) => {
+    e.preventDefault();
+    if (!replyBody.trim() || replyBody.trim().length < 3) return;
+    if (replyBody.trim().length > MAX_CHARS) return;
+
+    setIsReplying(true);
+    try {
+      const res = await fetch('/api/guestbook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ body: replyBody.trim(), parentId }),
+      });
+
+      if (res.ok) {
+        setReplyBody('');
+        setReplyingTo(null);
+        showToast('✅ Reply sent and pending admin approval.');
+      } else {
+        const data = await res.json();
+        showToast(`❌ ${data.error || 'Failed to send reply.'}`);
+      }
+    } catch {
+      showToast('❌ A network error occurred.');
+    } finally {
+      setIsReplying(false);
+    }
+  };
+
+  const updateLikesInTree = (msgs: GuestbookMessage[], targetId: string): GuestbookMessage[] => {
+    return msgs.map(msg => {
+      if (msg.id === targetId) return { ...msg, likes: msg.likes + 1 };
+      if (msg.replies) return { ...msg, replies: updateLikesInTree(msg.replies, targetId) };
+      return msg;
+    });
+  };
+
+  const handleLike = async (id: string) => {
+    if (likedMessages.has(id)) return;
+
+    // Optimistic update
+    setMessages(prev => updateLikesInTree(prev, id));
+    setLikedMessages(prev => new Set(prev).add(id));
+
+    try {
+      await fetch('/api/guestbook/like', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -255,37 +315,123 @@ const Guestbook = () => {
           ) : (
             <div className="space-y-4">
               {paginatedMessages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className="bg-surface shadow-neu-out rounded-2xl p-5 hover:shadow-[10px_10px_20px_rgba(150,175,161,0.8),-10px_-10px_20px_rgba(255,255,255,1)] transition-shadow duration-300"
-                >
-                  <div className="flex items-center gap-3 mb-2.5">
-                    {msg.avatar_url ? (
-                      <Image
-                        src={msg.avatar_url}
-                        alt={msg.author_name}
-                        width={32}
-                        height={32}
-                        className="rounded-full border-2 border-accent/20"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
-                        <User size={14} className="text-accent" />
+                <div key={msg.id} className="space-y-3">
+                  <div className="bg-surface shadow-neu-out rounded-2xl p-5 hover:shadow-[10px_10px_20px_rgba(150,175,161,0.8),-10px_-10px_20px_rgba(255,255,255,1)] transition-shadow duration-300">
+                    <div className="flex items-center gap-3 mb-2.5">
+                      {msg.avatar_url ? (
+                        <Image
+                          src={msg.avatar_url}
+                          alt={msg.author_name}
+                          width={32}
+                          height={32}
+                          className="rounded-full border-2 border-accent/20"
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                          <User size={14} className="text-accent" />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-textMain truncate">
+                          {msg.author_name}
+                        </p>
                       </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-textMain truncate">
-                        {msg.author_name}
-                      </p>
+                      <div className="flex items-center gap-1 text-textMain/35 shrink-0">
+                        <Clock size={11} />
+                        <span className="text-[11px]">{timeAgo(msg.createdAt)}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1 text-textMain/35 shrink-0">
-                      <Clock size={11} />
-                      <span className="text-[11px]">{timeAgo(msg.createdAt)}</span>
+                    <p className="text-sm text-textMain/80 leading-relaxed pl-11 mb-4">
+                      {msg.body}
+                    </p>
+                    <div className="flex items-center gap-4 pl-11">
+                      <button 
+                        onClick={() => handleLike(msg.id)}
+                        disabled={likedMessages.has(msg.id)}
+                        className={`flex items-center gap-1.5 text-xs font-medium transition-colors ${likedMessages.has(msg.id) ? 'text-red-500' : 'text-textMain/50 hover:text-red-500'}`}
+                      >
+                        <Heart size={14} className={likedMessages.has(msg.id) ? "fill-red-500" : ""} />
+                        <span>{msg.likes > 0 ? msg.likes : 'Like'}</span>
+                      </button>
+                      <button 
+                        onClick={() => setReplyingTo(replyingTo === msg.id ? null : msg.id)}
+                        className="flex items-center gap-1.5 text-xs font-medium text-textMain/50 hover:text-accent transition-colors"
+                      >
+                        <Reply size={14} />
+                        <span>Reply</span>
+                      </button>
                     </div>
                   </div>
-                  <p className="text-sm text-textMain/80 leading-relaxed pl-11">
-                    {msg.body}
-                  </p>
+
+                  {/* Reply Form */}
+                  {replyingTo === msg.id && (
+                    <div className="pl-12 pr-4 py-2 animate-fade-in-up">
+                      <form onSubmit={(e) => handleReplySubmit(e, msg.id)} className="flex gap-2">
+                        <input
+                          type="text"
+                          value={replyBody}
+                          onChange={(e) => setReplyBody(e.target.value)}
+                          placeholder="Write a reply..."
+                          maxLength={MAX_CHARS}
+                          className="flex-1 bg-surface shadow-neu-in rounded-full px-4 py-2 text-xs text-textMain placeholder:text-textMain/40 focus:outline-none focus:ring-1 focus:ring-accent/30"
+                        />
+                        <button
+                          type="submit"
+                          disabled={isReplying || replyBody.trim().length < 3}
+                          className="w-8 h-8 flex items-center justify-center rounded-full bg-accent text-white shadow-neu-out hover:shadow-neu-in disabled:opacity-50 transition-all shrink-0"
+                        >
+                          <Send size={12} />
+                        </button>
+                      </form>
+                    </div>
+                  )}
+
+                  {/* Nested Replies */}
+                  {msg.replies && msg.replies.length > 0 && (
+                    <div className="pl-6 md:pl-11 space-y-3 mt-3">
+                      {msg.replies.map((reply) => (
+                        <div key={reply.id} className="relative bg-surface shadow-neu-out rounded-2xl p-4 before:absolute before:-left-3 before:top-6 before:w-3 before:h-[2px] before:bg-textMain/10 border-l-2 border-textMain/10">
+                          <div className="flex items-center gap-2 mb-2">
+                            {reply.avatar_url ? (
+                              <Image
+                                src={reply.avatar_url}
+                                alt={reply.author_name}
+                                width={24}
+                                height={24}
+                                className="rounded-full border border-accent/20"
+                              />
+                            ) : (
+                              <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
+                                <User size={10} className="text-accent" />
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-semibold text-textMain truncate">
+                                {reply.author_name}
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-1 text-textMain/35 shrink-0">
+                              <Clock size={10} />
+                              <span className="text-[10px]">{timeAgo(reply.createdAt)}</span>
+                            </div>
+                          </div>
+                          <p className="text-xs text-textMain/80 leading-relaxed pl-8 mb-3">
+                            {reply.body}
+                          </p>
+                          <div className="flex items-center gap-4 pl-8">
+                            <button 
+                              onClick={() => handleLike(reply.id)}
+                              disabled={likedMessages.has(reply.id)}
+                              className={`flex items-center gap-1.5 text-[11px] font-medium transition-colors ${likedMessages.has(reply.id) ? 'text-red-500' : 'text-textMain/50 hover:text-red-500'}`}
+                            >
+                              <Heart size={12} className={likedMessages.has(reply.id) ? "fill-red-500" : ""} />
+                              <span>{reply.likes > 0 ? reply.likes : 'Like'}</span>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

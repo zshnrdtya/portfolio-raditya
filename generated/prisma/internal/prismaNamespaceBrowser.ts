@@ -100,6 +100,8 @@ export const GuestbookScalarFieldEnum = {
   author_name: 'author_name',
   avatar_url: 'avatar_url',
   status: 'status',
+  likes: 'likes',
+  parentId: 'parentId',
   createdAt: 'createdAt'
 } as const
 

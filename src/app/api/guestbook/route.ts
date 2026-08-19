@@ -2,12 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
-// GET /api/guestbook — Fetch approved messages
+// GET /api/guestbook — Fetch approved messages with replies
 export async function GET() {
   try {
     const messages = await prisma.guestbook.findMany({
-      where: { status: "APPROVED" },
-      orderBy: { createdAt: "desc" },
+      where: { 
+        status: "APPROVED",
+        parentId: null, // Only fetch top-level comments
+      },
+      include: {
+        replies: {
+          where: { status: "APPROVED" },
+          orderBy: { createdAt: "asc" }, // Oldest replies first
+        }
+      },
+      orderBy: { createdAt: "desc" }, // Newest comments first
     });
 
     return NextResponse.json(messages);
@@ -23,7 +32,7 @@ export async function GET() {
 // POST /api/guestbook — Submit a new message (always PENDING)
 export async function POST(req: NextRequest) {
   try {
-    const { body } = await req.json();
+    const { body, parentId } = await req.json();
 
     // Validate body
     if (!body || typeof body !== "string" || body.trim().length < 3) {
@@ -51,6 +60,7 @@ export async function POST(req: NextRequest) {
         author_name,
         avatar_url,
         status: "PENDING",
+        parentId: parentId || null,
       },
     });
 

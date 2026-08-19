@@ -20,8 +20,18 @@ export type GuestbookModel = runtime.Types.Result.DefaultSelection<Prisma.$Guest
 
 export type AggregateGuestbook = {
   _count: GuestbookCountAggregateOutputType | null
+  _avg: GuestbookAvgAggregateOutputType | null
+  _sum: GuestbookSumAggregateOutputType | null
   _min: GuestbookMinAggregateOutputType | null
   _max: GuestbookMaxAggregateOutputType | null
+}
+
+export type GuestbookAvgAggregateOutputType = {
+  likes: number | null
+}
+
+export type GuestbookSumAggregateOutputType = {
+  likes: number | null
 }
 
 export type GuestbookMinAggregateOutputType = {
@@ -30,6 +40,8 @@ export type GuestbookMinAggregateOutputType = {
   author_name: string | null
   avatar_url: string | null
   status: string | null
+  likes: number | null
+  parentId: string | null
   createdAt: Date | null
 }
 
@@ -39,6 +51,8 @@ export type GuestbookMaxAggregateOutputType = {
   author_name: string | null
   avatar_url: string | null
   status: string | null
+  likes: number | null
+  parentId: string | null
   createdAt: Date | null
 }
 
@@ -48,10 +62,20 @@ export type GuestbookCountAggregateOutputType = {
   author_name: number
   avatar_url: number
   status: number
+  likes: number
+  parentId: number
   createdAt: number
   _all: number
 }
 
+
+export type GuestbookAvgAggregateInputType = {
+  likes?: true
+}
+
+export type GuestbookSumAggregateInputType = {
+  likes?: true
+}
 
 export type GuestbookMinAggregateInputType = {
   id?: true
@@ -59,6 +83,8 @@ export type GuestbookMinAggregateInputType = {
   author_name?: true
   avatar_url?: true
   status?: true
+  likes?: true
+  parentId?: true
   createdAt?: true
 }
 
@@ -68,6 +94,8 @@ export type GuestbookMaxAggregateInputType = {
   author_name?: true
   avatar_url?: true
   status?: true
+  likes?: true
+  parentId?: true
   createdAt?: true
 }
 
@@ -77,6 +105,8 @@ export type GuestbookCountAggregateInputType = {
   author_name?: true
   avatar_url?: true
   status?: true
+  likes?: true
+  parentId?: true
   createdAt?: true
   _all?: true
 }
@@ -119,6 +149,18 @@ export type GuestbookAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inte
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: GuestbookAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: GuestbookSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: GuestbookMinAggregateInputType
@@ -149,6 +191,8 @@ export type GuestbookGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   _count?: GuestbookCountAggregateInputType | true
+  _avg?: GuestbookAvgAggregateInputType
+  _sum?: GuestbookSumAggregateInputType
   _min?: GuestbookMinAggregateInputType
   _max?: GuestbookMaxAggregateInputType
 }
@@ -159,8 +203,12 @@ export type GuestbookGroupByOutputType = {
   author_name: string
   avatar_url: string | null
   status: string
+  likes: number
+  parentId: string | null
   createdAt: Date
   _count: GuestbookCountAggregateOutputType | null
+  _avg: GuestbookAvgAggregateOutputType | null
+  _sum: GuestbookSumAggregateOutputType | null
   _min: GuestbookMinAggregateOutputType | null
   _max: GuestbookMaxAggregateOutputType | null
 }
@@ -189,7 +237,11 @@ export type GuestbookWhereInput = {
   author_name?: Prisma.StringFilter<"Guestbook"> | string
   avatar_url?: Prisma.StringNullableFilter<"Guestbook"> | string | null
   status?: Prisma.StringFilter<"Guestbook"> | string
+  likes?: Prisma.IntFilter<"Guestbook"> | number
+  parentId?: Prisma.StringNullableFilter<"Guestbook"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Guestbook"> | Date | string
+  parent?: Prisma.XOR<Prisma.GuestbookNullableScalarRelationFilter, Prisma.GuestbookWhereInput> | null
+  replies?: Prisma.GuestbookListRelationFilter
 }
 
 export type GuestbookOrderByWithRelationInput = {
@@ -198,7 +250,11 @@ export type GuestbookOrderByWithRelationInput = {
   author_name?: Prisma.SortOrder
   avatar_url?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  likes?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  parent?: Prisma.GuestbookOrderByWithRelationInput
+  replies?: Prisma.GuestbookOrderByRelationAggregateInput
 }
 
 export type GuestbookWhereUniqueInput = Prisma.AtLeast<{
@@ -210,7 +266,11 @@ export type GuestbookWhereUniqueInput = Prisma.AtLeast<{
   author_name?: Prisma.StringFilter<"Guestbook"> | string
   avatar_url?: Prisma.StringNullableFilter<"Guestbook"> | string | null
   status?: Prisma.StringFilter<"Guestbook"> | string
+  likes?: Prisma.IntFilter<"Guestbook"> | number
+  parentId?: Prisma.StringNullableFilter<"Guestbook"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Guestbook"> | Date | string
+  parent?: Prisma.XOR<Prisma.GuestbookNullableScalarRelationFilter, Prisma.GuestbookWhereInput> | null
+  replies?: Prisma.GuestbookListRelationFilter
 }, "id">
 
 export type GuestbookOrderByWithAggregationInput = {
@@ -219,10 +279,14 @@ export type GuestbookOrderByWithAggregationInput = {
   author_name?: Prisma.SortOrder
   avatar_url?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  likes?: Prisma.SortOrder
+  parentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.GuestbookCountOrderByAggregateInput
+  _avg?: Prisma.GuestbookAvgOrderByAggregateInput
   _max?: Prisma.GuestbookMaxOrderByAggregateInput
   _min?: Prisma.GuestbookMinOrderByAggregateInput
+  _sum?: Prisma.GuestbookSumOrderByAggregateInput
 }
 
 export type GuestbookScalarWhereWithAggregatesInput = {
@@ -234,6 +298,8 @@ export type GuestbookScalarWhereWithAggregatesInput = {
   author_name?: Prisma.StringWithAggregatesFilter<"Guestbook"> | string
   avatar_url?: Prisma.StringNullableWithAggregatesFilter<"Guestbook"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"Guestbook"> | string
+  likes?: Prisma.IntWithAggregatesFilter<"Guestbook"> | number
+  parentId?: Prisma.StringNullableWithAggregatesFilter<"Guestbook"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Guestbook"> | Date | string
 }
 
@@ -243,7 +309,10 @@ export type GuestbookCreateInput = {
   author_name?: string
   avatar_url?: string | null
   status?: string
+  likes?: number
   createdAt?: Date | string
+  parent?: Prisma.GuestbookCreateNestedOneWithoutRepliesInput
+  replies?: Prisma.GuestbookCreateNestedManyWithoutParentInput
 }
 
 export type GuestbookUncheckedCreateInput = {
@@ -252,7 +321,10 @@ export type GuestbookUncheckedCreateInput = {
   author_name?: string
   avatar_url?: string | null
   status?: string
+  likes?: number
+  parentId?: string | null
   createdAt?: Date | string
+  replies?: Prisma.GuestbookUncheckedCreateNestedManyWithoutParentInput
 }
 
 export type GuestbookUpdateInput = {
@@ -261,7 +333,10 @@ export type GuestbookUpdateInput = {
   author_name?: Prisma.StringFieldUpdateOperationsInput | string
   avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  parent?: Prisma.GuestbookUpdateOneWithoutRepliesNestedInput
+  replies?: Prisma.GuestbookUpdateManyWithoutParentNestedInput
 }
 
 export type GuestbookUncheckedUpdateInput = {
@@ -270,7 +345,10 @@ export type GuestbookUncheckedUpdateInput = {
   author_name?: Prisma.StringFieldUpdateOperationsInput | string
   avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.GuestbookUncheckedUpdateManyWithoutParentNestedInput
 }
 
 export type GuestbookCreateManyInput = {
@@ -279,6 +357,8 @@ export type GuestbookCreateManyInput = {
   author_name?: string
   avatar_url?: string | null
   status?: string
+  likes?: number
+  parentId?: string | null
   createdAt?: Date | string
 }
 
@@ -288,6 +368,7 @@ export type GuestbookUpdateManyMutationInput = {
   author_name?: Prisma.StringFieldUpdateOperationsInput | string
   avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -297,7 +378,24 @@ export type GuestbookUncheckedUpdateManyInput = {
   author_name?: Prisma.StringFieldUpdateOperationsInput | string
   avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type GuestbookNullableScalarRelationFilter = {
+  is?: Prisma.GuestbookWhereInput | null
+  isNot?: Prisma.GuestbookWhereInput | null
+}
+
+export type GuestbookListRelationFilter = {
+  every?: Prisma.GuestbookWhereInput
+  some?: Prisma.GuestbookWhereInput
+  none?: Prisma.GuestbookWhereInput
+}
+
+export type GuestbookOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type GuestbookCountOrderByAggregateInput = {
@@ -306,7 +404,13 @@ export type GuestbookCountOrderByAggregateInput = {
   author_name?: Prisma.SortOrder
   avatar_url?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  likes?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type GuestbookAvgOrderByAggregateInput = {
+  likes?: Prisma.SortOrder
 }
 
 export type GuestbookMaxOrderByAggregateInput = {
@@ -315,6 +419,8 @@ export type GuestbookMaxOrderByAggregateInput = {
   author_name?: Prisma.SortOrder
   avatar_url?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  likes?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -324,13 +430,270 @@ export type GuestbookMinOrderByAggregateInput = {
   author_name?: Prisma.SortOrder
   avatar_url?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  likes?: Prisma.SortOrder
+  parentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type GuestbookSumOrderByAggregateInput = {
+  likes?: Prisma.SortOrder
+}
+
+export type GuestbookCreateNestedOneWithoutRepliesInput = {
+  create?: Prisma.XOR<Prisma.GuestbookCreateWithoutRepliesInput, Prisma.GuestbookUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.GuestbookCreateOrConnectWithoutRepliesInput
+  connect?: Prisma.GuestbookWhereUniqueInput
+}
+
+export type GuestbookCreateNestedManyWithoutParentInput = {
+  create?: Prisma.XOR<Prisma.GuestbookCreateWithoutParentInput, Prisma.GuestbookUncheckedCreateWithoutParentInput> | Prisma.GuestbookCreateWithoutParentInput[] | Prisma.GuestbookUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.GuestbookCreateOrConnectWithoutParentInput | Prisma.GuestbookCreateOrConnectWithoutParentInput[]
+  createMany?: Prisma.GuestbookCreateManyParentInputEnvelope
+  connect?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+}
+
+export type GuestbookUncheckedCreateNestedManyWithoutParentInput = {
+  create?: Prisma.XOR<Prisma.GuestbookCreateWithoutParentInput, Prisma.GuestbookUncheckedCreateWithoutParentInput> | Prisma.GuestbookCreateWithoutParentInput[] | Prisma.GuestbookUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.GuestbookCreateOrConnectWithoutParentInput | Prisma.GuestbookCreateOrConnectWithoutParentInput[]
+  createMany?: Prisma.GuestbookCreateManyParentInputEnvelope
+  connect?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type GuestbookUpdateOneWithoutRepliesNestedInput = {
+  create?: Prisma.XOR<Prisma.GuestbookCreateWithoutRepliesInput, Prisma.GuestbookUncheckedCreateWithoutRepliesInput>
+  connectOrCreate?: Prisma.GuestbookCreateOrConnectWithoutRepliesInput
+  upsert?: Prisma.GuestbookUpsertWithoutRepliesInput
+  disconnect?: Prisma.GuestbookWhereInput | boolean
+  delete?: Prisma.GuestbookWhereInput | boolean
+  connect?: Prisma.GuestbookWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuestbookUpdateToOneWithWhereWithoutRepliesInput, Prisma.GuestbookUpdateWithoutRepliesInput>, Prisma.GuestbookUncheckedUpdateWithoutRepliesInput>
+}
+
+export type GuestbookUpdateManyWithoutParentNestedInput = {
+  create?: Prisma.XOR<Prisma.GuestbookCreateWithoutParentInput, Prisma.GuestbookUncheckedCreateWithoutParentInput> | Prisma.GuestbookCreateWithoutParentInput[] | Prisma.GuestbookUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.GuestbookCreateOrConnectWithoutParentInput | Prisma.GuestbookCreateOrConnectWithoutParentInput[]
+  upsert?: Prisma.GuestbookUpsertWithWhereUniqueWithoutParentInput | Prisma.GuestbookUpsertWithWhereUniqueWithoutParentInput[]
+  createMany?: Prisma.GuestbookCreateManyParentInputEnvelope
+  set?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+  disconnect?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+  delete?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+  connect?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+  update?: Prisma.GuestbookUpdateWithWhereUniqueWithoutParentInput | Prisma.GuestbookUpdateWithWhereUniqueWithoutParentInput[]
+  updateMany?: Prisma.GuestbookUpdateManyWithWhereWithoutParentInput | Prisma.GuestbookUpdateManyWithWhereWithoutParentInput[]
+  deleteMany?: Prisma.GuestbookScalarWhereInput | Prisma.GuestbookScalarWhereInput[]
+}
+
+export type GuestbookUncheckedUpdateManyWithoutParentNestedInput = {
+  create?: Prisma.XOR<Prisma.GuestbookCreateWithoutParentInput, Prisma.GuestbookUncheckedCreateWithoutParentInput> | Prisma.GuestbookCreateWithoutParentInput[] | Prisma.GuestbookUncheckedCreateWithoutParentInput[]
+  connectOrCreate?: Prisma.GuestbookCreateOrConnectWithoutParentInput | Prisma.GuestbookCreateOrConnectWithoutParentInput[]
+  upsert?: Prisma.GuestbookUpsertWithWhereUniqueWithoutParentInput | Prisma.GuestbookUpsertWithWhereUniqueWithoutParentInput[]
+  createMany?: Prisma.GuestbookCreateManyParentInputEnvelope
+  set?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+  disconnect?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+  delete?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+  connect?: Prisma.GuestbookWhereUniqueInput | Prisma.GuestbookWhereUniqueInput[]
+  update?: Prisma.GuestbookUpdateWithWhereUniqueWithoutParentInput | Prisma.GuestbookUpdateWithWhereUniqueWithoutParentInput[]
+  updateMany?: Prisma.GuestbookUpdateManyWithWhereWithoutParentInput | Prisma.GuestbookUpdateManyWithWhereWithoutParentInput[]
+  deleteMany?: Prisma.GuestbookScalarWhereInput | Prisma.GuestbookScalarWhereInput[]
+}
+
+export type GuestbookCreateWithoutRepliesInput = {
+  id?: string
+  body: string
+  author_name?: string
+  avatar_url?: string | null
+  status?: string
+  likes?: number
+  createdAt?: Date | string
+  parent?: Prisma.GuestbookCreateNestedOneWithoutRepliesInput
+}
+
+export type GuestbookUncheckedCreateWithoutRepliesInput = {
+  id?: string
+  body: string
+  author_name?: string
+  avatar_url?: string | null
+  status?: string
+  likes?: number
+  parentId?: string | null
+  createdAt?: Date | string
+}
+
+export type GuestbookCreateOrConnectWithoutRepliesInput = {
+  where: Prisma.GuestbookWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuestbookCreateWithoutRepliesInput, Prisma.GuestbookUncheckedCreateWithoutRepliesInput>
+}
+
+export type GuestbookCreateWithoutParentInput = {
+  id?: string
+  body: string
+  author_name?: string
+  avatar_url?: string | null
+  status?: string
+  likes?: number
+  createdAt?: Date | string
+  replies?: Prisma.GuestbookCreateNestedManyWithoutParentInput
+}
+
+export type GuestbookUncheckedCreateWithoutParentInput = {
+  id?: string
+  body: string
+  author_name?: string
+  avatar_url?: string | null
+  status?: string
+  likes?: number
+  createdAt?: Date | string
+  replies?: Prisma.GuestbookUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type GuestbookCreateOrConnectWithoutParentInput = {
+  where: Prisma.GuestbookWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuestbookCreateWithoutParentInput, Prisma.GuestbookUncheckedCreateWithoutParentInput>
+}
+
+export type GuestbookCreateManyParentInputEnvelope = {
+  data: Prisma.GuestbookCreateManyParentInput | Prisma.GuestbookCreateManyParentInput[]
+  skipDuplicates?: boolean
+}
+
+export type GuestbookUpsertWithoutRepliesInput = {
+  update: Prisma.XOR<Prisma.GuestbookUpdateWithoutRepliesInput, Prisma.GuestbookUncheckedUpdateWithoutRepliesInput>
+  create: Prisma.XOR<Prisma.GuestbookCreateWithoutRepliesInput, Prisma.GuestbookUncheckedCreateWithoutRepliesInput>
+  where?: Prisma.GuestbookWhereInput
+}
+
+export type GuestbookUpdateToOneWithWhereWithoutRepliesInput = {
+  where?: Prisma.GuestbookWhereInput
+  data: Prisma.XOR<Prisma.GuestbookUpdateWithoutRepliesInput, Prisma.GuestbookUncheckedUpdateWithoutRepliesInput>
+}
+
+export type GuestbookUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  author_name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  parent?: Prisma.GuestbookUpdateOneWithoutRepliesNestedInput
+}
+
+export type GuestbookUncheckedUpdateWithoutRepliesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  author_name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  parentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type GuestbookUpsertWithWhereUniqueWithoutParentInput = {
+  where: Prisma.GuestbookWhereUniqueInput
+  update: Prisma.XOR<Prisma.GuestbookUpdateWithoutParentInput, Prisma.GuestbookUncheckedUpdateWithoutParentInput>
+  create: Prisma.XOR<Prisma.GuestbookCreateWithoutParentInput, Prisma.GuestbookUncheckedCreateWithoutParentInput>
+}
+
+export type GuestbookUpdateWithWhereUniqueWithoutParentInput = {
+  where: Prisma.GuestbookWhereUniqueInput
+  data: Prisma.XOR<Prisma.GuestbookUpdateWithoutParentInput, Prisma.GuestbookUncheckedUpdateWithoutParentInput>
+}
+
+export type GuestbookUpdateManyWithWhereWithoutParentInput = {
+  where: Prisma.GuestbookScalarWhereInput
+  data: Prisma.XOR<Prisma.GuestbookUpdateManyMutationInput, Prisma.GuestbookUncheckedUpdateManyWithoutParentInput>
+}
+
+export type GuestbookScalarWhereInput = {
+  AND?: Prisma.GuestbookScalarWhereInput | Prisma.GuestbookScalarWhereInput[]
+  OR?: Prisma.GuestbookScalarWhereInput[]
+  NOT?: Prisma.GuestbookScalarWhereInput | Prisma.GuestbookScalarWhereInput[]
+  id?: Prisma.StringFilter<"Guestbook"> | string
+  body?: Prisma.StringFilter<"Guestbook"> | string
+  author_name?: Prisma.StringFilter<"Guestbook"> | string
+  avatar_url?: Prisma.StringNullableFilter<"Guestbook"> | string | null
+  status?: Prisma.StringFilter<"Guestbook"> | string
+  likes?: Prisma.IntFilter<"Guestbook"> | number
+  parentId?: Prisma.StringNullableFilter<"Guestbook"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Guestbook"> | Date | string
+}
+
+export type GuestbookCreateManyParentInput = {
+  id?: string
+  body: string
+  author_name?: string
+  avatar_url?: string | null
+  status?: string
+  likes?: number
+  createdAt?: Date | string
+}
+
+export type GuestbookUpdateWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  author_name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.GuestbookUpdateManyWithoutParentNestedInput
+}
+
+export type GuestbookUncheckedUpdateWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  author_name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  replies?: Prisma.GuestbookUncheckedUpdateManyWithoutParentNestedInput
+}
+
+export type GuestbookUncheckedUpdateManyWithoutParentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  body?: Prisma.StringFieldUpdateOperationsInput | string
+  author_name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type GuestbookCountOutputType
+ */
+
+export type GuestbookCountOutputType = {
+  replies: number
+}
+
+export type GuestbookCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  replies?: boolean | GuestbookCountOutputTypeCountRepliesArgs
+}
+
+/**
+ * GuestbookCountOutputType without action
+ */
+export type GuestbookCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuestbookCountOutputType
+   */
+  select?: Prisma.GuestbookCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * GuestbookCountOutputType without action
+ */
+export type GuestbookCountOutputTypeCountRepliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuestbookWhereInput
+}
 
 
 export type GuestbookSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -339,7 +702,12 @@ export type GuestbookSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   author_name?: boolean
   avatar_url?: boolean
   status?: boolean
+  likes?: boolean
+  parentId?: boolean
   createdAt?: boolean
+  parent?: boolean | Prisma.Guestbook$parentArgs<ExtArgs>
+  replies?: boolean | Prisma.Guestbook$repliesArgs<ExtArgs>
+  _count?: boolean | Prisma.GuestbookCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["guestbook"]>
 
 export type GuestbookSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -348,7 +716,10 @@ export type GuestbookSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   author_name?: boolean
   avatar_url?: boolean
   status?: boolean
+  likes?: boolean
+  parentId?: boolean
   createdAt?: boolean
+  parent?: boolean | Prisma.Guestbook$parentArgs<ExtArgs>
 }, ExtArgs["result"]["guestbook"]>
 
 export type GuestbookSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -357,7 +728,10 @@ export type GuestbookSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   author_name?: boolean
   avatar_url?: boolean
   status?: boolean
+  likes?: boolean
+  parentId?: boolean
   createdAt?: boolean
+  parent?: boolean | Prisma.Guestbook$parentArgs<ExtArgs>
 }, ExtArgs["result"]["guestbook"]>
 
 export type GuestbookSelectScalar = {
@@ -366,20 +740,38 @@ export type GuestbookSelectScalar = {
   author_name?: boolean
   avatar_url?: boolean
   status?: boolean
+  likes?: boolean
+  parentId?: boolean
   createdAt?: boolean
 }
 
-export type GuestbookOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "body" | "author_name" | "avatar_url" | "status" | "createdAt", ExtArgs["result"]["guestbook"]>
+export type GuestbookOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "body" | "author_name" | "avatar_url" | "status" | "likes" | "parentId" | "createdAt", ExtArgs["result"]["guestbook"]>
+export type GuestbookInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  parent?: boolean | Prisma.Guestbook$parentArgs<ExtArgs>
+  replies?: boolean | Prisma.Guestbook$repliesArgs<ExtArgs>
+  _count?: boolean | Prisma.GuestbookCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type GuestbookIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  parent?: boolean | Prisma.Guestbook$parentArgs<ExtArgs>
+}
+export type GuestbookIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  parent?: boolean | Prisma.Guestbook$parentArgs<ExtArgs>
+}
 
 export type $GuestbookPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Guestbook"
-  objects: {}
+  objects: {
+    parent: Prisma.$GuestbookPayload<ExtArgs> | null
+    replies: Prisma.$GuestbookPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     body: string
     author_name: string
     avatar_url: string | null
     status: string
+    likes: number
+    parentId: string | null
     createdAt: Date
   }, ExtArgs["result"]["guestbook"]>
   composites: {}
@@ -775,6 +1167,8 @@ readonly fields: GuestbookFieldRefs;
  */
 export interface Prisma__GuestbookClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  parent<T extends Prisma.Guestbook$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Guestbook$parentArgs<ExtArgs>>): Prisma.Prisma__GuestbookClient<runtime.Types.Result.GetResult<Prisma.$GuestbookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  replies<T extends Prisma.Guestbook$repliesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Guestbook$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuestbookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -809,6 +1203,8 @@ export interface GuestbookFieldRefs {
   readonly author_name: Prisma.FieldRef<"Guestbook", 'String'>
   readonly avatar_url: Prisma.FieldRef<"Guestbook", 'String'>
   readonly status: Prisma.FieldRef<"Guestbook", 'String'>
+  readonly likes: Prisma.FieldRef<"Guestbook", 'Int'>
+  readonly parentId: Prisma.FieldRef<"Guestbook", 'String'>
   readonly createdAt: Prisma.FieldRef<"Guestbook", 'DateTime'>
 }
     
@@ -826,6 +1222,10 @@ export type GuestbookFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the Guestbook
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
   /**
    * Filter, which Guestbook to fetch.
    */
@@ -845,6 +1245,10 @@ export type GuestbookFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
+  /**
    * Filter, which Guestbook to fetch.
    */
   where: Prisma.GuestbookWhereUniqueInput
@@ -862,6 +1266,10 @@ export type GuestbookFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the Guestbook
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
   /**
    * Filter, which Guestbook to fetch.
    */
@@ -911,6 +1319,10 @@ export type GuestbookFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
+  /**
    * Filter, which Guestbook to fetch.
    */
   where?: Prisma.GuestbookWhereInput
@@ -958,6 +1370,10 @@ export type GuestbookFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Guestbook
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
   /**
    * Filter, which Guestbooks to fetch.
    */
@@ -1007,6 +1423,10 @@ export type GuestbookCreateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
+  /**
    * The data needed to create a Guestbook.
    */
   data: Prisma.XOR<Prisma.GuestbookCreateInput, Prisma.GuestbookUncheckedCreateInput>
@@ -1040,6 +1460,10 @@ export type GuestbookCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    */
   data: Prisma.GuestbookCreateManyInput | Prisma.GuestbookCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1054,6 +1478,10 @@ export type GuestbookUpdateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Guestbook
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
   /**
    * The data needed to update a Guestbook.
    */
@@ -1106,6 +1534,10 @@ export type GuestbookUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many Guestbooks to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1120,6 +1552,10 @@ export type GuestbookUpsertArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Guestbook
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
   /**
    * The filter to search for the Guestbook to update in case it exists.
    */
@@ -1147,6 +1583,10 @@ export type GuestbookDeleteArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
+  /**
    * Filter which Guestbook to delete.
    */
   where: Prisma.GuestbookWhereUniqueInput
@@ -1167,6 +1607,49 @@ export type GuestbookDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * Guestbook.parent
+ */
+export type Guestbook$parentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Guestbook
+   */
+  select?: Prisma.GuestbookSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Guestbook
+   */
+  omit?: Prisma.GuestbookOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
+  where?: Prisma.GuestbookWhereInput
+}
+
+/**
+ * Guestbook.replies
+ */
+export type Guestbook$repliesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Guestbook
+   */
+  select?: Prisma.GuestbookSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Guestbook
+   */
+  omit?: Prisma.GuestbookOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
+  where?: Prisma.GuestbookWhereInput
+  orderBy?: Prisma.GuestbookOrderByWithRelationInput | Prisma.GuestbookOrderByWithRelationInput[]
+  cursor?: Prisma.GuestbookWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuestbookScalarFieldEnum | Prisma.GuestbookScalarFieldEnum[]
+}
+
+/**
  * Guestbook without action
  */
 export type GuestbookDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1178,4 +1661,8 @@ export type GuestbookDefaultArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Guestbook
    */
   omit?: Prisma.GuestbookOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuestbookInclude<ExtArgs> | null
 }
