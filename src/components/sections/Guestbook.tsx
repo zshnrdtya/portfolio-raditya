@@ -388,48 +388,67 @@ const Guestbook = () => {
 
                   {/* Nested Replies */}
                   {msg.replies && msg.replies.length > 0 && (
-                    <div className="pl-6 md:pl-11 space-y-3 mt-3">
-                      {msg.replies.map((reply) => (
-                        <div key={reply.id} className="relative bg-surface shadow-neu-out rounded-2xl p-4 before:absolute before:-left-3 before:top-6 before:w-3 before:h-[2px] before:bg-textMain/10 border-l-2 border-textMain/10">
-                          <div className="flex items-center gap-2 mb-2">
-                            {reply.avatar_url ? (
-                              <Image
-                                src={reply.avatar_url}
-                                alt={reply.author_name}
-                                width={24}
-                                height={24}
-                                className="rounded-full border border-accent/20"
+                    <div className="mt-1">
+                      {msg.replies.map((reply, idx) => {
+                        const isLast = idx === msg.replies!.length - 1;
+                        return (
+                          <div key={reply.id} className="relative pl-10 md:pl-16 pt-3 pb-2">
+                            {/* L-Shape Connector */}
+                            <div 
+                              className="absolute left-[1.5rem] md:left-[2.5rem] border-textMain/20 border-l-[3px] border-b-[3px] rounded-bl-xl z-0"
+                              style={{ top: '-1.5rem', bottom: '50%', width: '1.5rem' }}
+                            />
+                            {/* Vertical extension for non-last items */}
+                            {!isLast && (
+                              <div 
+                                className="absolute left-[1.5rem] md:left-[2.5rem] border-textMain/20 border-l-[3px] z-0"
+                                style={{ top: '50%', bottom: '-1.5rem' }}
                               />
-                            ) : (
-                              <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
-                                <User size={10} className="text-accent" />
-                              </div>
                             )}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-semibold text-textMain truncate">
-                                {reply.author_name}
+                            
+                            {/* Reply Card */}
+                            <div className="relative bg-surface shadow-neu-out rounded-2xl p-4 z-10">
+                              <div className="flex items-center gap-2 mb-2">
+                                {reply.avatar_url ? (
+                                  <Image
+                                    src={reply.avatar_url}
+                                    alt={reply.author_name}
+                                    width={24}
+                                    height={24}
+                                    className="rounded-full border border-accent/20"
+                                  />
+                                ) : (
+                                  <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
+                                    <User size={10} className="text-accent" />
+                                  </div>
+                                )}
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-xs font-semibold text-textMain truncate">
+                                    {reply.author_name}
+                                  </p>
+                                </div>
+                                <div className="flex items-center gap-1 text-textMain/35 shrink-0">
+                                  <Clock size={10} />
+                                  <span className="text-[10px]">{timeAgo(reply.createdAt)}</span>
+                                </div>
+                              </div>
+                              <p className="text-xs text-textMain/80 leading-relaxed pl-8 mb-3">
+                                {reply.body}
                               </p>
-                            </div>
-                            <div className="flex items-center gap-1 text-textMain/35 shrink-0">
-                              <Clock size={10} />
-                              <span className="text-[10px]">{timeAgo(reply.createdAt)}</span>
+                              <div className="flex items-center gap-4 pl-8">
+                                <button 
+                                  onClick={() => handleLike(reply.id)}
+                                  disabled={likedMessages.has(reply.id)}
+                                  className={`flex items-center gap-1.5 text-[11px] font-medium transition-colors ${likedMessages.has(reply.id) ? 'text-red-500' : 'text-textMain/50 hover:text-red-500'}`}
+                                >
+                                  <Heart size={12} className={likedMessages.has(reply.id) ? "fill-red-500" : ""} />
+                                  <span>{reply.likes > 0 ? reply.likes : 'Like'}</span>
+                                </button>
+                              </div>
                             </div>
                           </div>
-                          <p className="text-xs text-textMain/80 leading-relaxed pl-8 mb-3">
-                            {reply.body}
-                          </p>
-                          <div className="flex items-center gap-4 pl-8">
-                            <button 
-                              onClick={() => handleLike(reply.id)}
-                              disabled={likedMessages.has(reply.id)}
-                              className={`flex items-center gap-1.5 text-[11px] font-medium transition-colors ${likedMessages.has(reply.id) ? 'text-red-500' : 'text-textMain/50 hover:text-red-500'}`}
-                            >
-                              <Heart size={12} className={likedMessages.has(reply.id) ? "fill-red-500" : ""} />
-                              <span>{reply.likes > 0 ? reply.likes : 'Like'}</span>
-                            </button>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </div>
