@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import IdentityDisplay from './IdentityDisplay';
 
 const Experience = () => {
   const experiences = [
@@ -35,6 +36,9 @@ const Experience = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 font-poppins text-slate-900" data-aos="fade-up">
           Experience & Leadership
         </h2>
+
+        {/* Identity Display – Lanyard Nametag Cards */}
+        <IdentityDisplay />
 
         <div className="relative">
           {/* Main vertical line (Mobile only, hidden on md) */}
