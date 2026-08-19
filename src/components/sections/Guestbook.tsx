@@ -388,21 +388,31 @@ const Guestbook = () => {
 
                   {/* Nested Replies */}
                   {msg.replies && msg.replies.length > 0 && (
-                    <div className="mt-1">
+                    <div className="mt-2 space-y-4">
                       {msg.replies.map((reply, idx) => {
+                        const isFirst = idx === 0;
                         const isLast = idx === msg.replies!.length - 1;
                         return (
-                          <div key={reply.id} className="relative ml-10 md:ml-16 pt-3 pb-2">
-                            {/* L-Shape Connector */}
+                          <div key={reply.id} className="relative ml-9 pl-5 md:pl-10">
+                            {/* Vertical Line (Top segment) */}
                             <div 
-                              className="absolute -left-7 md:-left-10 w-7 md:w-10 border-textMain/20 border-l-[3px] border-b-[3px] rounded-bl-xl -z-10"
-                              style={{ top: '-1.5rem', bottom: '50%' }}
+                              className="absolute left-0 border-l-[3px] border-textMain/20 -z-10"
+                              style={{ 
+                                top: isFirst ? '-1.5rem' : '-1rem', 
+                                height: isFirst ? '3rem' : '2.5rem' 
+                              }}
                             />
-                            {/* Vertical extension for non-last items */}
+                            
+                            {/* Curve and Horizontal Line */}
+                            <div 
+                              className="absolute left-0 top-[1.5rem] w-5 md:w-10 h-4 border-l-[3px] border-b-[3px] border-textMain/20 rounded-bl-xl -z-10"
+                            />
+
+                            {/* Vertical Line (Bottom segment) - only if not last */}
                             {!isLast && (
                               <div 
-                                className="absolute -left-7 md:-left-10 border-textMain/20 border-l-[3px] -z-10"
-                                style={{ top: '50%', bottom: '-1.5rem' }}
+                                className="absolute left-0 border-l-[3px] border-textMain/20 -z-10"
+                                style={{ top: '2.5rem', bottom: '0' }}
                               />
                             )}
                             
