@@ -36,7 +36,8 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
           <Image
             src={src}
             alt={alt}
-            fill
+            width={600}
+            height={900}
             sizes="(max-width: 768px) 45vw, 280px"
             className="id-card-image"
             priority
