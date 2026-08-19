@@ -55,14 +55,14 @@ export default function Contact() {
       } else {
         // res.ok = true (status 200/201) — pesan berhasil tersimpan
         setStatus("success");
-        setMessage("Pesanmu berhasil terkirim! Saya akan segera menghubungi kamu. 🎉");
+        setMessage("Your message has been successfully sent! I will contact you shortly. 🎉");
         setForm({ nama: "", email: "", pesan: "" });
         // Auto-reset ke idle setelah 5 detik agar user bisa kirim lagi
         setTimeout(() => setStatus("idle"), 5000);
       }
     } catch {
       setStatus("error");
-      setMessage("Gagal mengirim pesan. Periksa koneksi internet kamu.");
+      setMessage("Failed to send message. Please check your internet connection.");
     }
   }
 
@@ -151,7 +151,7 @@ export default function Contact() {
           data-aos-delay="400"
         >
           <h3 className="font-poppins font-black text-2xl text-[var(--color-textMain)] mb-6 text-left">
-            Kirim Pesan
+            Send Message
           </h3>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
@@ -161,12 +161,12 @@ export default function Contact() {
                 htmlFor="contact-nama"
                 className="font-inter font-semibold text-sm text-[var(--color-textMain)] opacity-80"
               >
-                Nama
+                Name
               </label>
               <input
                 id="contact-nama"
                 type="text"
-                placeholder="Nama lengkap kamu"
+                placeholder="Your full name"
                 value={form.nama}
                 onChange={(e) => setForm((f) => ({ ...f, nama: e.target.value }))}
                 disabled={status === "loading"}
@@ -186,7 +186,7 @@ export default function Contact() {
               <input
                 id="contact-email"
                 type="email"
-                placeholder="email@kamu.com"
+                placeholder="your@email.com"
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
                 disabled={status === "loading"}
@@ -201,12 +201,12 @@ export default function Contact() {
                 htmlFor="contact-pesan"
                 className="font-inter font-semibold text-sm text-[var(--color-textMain)] opacity-80"
               >
-                Pesan
+                Message
               </label>
               <textarea
                 id="contact-pesan"
                 rows={5}
-                placeholder="Ceritakan project atau idemu..."
+                placeholder="Tell me about your project or idea..."
                 value={form.pesan}
                 onChange={(e) => setForm((f) => ({ ...f, pesan: e.target.value }))}
                 disabled={status === "loading"}
@@ -241,10 +241,10 @@ export default function Contact() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                   </svg>
-                  Mengirim...
+                  Sending...
                 </>
               ) : (
-                "Kirim Pesan →"
+                "Send Message →"
               )}
             </button>
           </form>
