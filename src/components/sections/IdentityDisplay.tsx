@@ -85,7 +85,7 @@ const IdentityDisplay: React.FC = () => {
       <div className="identity-heading">
         <span className="identity-heading-line" />
         <h3 className="identity-heading-text font-poppins">
-          IDENTITAS PROFESIONAL & KOMUNITAS
+          PROFESSIONAL & COMMUNITY IDENTITY
         </h3>
         <span className="identity-heading-line" />
       </div>

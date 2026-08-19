@@ -64,13 +64,13 @@ const Guestbook = () => {
 
       if (res.ok) {
         setBody('');
-        showToast('✅ Pesan dikirim dan menunggu persetujuan admin.');
+        showToast('✅ Message sent and pending admin approval.');
       } else {
         const data = await res.json();
-        showToast(`❌ ${data.error || 'Gagal mengirim pesan.'}`);
+        showToast(`❌ ${data.error || 'Failed to send message.'}`);
       }
     } catch {
-      showToast('❌ Terjadi kesalahan jaringan.');
+      showToast('❌ A network error occurred.');
     } finally {
       setIsSubmitting(false);
     }
@@ -80,12 +80,12 @@ const Guestbook = () => {
   const timeAgo = (dateStr: string) => {
     const diff = Date.now() - new Date(dateStr).getTime();
     const mins = Math.floor(diff / 60000);
-    if (mins < 1) return 'Baru saja';
-    if (mins < 60) return `${mins} menit lalu`;
+    if (mins < 1) return 'Just now';
+    if (mins < 60) return `${mins} mins ago`;
     const hours = Math.floor(mins / 60);
-    if (hours < 24) return `${hours} jam lalu`;
+    if (hours < 24) return `${hours} hours ago`;
     const days = Math.floor(hours / 24);
-    if (days < 30) return `${days} hari lalu`;
+    if (days < 30) return `${days} days ago`;
     return new Date(dateStr).toLocaleDateString('id-ID', {
       day: 'numeric',
       month: 'short',
@@ -103,14 +103,14 @@ const Guestbook = () => {
           className="text-3xl md:text-4xl font-bold text-center mb-4 font-poppins text-slate-900"
           data-aos="fade-up"
         >
-          Buku Tamu
+          Guestbook
         </h2>
         <p
           className="text-center text-textMain/60 mb-12 text-sm md:text-base"
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          Tinggalkan pesan, kesan, atau sapaan — dengan atau tanpa login.
+          Leave a message, impression, or greeting — with or without logging in.
         </p>
 
         {/* Auth & Form Card */}
@@ -142,7 +142,7 @@ const Guestbook = () => {
             ) : (
               <div className="flex items-center gap-2 text-textMain/50">
                 <User size={16} />
-                <span className="text-sm">Posting sebagai Anonymous</span>
+                <span className="text-sm">Posting as Anonymous</span>
               </div>
             )}
 
@@ -174,7 +174,7 @@ const Guestbook = () => {
                 id="guestbook-input"
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
-                placeholder="Tulis pesan, kesan, atau sapaan kamu di sini..."
+                placeholder="Write your message, impression, or greeting here..."
                 maxLength={MAX_CHARS}
                 rows={3}
                 className="w-full bg-surface shadow-neu-in rounded-2xl p-4 pr-12 text-sm text-textMain placeholder:text-textMain/40 resize-none focus:outline-none focus:ring-2 focus:ring-accent/30 transition-shadow"
@@ -196,7 +196,7 @@ const Guestbook = () => {
                 className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white text-sm font-semibold rounded-full hover:bg-accent/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer shadow-lg shadow-accent/20"
               >
                 <Send size={14} />
-                {isSubmitting ? 'Mengirim...' : 'Kirim Pesan'}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </div>
           </form>
@@ -214,10 +214,10 @@ const Guestbook = () => {
           <div className="flex items-center gap-2 mb-6">
             <MessageSquare size={18} className="text-accent" />
             <h3 className="text-lg font-semibold font-poppins text-textMain">
-              Pesan Terbaru
+              Recent Messages
             </h3>
             <span className="ml-auto text-xs text-textMain/40">
-              {messages.length} pesan
+              {messages.length} messages
             </span>
           </div>
 
@@ -240,7 +240,7 @@ const Guestbook = () => {
           ) : messages.length === 0 ? (
             <div className="text-center py-12 text-textMain/40">
               <MessageSquare size={40} className="mx-auto mb-3 opacity-30" />
-              <p className="text-sm">Belum ada pesan. Jadilah yang pertama! 🎉</p>
+              <p className="text-sm">No messages yet. Be the first! 🎉</p>
             </div>
           ) : (
             <div className="space-y-4">
