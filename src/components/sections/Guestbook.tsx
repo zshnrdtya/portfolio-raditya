@@ -392,16 +392,16 @@ const Guestbook = () => {
                       {msg.replies.map((reply, idx) => {
                         const isLast = idx === msg.replies!.length - 1;
                         return (
-                          <div key={reply.id} className="relative pl-10 md:pl-16 pt-3 pb-2">
+                          <div key={reply.id} className="relative ml-10 md:ml-16 pt-3 pb-2">
                             {/* L-Shape Connector */}
                             <div 
-                              className="absolute left-[1.5rem] md:left-[2.5rem] border-textMain/20 border-l-[3px] border-b-[3px] rounded-bl-xl z-0"
-                              style={{ top: '-1.5rem', bottom: '50%', width: '1.5rem' }}
+                              className="absolute -left-7 md:-left-10 w-7 md:w-10 border-textMain/20 border-l-[3px] border-b-[3px] rounded-bl-xl -z-10"
+                              style={{ top: '-1.5rem', bottom: '50%' }}
                             />
                             {/* Vertical extension for non-last items */}
                             {!isLast && (
                               <div 
-                                className="absolute left-[1.5rem] md:left-[2.5rem] border-textMain/20 border-l-[3px] z-0"
+                                className="absolute -left-7 md:-left-10 border-textMain/20 border-l-[3px] -z-10"
                                 style={{ top: '50%', bottom: '-1.5rem' }}
                               />
                             )}
