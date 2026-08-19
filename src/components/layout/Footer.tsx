@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--color-surface)] mt-auto py-8 shadow-[inset_0_4px_6px_-1px_rgba(0,0,0,0.05)]">
+    <footer className="bg-[var(--color-surface)] mt-auto pt-8 pb-32 md:pb-8 shadow-[inset_0_4px_6px_-1px_rgba(0,0,0,0.05)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] px-6 py-3 rounded-2xl">
           <p className="font-inter font-bold text-sm text-[var(--color-textMain)] opacity-80">
