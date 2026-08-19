@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Check, X, Clock, User, RefreshCw, ArrowLeft } from 'lucide-react';
+import { Check, X, Clock, User, RefreshCw, ArrowLeft, Reply } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -11,13 +11,20 @@ interface PendingMessage {
   author_name: string;
   avatar_url: string | null;
   createdAt: string;
+  parentId: string | null;
+  parent?: {
+    author_name: string;
+  } | null;
 }
+
+type FilterType = 'ALL' | 'MAIN' | 'REPLIES';
 
 export default function AdminGuestbookPage() {
   const [messages, setMessages] = useState<PendingMessage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [filterType, setFilterType] = useState<FilterType>('ALL');
 
   const fetchPending = useCallback(async () => {
     setIsLoading(true);
@@ -81,6 +88,12 @@ export default function AdminGuestbookPage() {
     });
   };
 
+  const filteredMessages = messages.filter((msg) => {
+    if (filterType === 'MAIN') return !msg.parentId;
+    if (filterType === 'REPLIES') return !!msg.parentId;
+    return true;
+  });
+
   return (
     <div className="min-h-screen bg-surface py-10 px-4">
       <div className="max-w-3xl mx-auto">
@@ -113,6 +126,42 @@ export default function AdminGuestbookPage() {
           </button>
         </div>
 
+        {/* Filter Tabs */}
+        {messages.length > 0 && (
+          <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+            <button
+              onClick={() => setFilterType('ALL')}
+              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                filterType === 'ALL'
+                  ? 'bg-accent text-white shadow-neu-in'
+                  : 'bg-surface text-textMain/70 shadow-neu-out hover:shadow-neu-in'
+              }`}
+            >
+              Semua Pesan
+            </button>
+            <button
+              onClick={() => setFilterType('MAIN')}
+              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                filterType === 'MAIN'
+                  ? 'bg-accent text-white shadow-neu-in'
+                  : 'bg-surface text-textMain/70 shadow-neu-out hover:shadow-neu-in'
+              }`}
+            >
+              Komentar Utama Saja
+            </button>
+            <button
+              onClick={() => setFilterType('REPLIES')}
+              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                filterType === 'REPLIES'
+                  ? 'bg-accent text-white shadow-neu-in'
+                  : 'bg-surface text-textMain/70 shadow-neu-out hover:shadow-neu-in'
+              }`}
+            >
+              Balasan Saja
+            </button>
+          </div>
+        )}
+
         {/* Messages */}
         {isLoading ? (
           <div className="space-y-4">
@@ -140,9 +189,15 @@ export default function AdminGuestbookPage() {
               Tidak ada pesan pending saat ini.
             </p>
           </div>
+        ) : filteredMessages.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-textMain/50 font-medium">
+              Tidak ada pesan pada kategori ini.
+            </p>
+          </div>
         ) : (
           <div className="space-y-4">
-            {messages.map((msg) => (
+            {filteredMessages.map((msg) => (
               <div
                 key={msg.id}
                 className="bg-surface shadow-neu-out rounded-2xl p-5"
@@ -172,6 +227,16 @@ export default function AdminGuestbookPage() {
                     <span className="text-[11px]">{formatDate(msg.createdAt)}</span>
                   </div>
                 </div>
+
+                {/* Reply Context */}
+                {msg.parentId && msg.parent && (
+                  <div className="flex items-center gap-1.5 bg-surface shadow-neu-in rounded-lg px-3 py-1.5 mb-3 w-fit ml-11">
+                    <Reply size={12} className="text-accent" />
+                    <span className="text-[11px] font-medium text-textMain/70">
+                      Balasan untuk <strong className="text-textMain">{msg.parent.author_name}</strong>
+                    </span>
+                  </div>
+                )}
 
                 {/* Body */}
                 <p className="text-sm text-textMain/80 leading-relaxed pl-11 mb-4">

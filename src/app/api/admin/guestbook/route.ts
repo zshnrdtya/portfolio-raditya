@@ -22,6 +22,13 @@ export async function GET() {
   try {
     const messages = await prisma.guestbook.findMany({
       where: { status: "PENDING" },
+      include: {
+        parent: {
+          select: {
+            author_name: true,
+          }
+        }
+      },
       orderBy: { createdAt: "desc" },
     });
 
