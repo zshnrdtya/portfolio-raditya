@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { Sparkles, ArrowUpRight } from "lucide-react";
 
 export default function Hero() {
   const roles = [
@@ -16,7 +17,7 @@ export default function Hero() {
 
   useEffect(() => {
     const currentRole = roles[currentRoleIndex];
-    let typingSpeed = isDeleting ? 50 : 100;
+    const typingSpeed = isDeleting ? 50 : 100;
 
     const timer = setTimeout(() => {
       if (!isDeleting && displayText === currentRole) {
@@ -62,15 +63,27 @@ export default function Hero() {
             </span>
           </div>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-6">
-            <Link href="#contact">
-              <button className="w-full sm:w-auto px-8 py-3 font-poppins font-bold text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none">
+          <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-5 flex-wrap">
+            <Link href="#contact" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none cursor-pointer">
                 Hire Me
               </button>
             </Link>
-            <a href="/cv/CV - Raditya Rai Zeeshan.pdf" target="_blank" rel="noopener noreferrer">
-              <button className="w-full sm:w-auto px-8 py-3 font-poppins font-bold text-lg bg-[var(--color-surface)] text-[var(--color-textMain)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none">
+            <a href="/cv/CV - Raditya Rai Zeeshan.pdf" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-textMain)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none cursor-pointer">
                 Download CV
+              </button>
+            </a>
+            <a 
+              href="https://zeeraai.radityarz.my.id/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="w-full sm:w-auto"
+            >
+              <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none flex items-center justify-center gap-2 group cursor-pointer border border-[var(--color-accent)]/20">
+                <Sparkles className="w-5 h-5 text-[var(--color-accent)] group-hover:rotate-12 transition-transform duration-300" />
+                <span>Try Zeera AI</span>
+                <ArrowUpRight className="w-4 h-4 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 transition-all duration-200" />
               </button>
             </a>
           </div>
