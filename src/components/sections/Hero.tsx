@@ -4,8 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Sparkles, ArrowUpRight } from "lucide-react";
+import ZeeraModal from "@/components/ui/ZeeraModal";
 
 export default function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const roles = [
     "Fullstack Developer",
     "UI/UX Designer",
@@ -74,18 +76,14 @@ export default function Hero() {
                 Download CV
               </button>
             </a>
-            <a 
-              href="https://zeeraai.radityarz.my.id/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-full sm:w-auto"
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none flex items-center justify-center gap-2 group cursor-pointer border border-[var(--color-accent)]/20"
             >
-              <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none flex items-center justify-center gap-2 group cursor-pointer border border-[var(--color-accent)]/20">
-                <Sparkles className="w-5 h-5 text-[var(--color-accent)] group-hover:rotate-12 transition-transform duration-300" />
-                <span>Try Zeera AI</span>
-                <ArrowUpRight className="w-4 h-4 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 transition-all duration-200" />
-              </button>
-            </a>
+              <Sparkles className="w-5 h-5 text-[var(--color-accent)] group-hover:rotate-12 transition-transform duration-300" />
+              <span>Try Zeera AI</span>
+              <ArrowUpRight className="w-4 h-4 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 transition-all duration-200" />
+            </button>
           </div>
         </div>
 
@@ -105,6 +103,9 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Zeera AI Interactive Modal Popup */}
+      <ZeeraModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }
