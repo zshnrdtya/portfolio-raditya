@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AOS from "aos";
 
 export default function DesignCorner() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,20 +23,33 @@ export default function DesignCorner() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const visibleDesigns = designs.slice(startIndex, startIndex + itemsPerPage);
 
+  const scrollToDesign = () => {
+    const section = document.getElementById("design");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
+      scrollToDesign();
     }
   };
 
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
+      scrollToDesign();
     }
   };
 
+  useEffect(() => {
+    AOS.refresh();
+  }, [currentPage]);
+
   return (
-    <section id="design" className="py-24 relative bg-[var(--color-surface)]">
+    <section id="design" className="py-24 relative bg-[var(--color-surface)] scroll-mt-6">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-16 text-center" data-aos="fade-up">
           <h2 className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative pb-2 drop-shadow-sm">
@@ -46,10 +60,10 @@ export default function DesignCorner() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[350px]">
           {visibleDesigns.map((design, index) => (
             <div 
-              key={index}
+              key={design.title}
               data-aos="fade-up"
               data-aos-delay={index * 100}
               onClick={() => setSelectedImage(design.image)}
@@ -82,6 +96,7 @@ export default function DesignCorner() {
         {totalPages > 1 && (
           <div className="mt-16 flex justify-center items-center space-x-6">
             <button 
+              type="button"
               onClick={handlePrev}
               disabled={currentPage === 1}
               className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus:outline-none
@@ -99,6 +114,7 @@ export default function DesignCorner() {
             </span>
 
             <button 
+              type="button"
               onClick={handleNext}
               disabled={currentPage === totalPages}
               className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus:outline-none

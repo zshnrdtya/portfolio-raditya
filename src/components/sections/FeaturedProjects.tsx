@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import AOS from "aos";
 
 export default function FeaturedProjects() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,6 +50,12 @@ export default function FeaturedProjects() {
       image: "projek 10.webp",
       description: "An integrated futsal field booking platform with real-time schedule availability.",
       techStack: ["Laravel", "Alpine.js", "MySQL", "Tailwind CSS"],
+    },
+    {
+      title: "Zeera AI",
+      image: "project zeera.webp",
+      description: "An intelligent conversational AI platform featuring real-time chat interactions and a responsive modern user interface.",
+      techStack: ["Vite", "TypeScript", "Tailwind CSS"],
     }
   ];
 
@@ -56,20 +63,33 @@ export default function FeaturedProjects() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const visibleProjects = projects.slice(startIndex, startIndex + itemsPerPage);
 
+  const scrollToProjects = () => {
+    const section = document.getElementById("projects");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(prev => prev + 1);
+      scrollToProjects();
     }
   };
 
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(prev => prev - 1);
+      scrollToProjects();
     }
   };
 
+  useEffect(() => {
+    AOS.refresh();
+  }, [currentPage]);
+
   return (
-    <section id="projects" className="py-24 relative bg-[var(--color-surface)]">
+    <section id="projects" className="py-24 relative bg-[var(--color-surface)] scroll-mt-6">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-12 text-center md:text-left" data-aos="fade-up">
           <h2 className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative pb-2 drop-shadow-sm">
@@ -77,10 +97,10 @@ export default function FeaturedProjects() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[450px]">
           {visibleProjects.map((project, index) => (
             <div 
-              key={index}
+              key={project.title}
               data-aos="fade-up"
               data-aos-delay={index * 100}
               className="bg-[var(--color-surface)] rounded-3xl overflow-hidden 
@@ -127,6 +147,7 @@ export default function FeaturedProjects() {
         {totalPages > 1 && (
           <div className="mt-16 flex justify-center items-center space-x-6">
             <button 
+              type="button"
               onClick={handlePrev}
               disabled={currentPage === 1}
               className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus:outline-none
@@ -144,6 +165,7 @@ export default function FeaturedProjects() {
             </span>
 
             <button 
+              type="button"
               onClick={handleNext}
               disabled={currentPage === totalPages}
               className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus:outline-none
