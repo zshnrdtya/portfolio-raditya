@@ -45,10 +45,16 @@ Portofolio ini bukan sekadar landing page statis, melainkan aplikasi web full-st
 - Kutipan filosofi hidup: *"It's not the problem that is flawed; fix the mindset, and the problem solves itself."*
 - Bar progres animasi mulus sebelum membuka halaman utama.
 
-### 2. 🎯 Hero Section Interaktif & Integrasi Zeera AI
+### 2. 🎯 Hero Section Interaktif & Integrasi Zeera AI (Mobile Mockup Layout)
 - Animasi ketik otomatis (*typewriter effect*) untuk beragam peran: Fullstack Developer, UI/UX Designer, Founder of Z - Project.
 - Tombol **Hire Me** (navigasi langsung ke form kontak) & **Download CV** (dokumen PDF resmi).
-- Tombol **Try Zeera AI**: Membuka popup modal interaktif untuk mencoba platform AI percakapan cerdas [Zeera AI](https://zeeraai.radityarz.my.id/) langsung di dalam website tanpa meninggalkan halaman.
+- Tombol **Try Zeera AI**: Membuka popup modal interaktif cerdas [Zeera AI](https://zeeraai.radityarz.my.id/) langsung di dalam website tanpa meninggalkan halaman:
+  - **Mobile Mockup Display**: Rasio aspek smartphone (375px) yang melayang di tengah desktop dengan sudut melengkung mirip bezel HP dan bayangan melayang tegas.
+  - **Viewport Isolation**: Tampilan antarmuka Zeera AI di dalam popup otomatis merespons sebagai antarmuka mobile murni tanpa terpotong.
+  - **Window Controls Lengkap**:
+    - **Minimize (`Minus`)**: Mengecilkan popup menjadi *floating pill* di sudut kanan bawah tanpa memutus atau me-reload sesi obrolan yang sedang berjalan.
+    - **Maximize / Restore (`Maximize2` / `Minimize2`)**: Kemudahan beralih antara tampilan HP (375px) dan tampilan Desktop lebar secara mulus.
+    - **Open in New Tab & Close**: Akses langsung ke tab baru browser serta penutupan cepat (termasuk tombol keyboard `Escape`).
 
 ### 3. 📊 Statistik Real-Time (Animated Counter)
 - Angka counter dinamis dengan *Intersection Observer* (otomatis menghitung saat discroll ke layar):
