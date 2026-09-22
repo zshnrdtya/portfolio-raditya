@@ -53,7 +53,7 @@ export default function Contact() {
         setStatus("error");
         setMessage(data.error ?? "Terjadi kesalahan. Silakan coba lagi.");
       } else {
-        // res.ok = true (status 200/201) — pesan berhasil tersimpan
+        // res.ok = true (status 200/201) - pesan berhasil tersimpan
         setStatus("success");
         setMessage("Your message has been successfully sent! I will contact you shortly. 🎉");
         setForm({ nama: "", email: "", pesan: "" });
@@ -233,7 +233,7 @@ export default function Contact() {
               id="contact-submit-btn"
               type="submit"
               disabled={status === "loading" || status === "success"}
-              className="w-full py-3 px-6 rounded-2xl font-poppins font-bold text-white bg-[var(--color-accent)] shadow-[var(--shadow-neu-out)] hover:brightness-110 active:shadow-[var(--shadow-neu-in)] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-3 px-6 rounded-2xl font-poppins font-bold text-white bg-[var(--color-accent)] shadow-[var(--shadow-neu-out)] hover:brightness-110 active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
             >
               {status === "loading" ? (
                 <>
@@ -244,7 +244,7 @@ export default function Contact() {
                   Sending...
                 </>
               ) : (
-                "Send Message →"
+                "Send Message"
               )}
             </button>
           </form>

@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    // 2. Kirim notifikasi email via Resend (opsional — tidak memblokir response)
+    // 2. Kirim notifikasi email via Resend (opsional - tidak memblokir response)
     try {
       // Guard: pastikan env vars tersedia
       if (!process.env.RESEND_API_KEY) {
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
         const { data, error: resendError } = await resend.emails.send({
           from: "onboarding@resend.dev",
           to: process.env.MY_EMAIL,
-          subject: `📬 Pesan Baru dari ${nama.trim()} — Portfolio`,
+          subject: `📬 Pesan Baru dari ${nama.trim()} - Portfolio`,
           html: `
             <div style="font-family: Inter, sans-serif; max-width: 560px; margin: 0 auto; background: #f8fafc; border-radius: 12px; overflow: hidden;">
               <div style="background: #1e293b; padding: 28px 32px;">
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
         }
       }
     } catch (emailError: unknown) {
-      // Email gagal terkirim — TIDAK memblokir response sukses
+      // Email gagal terkirim - TIDAK memblokir response sukses
       // Pesan sudah tersimpan di database
       console.error("RESEND ERROR DETAILS:", emailError);
       if (emailError instanceof Error) {

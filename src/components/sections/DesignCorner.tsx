@@ -48,6 +48,17 @@ export default function DesignCorner() {
     AOS.refresh();
   }, [currentPage]);
 
+  useEffect(() => {
+    if (!selectedImage) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedImage(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedImage]);
+
   return (
     <section id="design" className="py-24 relative bg-[var(--color-surface)] scroll-mt-6">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -99,10 +110,10 @@ export default function DesignCorner() {
               type="button"
               onClick={handlePrev}
               disabled={currentPage === 1}
-              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus:outline-none
+              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                 ${currentPage === 1 
                   ? 'bg-[var(--color-surface)] text-gray-400 shadow-[var(--shadow-neu-in)] cursor-not-allowed opacity-50' 
-                  : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)]'
+                  : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)] cursor-pointer'
                 }`}
               aria-label="Previous Page"
             >
@@ -117,10 +128,10 @@ export default function DesignCorner() {
               type="button"
               onClick={handleNext}
               disabled={currentPage === totalPages}
-              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus:outline-none
+              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                 ${currentPage === totalPages 
                   ? 'bg-[var(--color-surface)] text-gray-400 shadow-[var(--shadow-neu-in)] cursor-not-allowed opacity-50' 
-                  : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)]'
+                  : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)] cursor-pointer'
                 }`}
               aria-label="Next Page"
             >
@@ -148,7 +159,9 @@ export default function DesignCorner() {
           </div>
           
           <button 
-            className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] hover:text-red-500 transition-colors z-50 cursor-pointer"
+            type="button"
+            aria-label="Close design preview"
+            className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white transition-colors z-50 cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               setSelectedImage(null);

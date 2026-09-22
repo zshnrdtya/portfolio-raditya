@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
-// GET /api/guestbook — Fetch approved messages with replies
+// GET /api/guestbook - Fetch approved messages with replies
 export async function GET() {
   try {
     const messages = await prisma.guestbook.findMany({
@@ -29,7 +29,7 @@ export async function GET() {
   }
 }
 
-// POST /api/guestbook — Submit a new message (always PENDING)
+// POST /api/guestbook - Submit a new message (always PENDING)
 export async function POST(req: NextRequest) {
   try {
     const { body, parentId } = await req.json();

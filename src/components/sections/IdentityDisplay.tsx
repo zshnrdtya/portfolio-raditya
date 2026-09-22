@@ -25,9 +25,9 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
 
   return (
     <div className="lanyard-card-wrapper" data-aos="fade-up">
-      {/* Positioning wrapper for strap — handles centering via CSS */}
+      {/* Positioning wrapper for strap - handles centering via CSS */}
       <div className="lanyard-strap-positioner">
-        {/* Animated strap — only scaleY, no translateX conflict */}
+        {/* Animated strap - only scaleY, no translateX conflict */}
         <motion.div
           className={`lanyard-strap ${lanyardClass}`}
           style={{ scaleY: strapScaleY }}
@@ -36,9 +36,9 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
         </motion.div>
       </div>
 
-      {/* Positioning wrapper for clip — handles centering via CSS */}
+      {/* Positioning wrapper for clip - handles centering via CSS */}
       <div className="lanyard-clip-positioner">
-        {/* Animated clip — only y offset */}
+        {/* Animated clip - only y offset */}
         <motion.div
           className="lanyard-clip"
           style={{ y: clipY }}
@@ -94,12 +94,12 @@ const IdentityDisplay: React.FC = () => {
       <div className="identity-cards-row">
         <LanyardCard
           src="/foto-raditya/raditya (1).png"
-          alt="ID Card Inditech — Raditya Rai Zeeshan, Fullstack Web Developer Intern"
+          alt="ID Card Inditech - Raditya Rai Zeeshan, Fullstack Web Developer Intern"
           lanyardColor="blue"
         />
         <LanyardCard
           src="/foto-raditya/raditya (2).png"
-          alt="ID Card Karang Taruna 424 — Zeeshan, Koor Perlengkapan"
+          alt="ID Card Karang Taruna 424 - Zeeshan, Koor Perlengkapan"
           lanyardColor="maroon"
         />
       </div>

@@ -53,7 +53,7 @@ export default function AboutMe() {
                 I am a Full-Stack Developer and the Founder of Z - Project, specializing in building interactive websites, mobile applications, and premium user interfaces. My technical journey is balanced by a strong foundation in leadership and teamwork, shaped by my experience as an Assistant Coach in the Al-Hidayah Marching Band.
               </p>
               <p className="mt-4">
-                Whether I am structuring a complex database or orchestrating a team, my philosophy remains the same: <span className="italic">"It's not the problem that is flawed; fix the mindset, and the problem solves itself."</span>
+                Whether I am structuring a complex database or orchestrating a team, my philosophy remains the same: <span className="italic">&ldquo;It&apos;s not the problem that is flawed; fix the mindset, and the problem solves itself.&rdquo;</span>
               </p>
             </div>
           </div>

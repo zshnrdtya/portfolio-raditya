@@ -103,7 +103,7 @@ const Experience = () => {
                         {exp.badges.map((badge, idx) => (
                           <span 
                             key={idx} 
-                            className="px-3 py-1 text-xs font-medium bg-surface shadow-neu-in rounded-full text-textMain"
+                            className="px-3 py-1 text-xs font-medium bg-surface shadow-neu-in rounded-xl text-textMain"
                           >
                             {badge}
                           </span>

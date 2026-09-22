@@ -1,7 +1,7 @@
 "use client";
 
-import React from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
+import Image, { StaticImageData } from 'next/image';
 
 // Menggunakan Static Import agar Next.js secara otomatis membaca resolusi & aspect ratio asli setiap foto (Portrait/Landscape)
 import img1 from '../../../public/gallery/WhatsApp Image 2026-08-07 at 10.30.38.jpeg';
@@ -48,6 +48,19 @@ const initialImages = [
 const marqueeImages = [...initialImages, ...initialImages];
 
 const Gallery = () => {
+  const [selectedPhoto, setSelectedPhoto] = useState<{ src: StaticImageData; title: string } | null>(null);
+
+  useEffect(() => {
+    if (!selectedPhoto) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedPhoto(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedPhoto]);
+
   return (
     <section id="gallery" className="py-20 bg-[var(--color-surface)] overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl mb-12">
@@ -65,6 +78,7 @@ const Gallery = () => {
             // Menggunakan padding pada item alih-alih gap pada parent untuk mencegah matematika marquee melompat di akhir loop
             <div key={index} className="px-3 md:px-4 shrink-0">
               <div 
+                onClick={() => setSelectedPhoto(image)}
                 className="group/frame p-3 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] transition-shadow duration-300 hover:shadow-[var(--shadow-neu-out)] cursor-pointer"
               >
                 <div className="relative h-48 md:h-72 w-auto flex items-center justify-center">
@@ -84,6 +98,39 @@ const Gallery = () => {
           ))}
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {selectedPhoto && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm cursor-zoom-out"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <div className="relative w-full max-w-4xl max-h-[85vh] h-[75vh] rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center">
+            <Image 
+              src={selectedPhoto.src} 
+              alt={selectedPhoto.title}
+              fill
+              className="object-contain"
+              sizes="(max-width: 1024px) 100vw, 1024px"
+              priority
+            />
+          </div>
+          
+          <button 
+            type="button"
+            aria-label="Close photo preview"
+            className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] hover:text-red-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white transition-colors z-50 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedPhoto(null);
+            }}
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      )}
     </section>
   );
 };

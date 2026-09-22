@@ -12,7 +12,7 @@ async function checkAdmin() {
   return session;
 }
 
-// GET /api/admin/guestbook — Fetch pending messages (admin only)
+// GET /api/admin/guestbook - Fetch pending messages (admin only)
 export async function GET() {
   const session = await checkAdmin();
   if (!session) {
@@ -42,7 +42,7 @@ export async function GET() {
   }
 }
 
-// PATCH /api/admin/guestbook — Approve or Reject a message (admin only)
+// PATCH /api/admin/guestbook - Approve or Reject a message (admin only)
 export async function PATCH(req: NextRequest) {
   const session = await checkAdmin();
   if (!session) {

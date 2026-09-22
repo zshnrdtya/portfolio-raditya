@@ -54,7 +54,7 @@ export default function SplashScreen() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           >
-            "It's not the problem that is flawed; fix the mindset, and the problem solves itself."
+            &ldquo;It&apos;s not the problem that is flawed; fix the mindset, and the problem solves itself.&rdquo;
           </motion.p>
 
           {/* Loading Bar */}

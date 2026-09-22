@@ -3,7 +3,7 @@
 @theme {
   --color-surface: #C6E0D2; /* Soft Mint / Sage Green */
   --color-textMain: #284435; /* Dark Pine Green for text */
-  --color-accent: #178358; /* Bold Emerald for active/accent */
+  --color-accent: #136846; /* Deep Emerald for active/accent - calibrated for WCAG AA (4.84:1) */
   
   /* Soft, clean shadows for pastel surface */
   --shadow-neu-out: 10px 10px 20px rgba(150, 175, 161, 0.7), -10px -10px 20px rgba(255, 255, 255, 0.9);

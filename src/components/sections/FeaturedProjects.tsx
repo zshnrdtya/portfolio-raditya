@@ -54,7 +54,7 @@ export default function FeaturedProjects() {
     {
       title: "Zeera AI",
       image: "project zeera.webp",
-      description: "An intelligent conversational AI platform featuring real-time chat interactions and a responsive modern user interface.",
+      description: "A conversational AI interface featuring real-time messaging, model responses, and a clean mobile-friendly layout.",
       techStack: ["Vite", "TypeScript", "Tailwind CSS"],
     }
   ];
@@ -105,7 +105,7 @@ export default function FeaturedProjects() {
               data-aos-delay={index * 100}
               className="bg-[var(--color-surface)] rounded-3xl overflow-hidden 
                          shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)]
-                         transition-shadow duration-300 group flex flex-col h-full cursor-pointer p-6"
+                         transition-shadow duration-300 group flex flex-col h-full p-6"
             >
               <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-[var(--shadow-neu-in)] p-2">
                 <div className="relative w-full h-full rounded-xl overflow-hidden">
@@ -127,12 +127,12 @@ export default function FeaturedProjects() {
                   {project.description}
                 </p>
                 
-                <div className="pt-4 flex flex-wrap gap-3 mt-auto">
+                <div className="pt-4 flex flex-wrap gap-2.5 mt-auto">
                   {project.techStack.map((tech, idx) => (
                     <span 
-                      key={idx}
-                      className="px-4 py-2 text-xs md:text-sm font-bold bg-[var(--color-surface)] text-[var(--color-accent)] 
-                                 rounded-full shadow-[var(--shadow-neu-out)] whitespace-nowrap"
+                      key={idx} 
+                      className="px-3.5 py-1.5 text-xs md:text-sm font-bold bg-[var(--color-surface)] text-[var(--color-accent)] 
+                                 rounded-xl shadow-[var(--shadow-neu-out)] whitespace-nowrap"
                     >
                       {tech}
                     </span>
@@ -150,10 +150,10 @@ export default function FeaturedProjects() {
               type="button"
               onClick={handlePrev}
               disabled={currentPage === 1}
-              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus:outline-none
+              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                 ${currentPage === 1 
                   ? 'bg-[var(--color-surface)] text-gray-400 shadow-[var(--shadow-neu-in)] cursor-not-allowed opacity-50' 
-                  : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)]'
+                  : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)] cursor-pointer'
                 }`}
               aria-label="Previous Page"
             >
@@ -168,10 +168,10 @@ export default function FeaturedProjects() {
               type="button"
               onClick={handleNext}
               disabled={currentPage === totalPages}
-              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus:outline-none
+              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                 ${currentPage === totalPages 
                   ? 'bg-[var(--color-surface)] text-gray-400 shadow-[var(--shadow-neu-in)] cursor-not-allowed opacity-50' 
-                  : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)]'
+                  : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)] cursor-pointer'
                 }`}
               aria-label="Next Page"
             >

@@ -63,10 +63,10 @@ const Achievements = () => {
               </div>
               
               <div className="mt-auto pt-4 flex items-center gap-3">
-                <span className="px-4 py-2 text-xs md:text-sm font-semibold shadow-neu-out rounded-full text-textMain flex-1 text-center bg-surface truncate">
+                <span className="px-4 py-2 text-xs md:text-sm font-semibold shadow-neu-out rounded-xl text-textMain flex-1 text-center bg-surface truncate">
                   {item.role}
                 </span>
-                <span className="px-5 py-2 text-xs md:text-sm font-bold shadow-neu-out rounded-full text-accent bg-surface">
+                <span className="px-5 py-2 text-xs md:text-sm font-bold shadow-neu-out rounded-xl text-accent bg-surface">
                   {item.year}
                 </span>
               </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { Check, X, Clock, User, RefreshCw, ArrowLeft, Reply } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,6 +21,7 @@ interface PendingMessage {
 type FilterType = 'ALL' | 'MAIN' | 'REPLIES';
 
 export default function AdminGuestbookPage() {
+  const router = useRouter();
   const [messages, setMessages] = useState<PendingMessage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -34,18 +36,37 @@ export default function AdminGuestbookPage() {
         const data = await res.json();
         setMessages(data);
       } else if (res.status === 401) {
-        window.location.href = '/';
+        router.replace('/');
       }
     } catch (err) {
       console.error('Failed to fetch pending:', err);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
-    fetchPending();
-  }, [fetchPending]);
+    let ignore = false;
+    (async () => {
+      try {
+        const res = await fetch('/api/admin/guestbook');
+        if (res.ok) {
+          const data = await res.json();
+          if (!ignore) setMessages(data);
+        } else if (res.status === 401) {
+          router.replace('/');
+        }
+      } catch (err) {
+        console.error('Failed to fetch pending:', err);
+      } finally {
+        if (!ignore) setIsLoading(false);
+      }
+    })();
+
+    return () => {
+      ignore = true;
+    };
+  }, [router]);
 
   const showToast = (msg: string) => {
     setToast(msg);

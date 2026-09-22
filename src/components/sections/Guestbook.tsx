@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { MessageSquare, Send, LogIn, LogOut, Clock, User, ChevronLeft, ChevronRight, Heart, Reply } from 'lucide-react';
@@ -29,27 +29,30 @@ const Guestbook = () => {
   const [replyBody, setReplyBody] = useState('');
   const [isReplying, setIsReplying] = useState(false);
   const [likedMessages, setLikedMessages] = useState<Set<string>>(new Set());
+  const [now] = useState<number>(() => Date.now());
 
   const ITEMS_PER_PAGE = 3;
 
-  // Fetch approved messages
-  const fetchMessages = useCallback(async () => {
-    try {
-      const res = await fetch('/api/guestbook');
-      if (res.ok) {
-        const data = await res.json();
-        setMessages(data);
-      }
-    } catch (err) {
-      console.error('Failed to fetch guestbook:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
-    fetchMessages();
-  }, [fetchMessages]);
+    let ignore = false;
+    (async () => {
+      try {
+        const res = await fetch('/api/guestbook');
+        if (res.ok) {
+          const data = await res.json();
+          if (!ignore) setMessages(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch guestbook:', err);
+      } finally {
+        if (!ignore) setIsLoading(false);
+      }
+    })();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   // Show toast notification
   const showToast = (msg: string) => {
@@ -142,7 +145,14 @@ const Guestbook = () => {
 
   // Format relative time
   const timeAgo = (dateStr: string) => {
-    const diff = Date.now() - new Date(dateStr).getTime();
+    if (!now) {
+      return new Date(dateStr).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      });
+    }
+    const diff = now - new Date(dateStr).getTime();
     const mins = Math.floor(diff / 60000);
     if (mins < 1) return 'Just now';
     if (mins < 60) return `${mins} mins ago`;
@@ -180,7 +190,7 @@ const Guestbook = () => {
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          Leave a message, impression, or greeting — with or without logging in.
+          Leave a message, impression, or greeting, with or without logging in.
         </p>
 
         {/* Auth & Form Card */}

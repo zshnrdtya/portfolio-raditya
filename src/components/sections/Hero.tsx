@@ -3,16 +3,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Sparkles, ArrowUpRight } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import ZeeraModal from "@/components/ui/ZeeraModal";
+
+const roles = [
+  "Fullstack Developer",
+  "UI/UX Designer",
+  "Founder of Z - Project"
+];
 
 export default function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const roles = [
-    "Fullstack Developer",
-    "UI/UX Designer",
-    "Founder of Z - Project"
-  ];
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("Fullstack Developer");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -37,7 +38,7 @@ export default function Hero() {
     }, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [displayText, currentRoleIndex, isDeleting, roles]);
+  }, [displayText, currentRoleIndex, isDeleting]);
 
   return (
     <section id="home" className="min-h-[75vh] flex flex-col md:flex-row items-center justify-center relative overflow-hidden pt-32 pb-8 bg-[var(--color-surface)]">
@@ -67,22 +68,21 @@ export default function Hero() {
           
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-5 flex-wrap">
             <Link href="#contact" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none cursor-pointer">
+              <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 cursor-pointer">
                 Hire Me
               </button>
             </Link>
             <a href="/cv/CV - Raditya Rai Zeeshan.pdf" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-textMain)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none cursor-pointer">
+              <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-textMain)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 cursor-pointer">
                 Download CV
               </button>
             </a>
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] transition-all duration-200 focus:outline-none flex items-center justify-center gap-2 group cursor-pointer border border-[var(--color-accent)]/20"
+              className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 flex items-center justify-center gap-2.5 group cursor-pointer border border-[var(--color-accent)]/20"
             >
-              <Sparkles className="w-5 h-5 text-[var(--color-accent)] group-hover:rotate-12 transition-transform duration-300" />
+              <MessageSquare className="w-5 h-5 text-[var(--color-accent)] group-hover:scale-110 transition-transform duration-200" />
               <span>Try Zeera AI</span>
-              <ArrowUpRight className="w-4 h-4 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 transition-all duration-200" />
             </button>
           </div>
         </div>

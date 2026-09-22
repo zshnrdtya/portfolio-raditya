@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Sparkles, Loader2, Minus, Maximize2, Minimize2 } from "lucide-react";
+import { X, ExternalLink, MessageSquare, Loader2, Minus, Maximize2, Minimize2 } from "lucide-react";
 
 interface ZeeraModalProps {
   isOpen: boolean;
@@ -114,7 +114,7 @@ export default function ZeeraModal({
                 {/* Left: Branding & Status */}
                 <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
                   <div className="p-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] text-[var(--color-accent)] shrink-0">
-                    <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 sm:gap-2">
@@ -140,7 +140,7 @@ export default function ZeeraModal({
                   <button
                     onClick={() => setIsMinimized(true)}
                     title="Minimize (Kecilkan ke sudut)"
-                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] transition-all cursor-pointer"
+                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
                     aria-label="Minimize"
                   >
                     <Minus className="w-3.5 h-3.5" />
@@ -150,7 +150,7 @@ export default function ZeeraModal({
                   <button
                     onClick={() => setIsMaximized(!isMaximized)}
                     title={isMaximized ? "Kembalikan ke Tampilan HP" : "Maksimalkan Tampilan"}
-                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] transition-all cursor-pointer"
+                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
                     aria-label={isMaximized ? "Restore Mobile View" : "Maximize View"}
                   >
                     {isMaximized ? (
@@ -166,7 +166,7 @@ export default function ZeeraModal({
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Buka di tab baru"
-                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] transition-all cursor-pointer"
+                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
                     aria-label="Open in new tab"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -176,7 +176,7 @@ export default function ZeeraModal({
                   <button
                     onClick={handleClose}
                     title="Tutup"
-                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-red-600 active:shadow-[var(--shadow-neu-in)] transition-all cursor-pointer"
+                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-red-600 active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
                     aria-label="Close"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -220,7 +220,7 @@ export default function ZeeraModal({
               aria-label="Kembalikan Zeera AI"
             >
               <div className="p-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] text-[var(--color-accent)]">
-                <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+                <MessageSquare className="w-3.5 h-3.5 animate-pulse" />
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="font-poppins font-bold text-xs text-[var(--color-textMain)]">

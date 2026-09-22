@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-// PATCH /api/guestbook/like — Increment likes on a message
+// PATCH /api/guestbook/like - Increment likes on a message
 export async function PATCH(req: NextRequest) {
   try {
     const { id } = await req.json();
