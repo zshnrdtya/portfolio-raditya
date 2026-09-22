@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🌐 Portfolio Website — Raditya Rai Zeeshan
+# 🌐 Portfolio Website - Raditya Rai Zeeshan
 
-**Personal Portfolio of Raditya Rai Zeeshan — Full-Stack Web Developer, UI/UX Designer & Founder of Z - Project.**
+**Personal Portfolio of Raditya Rai Zeeshan - Full-Stack Web Developer, UI/UX Designer & Founder of Z - Project.**
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2-61dafb?style=for-the-badge&logo=react)](https://react.dev/)
@@ -18,13 +18,13 @@
 ---
 
 > [!CAUTION]
-> ### ⛔ PERINGATAN KERAS: DILARANG CLONE & DUPLIKASI (STRICTLY NO CLONING / DUPLICATION)
+> ### ⛔ PERINGATAN: DILARANG CLONE & DUPLIKASI (STRICTLY NO CLONING / DUPLICATION)
 >
-> **REPOSITORI DAN KESELURUHAN PROYEK INI BERSIFAT PRIBADI DAN DILINDUNGI HAK CIPTA.**
+> **Repositori dan keseluruhan proyek ini bersifat pribadi serta dilindungi hak cipta.**
 > 
-> 1. **DILARANG KERAS** meng-clone (*git clone*), men-download, menggandakan, membuat salinan (*duplikat*), mengklaim ulang, ataupun mem-fork repositori ini untuk keperluan publikasi ulang atau pembuatan website serupa.
-> 2. **DILARANG MENGAMBIL ASET PRIBADI**: Seluruh aset identitas personal di dalam proyek ini — termasuk foto pribadi, logo identitas (*Z - Project*, *RRZ*), sertifikat, piagam penghargaan, kartu identitas 3D nametag, portofolio karya, dan CV — adalah milik eksklusif **Raditya Rai Zeeshan**.
-> 3. **HAK KEKAYAAN INTELEKTUAL (HAKI)**: Seluruh arsitektur kode, sistem desain *Neumorphism*, tata letak, komponen interaktif, dan implementasi logika dilindungi hak cipta. Penggunaan tanpa izin tertulis dari pemilik sah adalah tindakan **plagiarisme** yang melanggar hukum dan etika hak cipta digital.
+> 1. **Dilarang keras** meng-clone (*git clone*), men-download, menggandakan, membuat salinan (*duplikat*), mengklaim ulang, ataupun mem-fork repositori ini untuk keperluan publikasi ulang atau pembuatan website serupa.
+> 2. **Dilarang mengambil aset pribadi**: Seluruh aset identitas personal di dalam proyek ini (termasuk foto pribadi, logo identitas *Z - Project* & *RRZ*, sertifikat, piagam penghargaan, kartu identitas 3D nametag, portofolio karya, dan CV) adalah milik eksklusif **Raditya Rai Zeeshan**.
+> 3. **Hak Kekayaan Intelektual (HAKI)**: Seluruh arsitektur kode, sistem desain *Neumorphism*, tata letak, komponen interaktif, dan implementasi logika dilindungi hak cipta. Penggunaan tanpa izin tertulis dari pemilik sah adalah tindakan **plagiarisme** yang melanggar hukum dan etika hak cipta digital.
 >
 > *Repositori ini dipublikasikan secara publik semata-mata sebagai etalase showcase karya orisinal, BUKAN sebagai template atau boilerplate gratis.*
 
@@ -32,13 +32,13 @@
 
 ## 📖 Tentang Proyek
 
-Website portofolio interaktif modern yang dibangun oleh **Raditya Rai Zeeshan** (siswa Software and Game Development / PPLG di SMKN 1 Depok). Mengusung estetika visual **Neumorphism (Soft UI)** dengan palet warna lembut *Soft Mint / Sage Green* (`#C6E0D2`) dipadukan dengan aksen *Bold Emerald* (`#178358`).
+Website portofolio interaktif modern yang dibangun oleh **Raditya Rai Zeeshan** (siswa Software and Game Development / PPLG di SMKN 1 Depok). Mengusung estetika visual **Neumorphism (Soft UI)** dengan palet warna lembut *Soft Mint / Sage Green* (`#C6E0D2`) dipadukan dengan aksen *Deep Emerald* (`#136846`) yang dikalibrasi memenuhi standar aksesibilitas WCAG AA.
 
-Portofolio ini bukan sekadar landing page statis, melainkan aplikasi web full-stack modern yang terhubung ke database PostgreSQL, dilengkapi sistem otentikasi buku tamu, moderasi dashboard admin, formulir kontak terintegrasi, dan animasi interaktif berbasis fisika 3D.
+Portofolio ini merupakan aplikasi web full-stack modern yang terhubung ke database PostgreSQL, dilengkapi sistem otentikasi buku tamu, moderasi dashboard admin, formulir kontak terintegrasi, dan animasi interaktif berbasis fisika 3D.
 
 ---
 
-## ✨ Fitur-Fitur Utama
+## Fitur-Fitur Utama
 
 ### 1. ⚡ Splash Screen Animatif
 - Tampilan pembuka animasi squircle logo **RRZ** yang berdenyut halus.
@@ -69,9 +69,9 @@ Portofolio ini bukan sekadar landing page statis, melainkan aplikasi web full-st
 
 ### 5. 🪪 Experience & Interactive 3D Draggable Lanyards
 - Riwayat karier & kepemimpinan:
-  - **Founder & Project Manager** — *Z - Project* (Layanan penulisan akademik, desain presentasi PPT, CV ATS-friendly, dan solusi grafis).
-  - **Assistant Coach & Head of Equipment** — *Al-Hidayah Marching Band* (Manajemen alat, sinkronisasi, dan kepemimpinan tim).
-  - **FullStack Developer (Internship)** — *Indi Technology* (Pengembangan company profile modern, 3D scrollytelling, deployment, dan QA testing).
+  - **Founder & Project Manager** - *Z - Project* (Layanan penulisan akademik, desain presentasi PPT, CV ATS-friendly, dan solusi grafis).
+  - **Assistant Coach & Head of Equipment** - *Al-Hidayah Marching Band* (Manajemen alat, sinkronisasi, dan kepemimpinan tim).
+  - **FullStack Developer (Internship)** - *Indi Technology* (Pengembangan company profile modern, 3D scrollytelling, deployment, dan QA testing).
 - **Fitur Spesial Identity Display**: Dua kartu ID Card / Nametag fisik dengan tali lanyard (Al-Hidayah & Indi Technology) yang dapat ditarik (*draggable*) secara bebas menggunakan simulasi pegas elastis dan fisika realistis bertenaga **Framer Motion**.
 
 ### 6. 🏆 Achievements & Penghargaan

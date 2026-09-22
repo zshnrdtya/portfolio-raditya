@@ -1,4 +1,4 @@
-// Next.js uses .env.local — load it explicitly for Prisma CLI
+// Next.js uses .env.local - load it explicitly for Prisma CLI
 import { config } from "dotenv";
 config({ path: ".env.local", override: true });
 
