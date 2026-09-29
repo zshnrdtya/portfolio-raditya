@@ -1,4 +1,4 @@
-import SplashScreen from "@/components/ui/SplashScreen";
+import IntroWrapper from "@/components/intro/IntroWrapper";
 import Hero from "@/components/sections/Hero";
 import Statistics from "@/components/sections/Statistics";
 import TechSlider from "@/components/sections/TechSlider";
@@ -15,7 +15,7 @@ import Contact from "@/components/sections/Contact";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col bg-[var(--color-surface)]">
-      <SplashScreen />
+      <IntroWrapper />
       <Hero />
       <Statistics />
       <TechSlider />
