@@ -8,6 +8,7 @@
 [![React](https://img.shields.io/badge/React-19.2-61dafb?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+[![Three.js](https://img.shields.io/badge/Three.js-r186-black?style=for-the-badge&logo=three.js)](https://threejs.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-v7-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Supabase-4169e1?style=for-the-badge&logo=postgresql)](https://supabase.com/)
 
@@ -40,10 +41,21 @@ Portofolio ini merupakan aplikasi web full-stack modern yang terhubung ke databa
 
 ## Fitur-Fitur Utama
 
-### 1. ⚡ Splash Screen Animatif
-- Tampilan pembuka animasi squircle logo **RRZ** yang berdenyut halus.
-- Kutipan filosofi hidup: *"It's not the problem that is flawed; fix the mindset, and the problem solves itself."*
-- Bar progres animasi mulus sebelum membuka halaman utama.
+### 1. 🎮 3D Walk to the House Intro Experience (Three.js & Web Audio API)
+- **Eksplorasi Pembuka Interaktif**: Menggantikan splash screen statis dengan pengalaman 3D Three.js real-time di mana pengunjung mengendalikan karakter berjalan melintasi halaman taman menuju pintu rumah Raditya.
+- **Kontrol Responsif Fleksibel**:
+  - **Desktop**: Navigasi lancar menggunakan keyboard (`W`, `A`, `S`, `D` atau tombol panah).
+  - **Mobile / Layar Sentuh**: Virtual D-Pad ergonomis pada sudut kiri bawah layar dengan umpan balik visual saat ditekan.
+- **Plang Kayu Selamat Datang**: Papan plang kayu (*signpost*) berdiri kokoh di sisi jalur setapak dengan teks bertuliskan *"✨ WELCOME TO HOME ✨ RADITYA RZ!"* menggunakan tekstur procedural canvas resolusi tinggi (1024x512).
+- **Audio Prosedural Real-Time**: Ditenagai Web Audio API murni tanpa file audio statis:
+  - Suara langkah kaki berirama saat berjalan di atas rumput dan batu setapak.
+  - Ambien jangkrik malam yang menenangkan.
+  - Denting lonceng dan engsel pintu saat pemain mendekati pintu masuk rumah.
+- **Transisi Sinematik & Kontrol Penuh**:
+  - Kamera melakukan zoom-in ke pintu rumah dengan fade-out mulus saat transisi ke beranda utama portofolio.
+  - Tombol **Lewati Intro (`Esc`)** untuk akses cepat langsung ke halaman utama.
+  - Tombol **Mute / Unmute Audio** untuk preferensi suara pengguna.
+  - Tombol **Ulangi 3D Intro** pada bagian Footer sehingga pengunjung dapat memainkan kembali intro 3D kapan saja.
 
 ### 2. 🎯 Hero Section Interaktif & Integrasi Zeera AI (Mobile Mockup Layout)
 - Animasi ketik otomatis (*typewriter effect*) untuk beragam peran: Fullstack Developer, UI/UX Designer, Founder of Z - Project.
@@ -128,6 +140,8 @@ Portofolio ini merupakan aplikasi web full-stack modern yang terhubung ke databa
 | **Core Framework** | [Next.js 16 (App Router)](https://nextjs.org/) | Server Components, Server Actions & Route Handlers |
 | **Library UI** | [React 19](https://react.dev/) | React Hooks & Modern DOM Lifecycle |
 | **Language** | [TypeScript](https://www.typescriptlang.org/) | Type-safe development di seluruh codebase |
+| **3D Graphics & WebGL** | [Three.js r186](https://threejs.org/) | Rendering WebGL 3D, pencahayaan bayangan, dan geometri prosedural |
+| **Procedural Audio** | [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) | Sintesis audio real-time tanpa file audio statis |
 | **Styling & Theme** | [Tailwind CSS v4](https://tailwindcss.com/) + Custom CSS | Sistem desain Neumorphism (Soft UI) berbasis CSS Variables |
 | **Animations** | [Framer Motion](https://www.framer.com/motion/) & [AOS](https://michalsnik.github.io/aos/) | 3D physics drag, smooth layout transitions & scroll reveal |
 | **Icons** | [Lucide React](https://lucide.dev/) | Icon library modern dan ringan |
@@ -142,6 +156,7 @@ Portofolio ini merupakan aplikasi web full-stack modern yang terhubung ke databa
 
 ```text
 portfolio-website/
+├── PRD-3D-Intro-Portfolio.md       # Spesifikasi kebutuhan produk intro 3D
 ├── prisma/
 │   └── schema.prisma              # Skema database (ContactMessage, ProjectStat, Guestbook)
 ├── prisma.config.ts               # Konfigurasi koneksi Prisma v7
@@ -161,15 +176,21 @@ portfolio-website/
 │   │   │   └── projects/stats/    # API pencatat like & view proyek
 │   │   ├── dashraditya/           # Halaman Dashboard Moderasi Admin
 │   │   ├── globals.css            # Variabel CSS Neumorphism, font, dan keyframes
-│   │   ├── layout.tsx             # Root layout, metadata SEO, provider
-│   │   └── page.tsx               # Halaman utama menggabungkan seluruh komponen section
+│   │   ├── layout.tsx             # Root layout, metadata SEO, IntroProvider
+│   │   └── page.tsx               # Halaman utama menggabungkan intro 3D & seluruh section
 │   ├── components/
-│   │   ├── layout/                # Navbar (desktop & mobile dock), Footer
+│   │   ├── intro/                 # Modul Intro 3D "Walk to the House"
+│   │   │   ├── engine/            # Logika Three.js (player, world, house, audio, controls, collision)
+│   │   │   ├── ui/                # UI overlay (DPad mobile, Mute, Skip, Replay button)
+│   │   │   ├── IntroProvider.tsx  # Global state manager intro & replay
+│   │   │   ├── IntroScene.tsx     # Three.js canvas & render loop
+│   │   │   └── IntroWrapper.tsx   # Client wrapper pembuka website
+│   │   ├── layout/                # Navbar (desktop & mobile dock), Footer (tombol ulangi intro)
 │   │   ├── providers/             # AOS Provider & Session Provider
 │   │   ├── sections/              # Hero, Stats, TechSlider, Experience, IdentityDisplay,
 │   │   │                          # Achievements, Projects, Design, About, Gallery,
 │   │   │                          # Testimonials, Guestbook, Contact
-│   │   └── ui/                    # SplashScreen, ZeeraModal
+│   │   └── ui/                    # ZeeraModal & UI helper
 │   └── lib/
 │       ├── auth.ts                # Konfigurasi NextAuth v5
 │       └── prisma.ts              # Inisialisasi Prisma Client dengan pg adapter
