@@ -49,42 +49,58 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 1.25rem;
   flex-wrap: wrap;
 }
 
 @media (min-width: 640px) {
   .identity-cards-row {
-    gap: 3.5rem;
+    gap: 1.5rem;
   }
 }
 
-/* ---------- Individual card wrapper ---------- */
+@media (min-width: 768px) {
+  .identity-cards-row {
+    gap: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .identity-cards-row {
+    gap: 2.5rem;
+  }
+}
+
 .lanyard-card-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* room for lanyard strap above */
-  padding-top: 100px;
-  width: 160px;
+  padding-top: 95px;
+  width: 140px;
 }
 
 @media (min-width: 640px) {
   .lanyard-card-wrapper {
-    padding-top: 130px;
-    width: 220px;
+    padding-top: 115px;
+    width: 175px;
   }
 }
 
 @media (min-width: 768px) {
   .lanyard-card-wrapper {
-    padding-top: 150px;
-    width: 260px;
+    padding-top: 130px;
+    width: 205px;
   }
 }
 
-/* ---------- Lanyard strap positioner (centering wrapper) ---------- */
+@media (min-width: 1024px) {
+  .lanyard-card-wrapper {
+    padding-top: 145px;
+    width: 235px;
+  }
+}
+
 .lanyard-strap-positioner {
   position: absolute;
   top: 0;
@@ -94,10 +110,9 @@
   pointer-events: none;
 }
 
-/* ---------- Lanyard strap (the fabric part) ---------- */
 .lanyard-strap {
   width: 18px;
-  height: 105px;
+  height: 100px;
   border-radius: 4px 4px 0 0;
   transform-origin: top center;
   overflow: hidden;
@@ -105,19 +120,25 @@
 
 @media (min-width: 640px) {
   .lanyard-strap {
-    width: 22px;
-    height: 135px;
+    width: 20px;
+    height: 120px;
   }
 }
 
 @media (min-width: 768px) {
   .lanyard-strap {
-    width: 24px;
-    height: 155px;
+    width: 22px;
+    height: 135px;
   }
 }
 
-/* Fabric texture (woven-look with repeating gradient) */
+@media (min-width: 1024px) {
+  .lanyard-strap {
+    width: 24px;
+    height: 150px;
+  }
+}
+
 .lanyard-strap-inner {
   width: 100%;
   height: 100%;
@@ -149,7 +170,7 @@
   );
 }
 
-/* Maroon lanyard (Karang Taruna) */
+/* Maroon lanyard (Karang Taruna 424) */
 .lanyard-maroon {
   background: linear-gradient(
     180deg,
@@ -174,25 +195,58 @@
   );
 }
 
-/* ---------- Metallic clip positioner (centering wrapper) ---------- */
+/* Amber lanyard (Karang Taruna RT 04 - Humas & PDD) */
+.lanyard-amber {
+  background: linear-gradient(
+    180deg,
+    #d97706 0%,
+    #b45309 30%,
+    #92400e 60%,
+    #78350f 100%
+  );
+  box-shadow:
+    inset 2px 0 4px rgba(255, 255, 255, 0.25),
+    inset -2px 0 4px rgba(0, 0, 0, 0.25),
+    2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.lanyard-amber .lanyard-strap-inner {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(255, 255, 255, 0.08) 3px,
+    rgba(255, 255, 255, 0.08) 4px
+  );
+}
+
 .lanyard-clip-positioner {
   position: absolute;
-  top: 90px;
+  top: 86px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
   pointer-events: none;
 }
 
-/* ---------- Metallic clip ---------- */
 .lanyard-clip {
-  width: 28px;
-  height: 32px;
+  width: 26px;
+  height: 30px;
 }
 
 @media (min-width: 640px) {
   .lanyard-clip-positioner {
-    top: 118px;
+    top: 105px;
+  }
+  .lanyard-clip {
+    width: 28px;
+    height: 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  .lanyard-clip-positioner {
+    top: 119px;
   }
   .lanyard-clip {
     width: 32px;
@@ -200,9 +254,9 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .lanyard-clip-positioner {
-    top: 136px;
+    top: 133px;
   }
   .lanyard-clip {
     width: 36px;

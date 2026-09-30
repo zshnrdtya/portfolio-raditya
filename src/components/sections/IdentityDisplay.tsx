@@ -8,26 +8,24 @@ import './IdentityDisplay.css';
 interface CardProps {
   src: string;
   alt: string;
-  lanyardColor: 'blue' | 'maroon';
+  lanyardColor: 'blue' | 'maroon' | 'amber';
 }
 
 const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
-  const lanyardClass = lanyardColor === 'blue' ? 'lanyard-blue' : 'lanyard-maroon';
+  const lanyardClass =
+    lanyardColor === 'blue'
+      ? 'lanyard-blue'
+      : lanyardColor === 'maroon'
+      ? 'lanyard-maroon'
+      : 'lanyard-amber';
 
-  // Track the card's vertical drag displacement
   const dragY = useMotionValue(0);
-
-  // Map drag Y → lanyard scaleY (stretch effect)
   const strapScaleY = useTransform(dragY, [0, 120], [1, 1.9]);
-
-  // Map drag Y → clip vertical offset (follows the card down)
   const clipY = useTransform(dragY, [0, 120], [0, 70]);
 
   return (
     <div className="lanyard-card-wrapper" data-aos="fade-up">
-      {/* Positioning wrapper for strap - handles centering via CSS */}
       <div className="lanyard-strap-positioner">
-        {/* Animated strap - only scaleY, no translateX conflict */}
         <motion.div
           className={`lanyard-strap ${lanyardClass}`}
           style={{ scaleY: strapScaleY }}
@@ -36,9 +34,7 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
         </motion.div>
       </div>
 
-      {/* Positioning wrapper for clip - handles centering via CSS */}
       <div className="lanyard-clip-positioner">
-        {/* Animated clip - only y offset */}
         <motion.div
           className="lanyard-clip"
           style={{ y: clipY }}
@@ -51,7 +47,6 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
         </motion.div>
       </div>
 
-      {/* Draggable ID card */}
       <motion.div
         className="id-card-3d"
         drag={true}
@@ -67,7 +62,7 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
             alt={alt}
             width={600}
             height={900}
-            sizes="(max-width: 768px) 45vw, 280px"
+            sizes="(max-width: 640px) 42vw, (max-width: 1024px) 28vw, 240px"
             className="id-card-image"
             draggable={false}
             priority
@@ -81,7 +76,6 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
 const IdentityDisplay: React.FC = () => {
   return (
     <div className="identity-display-section" data-aos="fade-up">
-      {/* Section subtitle */}
       <div className="identity-heading">
         <span className="identity-heading-line" />
         <h3 className="identity-heading-text font-poppins">
@@ -90,7 +84,6 @@ const IdentityDisplay: React.FC = () => {
         <span className="identity-heading-line" />
       </div>
 
-      {/* Two cards side by side */}
       <div className="identity-cards-row">
         <LanyardCard
           src="/foto-raditya/raditya (1).png"
@@ -101,6 +94,11 @@ const IdentityDisplay: React.FC = () => {
           src="/foto-raditya/raditya (2).png"
           alt="ID Card Karang Taruna 424 - Zeeshan, Koor Perlengkapan"
           lanyardColor="maroon"
+        />
+        <LanyardCard
+          src="/foto-raditya/raditya(3).png"
+          alt="ID Card Karang Taruna RT 04 - Rai, Koor Humas & PDD"
+          lanyardColor="amber"
         />
       </div>
     </div>

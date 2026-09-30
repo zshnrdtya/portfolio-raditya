@@ -84,7 +84,7 @@ Portofolio ini merupakan aplikasi web full-stack modern yang terhubung ke databa
   - **Founder & Project Manager** - *Z - Project* (Layanan penulisan akademik, desain presentasi PPT, CV ATS-friendly, dan solusi grafis).
   - **Assistant Coach & Head of Equipment** - *Al-Hidayah Marching Band* (Manajemen alat, sinkronisasi, dan kepemimpinan tim).
   - **FullStack Developer (Internship)** - *Indi Technology* (Pengembangan company profile modern, 3D scrollytelling, deployment, dan QA testing).
-- **Fitur Spesial Identity Display**: Dua kartu ID Card / Nametag fisik dengan tali lanyard (Al-Hidayah & Indi Technology) yang dapat ditarik (*draggable*) secara bebas menggunakan simulasi pegas elastis dan fisika realistis bertenaga **Framer Motion**.
+- **Fitur Spesial Identity Display**: Tiga kartu ID Card / Nametag fisik dengan tali lanyard interaktif (Indi Technology, Karang Taruna 424, dan Karang Taruna RT 04) yang dapat ditarik (*draggable*) secara bebas menggunakan simulasi pegas elastis dan fisika realistis bertenaga **Framer Motion**.
 
 ### 6. 🏆 Achievements & Penghargaan
 - Kartu Neumorphic daftar kejuaraan dan pencapaian resmi dalam kompetisi Marching Band dan Drum Battle tingkat regional hingga nasional.
