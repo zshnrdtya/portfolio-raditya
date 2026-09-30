@@ -156,7 +156,6 @@ Portofolio ini merupakan aplikasi web full-stack modern yang terhubung ke databa
 
 ```text
 portfolio-website/
-├── PRD-3D-Intro-Portfolio.md       # Spesifikasi kebutuhan produk intro 3D
 ├── prisma/
 │   └── schema.prisma              # Skema database (ContactMessage, ProjectStat, Guestbook)
 ├── prisma.config.ts               # Konfigurasi koneksi Prisma v7
