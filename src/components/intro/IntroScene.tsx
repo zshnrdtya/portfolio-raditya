@@ -98,7 +98,9 @@ export default function IntroScene() {
       if (!canvas || isDisposed) return;
       const width = window.innerWidth;
       const height = window.innerHeight;
-      camera.aspect = width / height;
+      const aspect = width / height;
+      camera.aspect = aspect;
+      camera.fov = aspect < 1.0 ? 58 : 45;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height, false);
     };
@@ -207,7 +209,7 @@ export default function IntroScene() {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] w-screen h-screen overflow-hidden bg-[#C6E0D2] select-none"
+      className="fixed inset-0 z-[9999] w-full h-[100dvh] overflow-hidden bg-[#C6E0D2] select-none"
       style={{ touchAction: "none" }}
     >
       {/* 3D Canvas */}
@@ -220,31 +222,32 @@ export default function IntroScene() {
       {isLoading && <LoadingOverlay />}
 
       {/* Top Bar Controls (Skip & Mute) */}
-      <div className="absolute top-6 right-6 z-40 flex items-center gap-3">
+      <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-40 flex items-center gap-2 sm:gap-3 pr-[env(safe-area-inset-right)] pt-[env(safe-area-inset-top)]">
         <MuteButton isMuted={isAudioMuted} onToggle={handleToggleMute} />
         <SkipButton onSkip={skipIntro} />
       </div>
 
       {/* Atmospheric Branding Title (Top Left) */}
-      <div className="absolute top-6 left-6 z-30 pointer-events-none select-none">
-        <span className="inline-block px-4 py-2 rounded-full bg-[#C6E0D2]/90 backdrop-blur-sm shadow-[4px_4px_10px_rgba(150,175,161,0.7),-4px_-4px_10px_rgba(255,255,255,0.8)] border border-white/40 text-xs font-poppins font-bold text-[#284435] tracking-wide">
-          Walk to the House
+      <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-30 pointer-events-none select-none pl-[env(safe-area-inset-left)] pt-[env(safe-area-inset-top)]">
+        <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#C6E0D2]/90 backdrop-blur-sm shadow-[4px_4px_10px_rgba(150,175,161,0.7),-4px_-4px_10px_rgba(255,255,255,0.8)] border border-white/40 text-xs font-poppins font-bold text-[#284435] tracking-wide">
+          <span className="hidden sm:inline">Walk to the House</span>
+          <span className="sm:hidden">Walk 🏡</span>
         </span>
       </div>
 
-      {/* Controls Hint Banner (Fades out once character moves) */}
+      {/* Controls Hint Banner (Fades out once character moves, placed near top on mobile to avoid covering the joystick) */}
       {!hasMoved && !isLoading && (
-        <div className="absolute bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 z-30 pointer-events-none text-center px-4 max-w-sm sm:max-w-md animate-bounce duration-1000">
-          <div className="inline-block px-5 py-3 rounded-2xl bg-[#C6E0D2]/95 backdrop-blur-md shadow-[8px_8px_18px_rgba(150,175,161,0.8),-8px_-8px_18px_rgba(255,255,255,0.95)] border border-white/50">
+        <div className="absolute top-20 md:top-auto md:bottom-12 left-1/2 -translate-x-1/2 z-30 pointer-events-none text-center px-4 max-w-xs sm:max-w-md animate-bounce duration-1000">
+          <div className="inline-block px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-[#C6E0D2]/95 backdrop-blur-md shadow-[8px_8px_18px_rgba(150,175,161,0.8),-8px_-8px_18px_rgba(255,255,255,0.95)] border border-white/50">
             <p className="font-poppins font-semibold text-xs sm:text-sm text-[#284435]">
               <span className="hidden md:inline">Gunakan tombol <strong>W, A, S, D</strong> atau <strong>Panah</strong></span>
-              <span className="md:hidden">Gunakan tombol arah di layar</span> untuk berjalan ke rumah 🏡
+              <span className="md:hidden">Gerakkan joystick virtual</span> untuk berjalan ke rumah 🏡
             </p>
           </div>
         </div>
       )}
 
-      {/* Mobile On-Screen D-Pad */}
+      {/* Mobile On-Screen 360° Virtual Joystick */}
       <DPad onDirectionChange={handleDPadChange} />
 
       {/* Screen Fade Overlay (Fade to warm white when entering the doorway) */}

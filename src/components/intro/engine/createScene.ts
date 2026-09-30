@@ -22,16 +22,18 @@ export function createScene(canvas: HTMLCanvasElement): SceneContext {
   scene.background = skyColor;
   scene.fog = new THREE.Fog(0xc6e0d2, 14, 36);
 
-  // 2. Camera
+  // Camera with adaptive vertical FOV for portrait viewports
+  const initialAspect = canvas.clientWidth / (canvas.clientHeight || 1);
+  const initialFov = initialAspect < 1.0 ? 58 : 45;
   const camera = new THREE.PerspectiveCamera(
-    45,
-    canvas.clientWidth / canvas.clientHeight,
+    initialFov,
+    initialAspect,
     0.1,
     70
   );
   camera.position.set(0, 3.4, 12.5);
 
-  // 3. Renderer with performance optimizations
+  // Renderer with performance optimizations
   const renderer = new THREE.WebGLRenderer({
     canvas,
     antialias: true,
@@ -49,13 +51,11 @@ export function createScene(canvas: HTMLCanvasElement): SceneContext {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
 
-  // 4. Lighting
-  // Soft Hemisphere light (Sky soft blue, ground sage)
+  // Lighting
   const hemiLight = new THREE.HemisphereLight(0xe0f2fe, 0xb8d8c6, 0.9);
   hemiLight.position.set(0, 20, 0);
   scene.add(hemiLight);
 
-  // Warm sunlight casting soft directional shadows
   const dirLight = new THREE.DirectionalLight(0xfffaea, 1.35);
   dirLight.position.set(8, 14, 10);
   dirLight.castShadow = true;
@@ -70,12 +70,10 @@ export function createScene(canvas: HTMLCanvasElement): SceneContext {
   dirLight.shadow.bias = -0.0004;
   scene.add(dirLight);
 
-  // Ambient fill
   const ambientLight = new THREE.AmbientLight(0xc6e0d2, 0.4);
   scene.add(ambientLight);
 
-  // 5. Camera follow smoother
-  const cameraOffset = new THREE.Vector3(0, 2.4, 4.8);
+  // Camera follow smoother
   const lookTarget = new THREE.Vector3(0, 1.0, 0);
 
   const updateCamera = (
@@ -84,18 +82,22 @@ export function createScene(canvas: HTMLCanvasElement): SceneContext {
     isEnteringDoor: boolean = false
   ) => {
     if (isEnteringDoor) {
-      // Zoom smoothly into the open doorway
       const doorwayTarget = new THREE.Vector3(0, 1.8, -7.5);
       camera.position.lerp(doorwayTarget, Math.min(1, delta * 3.0));
       lookTarget.lerp(new THREE.Vector3(0, 1.4, -9.0), Math.min(1, delta * 3.5));
       camera.lookAt(lookTarget);
     } else {
-      // Standard smooth third-person follow
-      const desiredPos = playerPos.clone().add(cameraOffset);
-      // Soft damping
+      // Dynamic camera offset: pull back further in portrait to prevent path and signpost cropping
+      const isPortrait = camera.aspect < 1.0;
+      const targetOffset = isPortrait
+        ? new THREE.Vector3(0, 3.1, 6.0)
+        : new THREE.Vector3(0, 2.4, 4.8);
+
+      const desiredPos = playerPos.clone().add(targetOffset);
       camera.position.lerp(desiredPos, Math.min(1, delta * 5.5));
 
-      const desiredLook = new THREE.Vector3(playerPos.x, playerPos.y + 0.85, playerPos.z - 0.5);
+      const lookYOffset = isPortrait ? 1.0 : 0.85;
+      const desiredLook = new THREE.Vector3(playerPos.x, playerPos.y + lookYOffset, playerPos.z - 0.5);
       lookTarget.lerp(desiredLook, Math.min(1, delta * 6.5));
       camera.lookAt(lookTarget);
     }
