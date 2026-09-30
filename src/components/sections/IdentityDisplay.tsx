@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import './IdentityDisplay.css';
@@ -12,6 +12,9 @@ interface CardProps {
 }
 
 const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [strapBaseHeight, setStrapBaseHeight] = useState(125);
+
   const lanyardClass =
     lanyardColor === 'blue'
       ? 'lanyard-blue'
@@ -19,42 +22,72 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
       ? 'lanyard-maroon'
       : 'lanyard-amber';
 
+  const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
-  const strapScaleY = useTransform(dragY, [0, 120], [1, 1.9]);
-  const clipY = useTransform(dragY, [0, 120], [0, 70]);
+
+  useEffect(() => {
+    const updateStrapMetrics = () => {
+      if (cardRef.current) {
+        const cardTop = cardRef.current.offsetTop;
+        const ringY = Math.max(60, cardTop - 16);
+        setStrapBaseHeight(ringY);
+      }
+    };
+
+    updateStrapMetrics();
+    window.addEventListener('resize', updateStrapMetrics);
+    return () => window.removeEventListener('resize', updateStrapMetrics);
+  }, []);
+
+  const strapScaleY = useTransform([dragX, dragY], ([x, y]) => {
+    const dx = typeof x === 'number' ? x : 0;
+    const dy = typeof y === 'number' ? y : 0;
+    const distance = Math.hypot(dx, strapBaseHeight + dy);
+    return Math.max(0.1, distance / strapBaseHeight);
+  });
+
+  const strapRotate = useTransform([dragX, dragY], ([x, y]) => {
+    const dx = typeof x === 'number' ? x : 0;
+    const dy = typeof y === 'number' ? y : 0;
+    return Math.atan2(dx, strapBaseHeight + dy) * (180 / Math.PI);
+  });
+
+  const cardRotate = useTransform(dragX, [-80, 80], [-7, 7]);
 
   return (
     <div className="lanyard-card-wrapper" data-aos="fade-up">
       <div className="lanyard-strap-positioner">
         <motion.div
           className={`lanyard-strap ${lanyardClass}`}
-          style={{ scaleY: strapScaleY }}
+          style={{
+            height: strapBaseHeight,
+            scaleY: strapScaleY,
+            rotate: strapRotate,
+          }}
         >
           <div className="lanyard-strap-inner" />
         </motion.div>
       </div>
 
-      <div className="lanyard-clip-positioner">
-        <motion.div
-          className="lanyard-clip"
-          style={{ y: clipY }}
-        >
-          <div className="clip-body">
-            <div className="clip-jaw clip-jaw-left" />
-            <div className="clip-jaw clip-jaw-right" />
-            <div className="clip-ring" />
-          </div>
-        </motion.div>
-      </div>
-
       <motion.div
+        ref={cardRef}
         className="id-card-3d"
         drag={true}
-        dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-        dragElastic={0.4}
-        style={{ y: dragY }}
-        whileDrag={{ scale: 1.03 }}
+        dragConstraints={{ top: 0, left: -70, right: 70, bottom: 240 }}
+        dragElastic={0.25}
+        style={{ x: dragX, y: dragY, rotate: cardRotate }}
+        whileDrag={{ scale: 1.02 }}
       >
+        <div className="lanyard-clip-on-card">
+          <div className="lanyard-clip">
+            <div className="clip-body">
+              <div className="clip-jaw clip-jaw-left" />
+              <div className="clip-jaw clip-jaw-right" />
+              <div className="clip-ring" />
+            </div>
+          </div>
+        </div>
+
         <div className="card-hole-punch" />
         <div className="id-card-image-container">
           <Image
