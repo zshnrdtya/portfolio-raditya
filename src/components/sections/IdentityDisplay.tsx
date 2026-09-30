@@ -12,8 +12,8 @@ interface CardProps {
 }
 
 const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [strapBaseHeight, setStrapBaseHeight] = useState(125);
+  const strapRef = useRef<HTMLDivElement>(null);
+  const [baseHeight, setBaseHeight] = useState(128);
 
   const lanyardClass =
     lanyardColor === 'blue'
@@ -22,60 +22,43 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
       ? 'lanyard-maroon'
       : 'lanyard-amber';
 
-  const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
 
   useEffect(() => {
-    const updateStrapMetrics = () => {
-      if (cardRef.current) {
-        const cardTop = cardRef.current.offsetTop;
-        const ringY = Math.max(60, cardTop - 16);
-        setStrapBaseHeight(ringY);
+    const measure = () => {
+      if (strapRef.current) {
+        const h = strapRef.current.offsetHeight;
+        if (h > 0) setBaseHeight(h);
       }
     };
-
-    updateStrapMetrics();
-    window.addEventListener('resize', updateStrapMetrics);
-    return () => window.removeEventListener('resize', updateStrapMetrics);
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
   }, []);
 
-  const strapScaleY = useTransform([dragX, dragY], ([x, y]) => {
-    const dx = typeof x === 'number' ? x : 0;
-    const dy = typeof y === 'number' ? y : 0;
-    const distance = Math.hypot(dx, strapBaseHeight + dy);
-    return Math.max(0.1, distance / strapBaseHeight);
+  const strapScaleY = useTransform(dragY, (y) => {
+    const h = baseHeight > 0 ? baseHeight : 128;
+    return Math.max(0.1, (h + y) / h);
   });
-
-  const strapRotate = useTransform([dragX, dragY], ([x, y]) => {
-    const dx = typeof x === 'number' ? x : 0;
-    const dy = typeof y === 'number' ? y : 0;
-    return Math.atan2(dx, strapBaseHeight + dy) * (180 / Math.PI);
-  });
-
-  const cardRotate = useTransform(dragX, [-80, 80], [-7, 7]);
 
   return (
     <div className="lanyard-card-wrapper" data-aos="fade-up">
       <div className="lanyard-strap-positioner">
         <motion.div
+          ref={strapRef}
           className={`lanyard-strap ${lanyardClass}`}
-          style={{
-            height: strapBaseHeight,
-            scaleY: strapScaleY,
-            rotate: strapRotate,
-          }}
+          style={{ scaleY: strapScaleY }}
         >
           <div className="lanyard-strap-inner" />
         </motion.div>
       </div>
 
       <motion.div
-        ref={cardRef}
         className="id-card-3d"
-        drag={true}
-        dragConstraints={{ top: 0, left: -70, right: 70, bottom: 240 }}
-        dragElastic={0.25}
-        style={{ x: dragX, y: dragY, rotate: cardRotate }}
+        drag="y"
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={{ top: 0, bottom: 0.55 }}
+        style={{ y: dragY }}
         whileDrag={{ scale: 1.02 }}
       >
         <div className="lanyard-clip-on-card">

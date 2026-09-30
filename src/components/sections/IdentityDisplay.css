@@ -112,6 +112,7 @@
 
 .lanyard-strap {
   width: 18px;
+  height: 82px;
   border-radius: 4px 4px 0 0;
   transform-origin: top center;
   overflow: hidden;
@@ -120,18 +121,21 @@
 @media (min-width: 640px) {
   .lanyard-strap {
     width: 20px;
+    height: 100px;
   }
 }
 
 @media (min-width: 768px) {
   .lanyard-strap {
     width: 22px;
+    height: 115px;
   }
 }
 
 @media (min-width: 1024px) {
   .lanyard-strap {
     width: 24px;
+    height: 128px;
   }
 }
 
