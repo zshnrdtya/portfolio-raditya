@@ -154,10 +154,13 @@ export default function IntroScene() {
           setFadeOpacity(transState.fadeOpacity);
         }
 
-        // 4. Update house door swing animation
+        // Update house door swing & chimney smoke
         house.update(delta);
 
-        // 5. Update camera follow
+        // Update floating leaves in world environment
+        world.update(delta);
+
+        // Update camera follow
         updateCamera(player.position, delta, transState.isTriggered);
 
         // 6. Render frame

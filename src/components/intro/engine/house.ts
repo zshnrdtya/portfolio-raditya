@@ -6,6 +6,16 @@
 
 import * as THREE from "three";
 
+interface SmokePuff {
+  mesh: THREE.Mesh;
+  material: THREE.MeshStandardMaterial;
+  progress: number;
+  speed: number;
+  driftX: number;
+  driftZ: number;
+  scaleFactor: number;
+}
+
 export class HouseStructure {
   public mesh: THREE.Group;
   public doorPivot: THREE.Group;
@@ -14,6 +24,8 @@ export class HouseStructure {
   private isDoorOpening: boolean = false;
   private doorProgress: number = 0;
   private targetDoorAngle: number = -Math.PI * 0.55;
+  private smokePuffs: SmokePuff[] = [];
+  private smokeTime: number = 0;
   private disposables: (THREE.BufferGeometry | THREE.Material)[] = [];
 
   constructor(position: THREE.Vector3 = new THREE.Vector3(0, 0, -8.2)) {
@@ -108,6 +120,36 @@ export class HouseStructure {
     chimney.castShadow = true;
     this.mesh.add(chimney);
     this.disposables.push(chimneyGeo);
+
+    // Chimney smoke puffs (procedural billowy smoke stream)
+    const smokeGeo = new THREE.DodecahedronGeometry(0.18, 1);
+    this.disposables.push(smokeGeo);
+
+    const puffCount = 7;
+    for (let i = 0; i < puffCount; i++) {
+      const puffMat = new THREE.MeshStandardMaterial({
+        color: 0xf1f5f9,
+        roughness: 0.9,
+        transparent: true,
+        opacity: 0,
+        depthWrite: false,
+      });
+      this.disposables.push(puffMat);
+
+      const puffMesh = new THREE.Mesh(smokeGeo, puffMat);
+      puffMesh.position.set(1.8, 5.25, -0.6);
+      this.mesh.add(puffMesh);
+
+      this.smokePuffs.push({
+        mesh: puffMesh,
+        material: puffMat,
+        progress: i / puffCount,
+        speed: 0.26 + (i % 3) * 0.03,
+        driftX: ((i % 5) - 2) * 0.07,
+        driftZ: ((i % 3) - 1) * 0.05,
+        scaleFactor: 0.85 + (i % 4) * 0.15,
+      });
+    }
 
     // 3. Front Porch & Steps (Cobblestone entrance)
     const porchStepGeo1 = new THREE.BoxGeometry(2.6, 0.16, 1.6);
@@ -231,12 +273,34 @@ export class HouseStructure {
   public update(delta: number) {
     if (this.isDoorOpening) {
       this.doorProgress = Math.min(1, this.doorProgress + delta * 2.2);
-      // Smooth cubic ease out
       const ease = 1 - Math.pow(1 - this.doorProgress, 3);
       this.doorPivot.rotation.y = ease * this.targetDoorAngle;
-
-      // Glow brightens as door opens into the home
       this.porchLight.intensity = 2.4 + ease * 1.8;
+    }
+
+    // Animate chimney smoke puffs
+    this.smokeTime += delta;
+    const chimneyTopY = 5.25;
+
+    for (let i = 0; i < this.smokePuffs.length; i++) {
+      const puff = this.smokePuffs[i];
+      puff.progress += delta * puff.speed;
+      if (puff.progress >= 1) {
+        puff.progress -= 1;
+      }
+
+      const p = puff.progress;
+      const currentY = chimneyTopY + p * 2.4;
+      const swayX = Math.sin(this.smokeTime * 1.6 + i) * 0.16 + puff.driftX * p * 1.8;
+      const swayZ = Math.cos(this.smokeTime * 1.3 + i) * 0.12 + puff.driftZ * p * 1.8;
+
+      puff.mesh.position.set(1.8 + swayX, currentY, -0.6 + swayZ);
+
+      const scale = (0.35 + Math.sin(p * Math.PI) * 1.05) * puff.scaleFactor;
+      puff.mesh.scale.setScalar(scale);
+
+      const opacity = p < 0.2 ? (p / 0.2) * 0.65 : ((1 - p) / 0.8) * 0.65;
+      puff.material.opacity = Math.max(0, opacity);
     }
   }
 

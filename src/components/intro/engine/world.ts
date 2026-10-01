@@ -6,8 +6,21 @@
 
 import * as THREE from "three";
 
+interface FallingLeaf {
+  mesh: THREE.Mesh;
+  fallSpeed: number;
+  rotSpeedX: number;
+  rotSpeedY: number;
+  rotSpeedZ: number;
+  swayFreq: number;
+  swayAmp: number;
+  phase: number;
+}
+
 export class WorldEnvironment {
   public mesh: THREE.Group;
+  private leaves: FallingLeaf[] = [];
+  private leafTime: number = 0;
   private disposables: (THREE.BufferGeometry | THREE.Material | THREE.Texture)[] = [];
 
   constructor() {
@@ -314,6 +327,86 @@ export class WorldEnvironment {
       textMat,
       textTexture
     );
+
+    // 9. Floating / Falling Autumn Leaves in yard
+    const leafGeo = new THREE.PlaneGeometry(0.12, 0.16);
+    this.disposables.push(leafGeo);
+
+    const leafMatSage = new THREE.MeshStandardMaterial({
+      color: 0x86b29b,
+      roughness: 0.8,
+      side: THREE.DoubleSide,
+    });
+    const leafMatAmber = new THREE.MeshStandardMaterial({
+      color: 0xcd7f32,
+      roughness: 0.8,
+      side: THREE.DoubleSide,
+    });
+    const leafMatGold = new THREE.MeshStandardMaterial({
+      color: 0xdf9b28,
+      roughness: 0.8,
+      side: THREE.DoubleSide,
+    });
+    this.disposables.push(leafMatSage, leafMatAmber, leafMatGold);
+
+    const leafMats = [leafMatSage, leafMatAmber, leafMatGold];
+    const leafCount = 16;
+
+    for (let i = 0; i < leafCount; i++) {
+      const mat = leafMats[i % leafMats.length];
+      const leafMesh = new THREE.Mesh(leafGeo, mat);
+
+      const x = ((i % 8) - 3.5) * 1.1 + (i % 2 === 0 ? 0.4 : -0.4);
+      const y = 0.5 + ((i * 0.28) % 3.8);
+      const z = -6.0 + (i * 0.95);
+
+      leafMesh.position.set(x, y, z);
+      leafMesh.rotation.set(
+        (i * 0.4) % Math.PI,
+        (i * 0.7) % Math.PI,
+        (i * 0.5) % Math.PI
+      );
+      this.mesh.add(leafMesh);
+
+      this.leaves.push({
+        mesh: leafMesh,
+        fallSpeed: 0.32 + (i % 4) * 0.07,
+        rotSpeedX: 1.0 + (i % 3) * 0.4,
+        rotSpeedY: 0.8 + (i % 2) * 0.5,
+        rotSpeedZ: 0.9 + (i % 4) * 0.3,
+        swayFreq: 1.4 + (i % 3) * 0.3,
+        swayAmp: 0.22 + (i % 2) * 0.08,
+        phase: (i * Math.PI) / 8,
+      });
+    }
+  }
+
+  public update(delta: number) {
+    this.leafTime += delta;
+
+    for (let i = 0; i < this.leaves.length; i++) {
+      const leaf = this.leaves[i];
+
+      // Descend smoothly
+      leaf.mesh.position.y -= delta * leaf.fallSpeed;
+
+      // Gentle horizontal flutter
+      const sway = Math.sin(this.leafTime * leaf.swayFreq + leaf.phase) * leaf.swayAmp * delta;
+      leaf.mesh.position.x += sway;
+      leaf.mesh.position.z += sway * 0.35;
+
+      // Tumbling rotation
+      leaf.mesh.rotation.x += delta * leaf.rotSpeedX;
+      leaf.mesh.rotation.y += delta * leaf.rotSpeedY;
+      leaf.mesh.rotation.z += delta * leaf.rotSpeedZ;
+
+      // Wrap back to canopy level once touching ground
+      if (leaf.mesh.position.y <= 0.05) {
+        leaf.mesh.position.y = 3.6 + (i % 4) * 0.35;
+        leaf.mesh.position.x = ((i % 7) - 3) * 1.15;
+        leaf.mesh.position.z = -6.2 + (i * 0.9) % 14.0;
+      }
+    }
   }
 
   public dispose() {
