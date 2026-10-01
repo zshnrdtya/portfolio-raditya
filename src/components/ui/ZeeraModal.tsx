@@ -179,13 +179,13 @@ export default function ZeeraModal({
       setMessages((prev) => [...prev, assistantMessage]);
 
       if (data.action) {
-        executeAction(data.action);
-        // Pada layar mobile, perkecil otomatis sejenak jika memicu navigasi agar user bisa melihat konten
-        if (window.innerWidth < 768 && data.action.type === "navigate") {
+        // Otomatis perkecil popup chat ke floating pill agar pengguna dapat menikmati animasi smooth scroll mandiri
+        setTimeout(() => {
+          setIsMinimized(true);
           setTimeout(() => {
-            setIsMinimized(true);
-          }, 1200);
-        }
+            executeAction(data.action!);
+          }, 180);
+        }, 750);
       }
     } catch (err: unknown) {
       const errorMsg =
@@ -350,7 +350,12 @@ export default function ZeeraModal({
                     {/* Interactive Action Pill if triggered */}
                     {msg.action && (
                       <button
-                        onClick={() => executeAction(msg.action!)}
+                        onClick={() => {
+                          setIsMinimized(true);
+                          setTimeout(() => {
+                            executeAction(msg.action!);
+                          }, 180);
+                        }}
                         className="mt-2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] border border-white/40 text-[11px] font-poppins font-semibold text-[#136846] active:scale-95 transition-all cursor-pointer"
                       >
                         <Sparkles className="w-3 h-3 text-[#136846]" />
