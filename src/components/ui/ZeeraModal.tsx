@@ -1,8 +1,21 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, MessageSquare, Loader2, Minus, Maximize2, Minimize2 } from "lucide-react";
+import {
+  X,
+  ExternalLink,
+  MessageSquare,
+  Minus,
+  Maximize2,
+  Minimize2,
+  Send,
+  Loader2,
+  Sparkles,
+  ArrowUpRight,
+  Bot,
+  RotateCcw,
+} from "lucide-react";
 
 interface ZeeraModalProps {
   isOpen: boolean;
@@ -10,23 +23,82 @@ interface ZeeraModalProps {
   url?: string;
 }
 
+interface Message {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  action?: {
+    type: "navigate" | "fill_contact";
+    payload: {
+      section?: string;
+      pesan?: string;
+    };
+  };
+}
+
+const INITIAL_MESSAGES: Message[] = [
+  {
+    id: "welcome-1",
+    role: "assistant",
+    content:
+      "Halo! Aku Zeera AI, copilot cerdas portofolio Raditya Rai Zeeshan. Mau tahu tentang proyek unggulan, keahlian teknis, atau butuh bantuan navigasi ke bagian tertentu? Tanyakan saja langsung!",
+  },
+];
+
+const QUICK_PROMPTS = [
+  { label: "🚀 Proyek Unggulan", text: "Tolong tunjukkan proyek-proyek unggulan buatan Raditya." },
+  { label: "⚡ Keahlian & Stack", text: "Apa saja keahlian dan tech stack utama yang dikuasai Raditya?" },
+  { label: "💼 Pengalaman", text: "Ceritakan tentang pengalaman kerja dan organisasi Raditya." },
+  { label: "✉️ Hubungi Raditya", text: "Aku ingin menghubungi Raditya untuk tawaran kerja sama." },
+];
+
 export default function ZeeraModal({
   isOpen,
   onClose,
   url = "https://zeeraai.radityarz.my.id/",
 }: ZeeraModalProps) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
-  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
 
-  // Sync state if isOpen prop changes from closed to open
-  if (isOpen !== prevIsOpen) {
-    setPrevIsOpen(isOpen);
-    if (isOpen) {
-      setIsMinimized(false);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const messageIdRef = useRef(1);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (isOpen && !isMinimized) {
+      scrollToBottom();
     }
-  }
+  }, [messages, isOpen, isMinimized]);
+
+  // Execute portfolio interactive actions (smooth scroll, fill contact draft)
+  const executeAction = useCallback((action: { type: string; payload: Record<string, unknown> }) => {
+    if (action.type === "navigate" && typeof action.payload?.section === "string") {
+      const targetId = action.payload.section.replace("#", "");
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else if (action.type === "fill_contact") {
+      const contactElem = document.getElementById("contact");
+      if (contactElem) {
+        contactElem.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      if (typeof action.payload?.pesan === "string") {
+        const textarea = document.getElementById("contact-pesan") as HTMLTextAreaElement | null;
+        if (textarea) {
+          textarea.value = action.payload.pesan;
+          textarea.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      }
+    }
+  }, []);
 
   const handleClose = useCallback(() => {
     setIsMinimized(false);
@@ -34,7 +106,7 @@ export default function ZeeraModal({
     onClose();
   }, [onClose]);
 
-  // Handle escape key and body scroll lock
+  // Handle escape key and body scroll lock (only lock on desktop when not minimized)
   useEffect(() => {
     if (!isOpen) {
       document.body.style.overflow = "unset";
@@ -64,6 +136,74 @@ export default function ZeeraModal({
     };
   }, [isOpen, isMinimized, isMaximized, handleClose]);
 
+  const handleSendMessage = async (textToSend?: string) => {
+    const messageText = (textToSend || input).trim();
+    if (!messageText || isLoading) return;
+
+    const userMessage: Message = {
+      id: `user-${++messageIdRef.current}`,
+      role: "user",
+      content: messageText,
+    };
+
+    const nextMessages = [...messages, userMessage];
+    setMessages(nextMessages);
+    setInput("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/zeera/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: nextMessages.map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Gagal mengambil respon dari Zeera AI.");
+      }
+
+      const data = await res.json();
+      const assistantMessage: Message = {
+        id: `assistant-${++messageIdRef.current}`,
+        role: "assistant",
+        content: data.text,
+        action: data.action,
+      };
+
+      setMessages((prev) => [...prev, assistantMessage]);
+
+      if (data.action) {
+        executeAction(data.action);
+        // Pada layar mobile, perkecil otomatis sejenak jika memicu navigasi agar user bisa melihat konten
+        if (window.innerWidth < 768 && data.action.type === "navigate") {
+          setTimeout(() => {
+            setIsMinimized(true);
+          }, 1200);
+        }
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `error-${++messageIdRef.current}`,
+          role: "assistant",
+          content: "Maaf, terjadi gangguan saat menghubungkan ke server. Silakan coba lagi sebentar ya!",
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResetChat = () => {
+    setMessages(INITIAL_MESSAGES);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -83,7 +223,9 @@ export default function ZeeraModal({
           {/* Modal Container */}
           <div
             className={`fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-4 transition-all duration-200 ${
-              isMinimized ? "pointer-events-none opacity-0 invisible" : "pointer-events-auto opacity-100 visible"
+              isMinimized
+                ? "pointer-events-none opacity-0 invisible"
+                : "pointer-events-auto opacity-100 visible"
             }`}
           >
             <motion.div
@@ -91,56 +233,52 @@ export default function ZeeraModal({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 20 }}
               transition={{ type: "spring", stiffness: 350, damping: 28 }}
-              style={
-                !isMaximized
-                  ? {
-                      width: "375px",
-                      maxWidth: "calc(100vw - 1.5rem)",
-                      height: "700px",
-                      maxHeight: "85vh",
-                      borderRadius: "24px",
-                      boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-                    }
-                  : undefined
-              }
-              className={`force-mobile-view relative z-10 bg-[var(--color-surface)] flex flex-col overflow-hidden border border-white/50 transition-all duration-300 ${
+              className={`relative z-10 bg-[var(--color-surface)] flex flex-col overflow-hidden border border-white/50 transition-all duration-300 ${
                 isMaximized
-                  ? "w-full max-w-5xl h-[88vh] max-h-[850px] rounded-3xl shadow-2xl"
-                  : "w-[375px] max-w-[calc(100vw-1.5rem)] h-[700px] max-h-[85vh] rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                  ? "w-full max-w-4xl h-[90vh] max-h-[860px] rounded-3xl shadow-2xl"
+                  : "w-[400px] max-w-[calc(100vw-1.5rem)] h-[700px] max-h-[88vh] rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
               }`}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between px-3.5 py-2.5 sm:px-4 sm:py-3 border-b border-black/5 bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] z-10 select-none">
-                {/* Left: Branding & Status */}
-                <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-                  <div className="p-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] text-[var(--color-accent)] shrink-0">
-                    <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <div className="flex items-center justify-between px-4 py-3 border-b border-black/5 bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] z-10 select-none">
+                {/* Branding & Status */}
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] text-[var(--color-accent)] shrink-0">
+                    <Bot className="w-4 h-4 text-[#136846]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className="flex items-center gap-1.5">
                       <h3 className="font-poppins font-bold text-sm sm:text-base text-[var(--color-textMain)] truncate">
                         Zeera AI
                       </h3>
                       <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300/60 shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        Online
+                        Copilot
                       </span>
                     </div>
-                    {isMaximized && (
-                      <p className="text-xs text-[var(--color-textMain)] opacity-70 truncate hidden sm:block">
-                        Interactive AI Assistant by Raditya Rai Zeeshan
-                      </p>
-                    )}
+                    <p className="text-[11px] text-[var(--color-textMain)] opacity-70 truncate">
+                      Asisten Cerdas Portofolio Raditya
+                    </p>
                   </div>
                 </div>
 
-                {/* Right: Window Controls (Minimize, Maximize, External Link, Close) */}
-                <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+                {/* Window Controls */}
+                <div className="flex items-center gap-1.5 shrink-0">
+                  {/* Reset Chat Button */}
+                  <button
+                    onClick={handleResetChat}
+                    title="Ulang percakapan"
+                    className="p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
+                    aria-label="Reset Chat"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                  </button>
+
                   {/* Minimize Button */}
                   <button
                     onClick={() => setIsMinimized(true)}
-                    title="Minimize (Kecilkan ke sudut)"
-                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
+                    title="Kecilkan ke sudut"
+                    className="p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
                     aria-label="Minimize"
                   >
                     <Minus className="w-3.5 h-3.5" />
@@ -149,9 +287,9 @@ export default function ZeeraModal({
                   {/* Maximize / Restore Button */}
                   <button
                     onClick={() => setIsMaximized(!isMaximized)}
-                    title={isMaximized ? "Kembalikan ke Tampilan HP" : "Maksimalkan Tampilan"}
-                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
-                    aria-label={isMaximized ? "Restore Mobile View" : "Maximize View"}
+                    title={isMaximized ? "Kembalikan ukuran" : "Maksimalkan tampilan"}
+                    className="p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
+                    aria-label={isMaximized ? "Restore View" : "Maximize View"}
                   >
                     {isMaximized ? (
                       <Minimize2 className="w-3.5 h-3.5" />
@@ -160,14 +298,14 @@ export default function ZeeraModal({
                     )}
                   </button>
 
-                  {/* Open in New Tab */}
+                  {/* Standalone Web Link */}
                   <a
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Buka di tab baru"
-                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
-                    aria-label="Open in new tab"
+                    title="Buka website Zeera AI asli di tab baru"
+                    className="p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer flex items-center justify-center"
+                    aria-label="Open standalone Zeera website"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
@@ -176,7 +314,7 @@ export default function ZeeraModal({
                   <button
                     onClick={handleClose}
                     title="Tutup"
-                    className="p-1.5 sm:p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-red-600 active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
+                    className="p-2 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-textMain)] hover:text-red-600 active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] transition-all cursor-pointer"
                     aria-label="Close"
                   >
                     <X className="w-3.5 h-3.5" />
@@ -184,25 +322,99 @@ export default function ZeeraModal({
                 </div>
               </div>
 
-              {/* Modal Body / Iframe */}
-              <div className="relative flex-1 w-full min-h-0 bg-white overflow-hidden">
+              {/* Chat Messages Body */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 select-text">
+                {messages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`flex flex-col ${
+                      msg.role === "user" ? "items-end" : "items-start"
+                    }`}
+                  >
+                    <div
+                      className={`max-w-[85%] sm:max-w-[80%] rounded-2xl p-3.5 text-xs sm:text-sm font-inter leading-relaxed ${
+                        msg.role === "user"
+                          ? "bg-[#136846] text-white shadow-md rounded-tr-sm"
+                          : "bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] border border-white/50 rounded-tl-sm"
+                      }`}
+                    >
+                      <p className="whitespace-pre-wrap">{msg.content}</p>
+                    </div>
+
+                    {/* Interactive Action Pill if triggered */}
+                    {msg.action && (
+                      <button
+                        onClick={() => executeAction(msg.action!)}
+                        className="mt-2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] border border-white/40 text-[11px] font-poppins font-semibold text-[#136846] active:scale-95 transition-all cursor-pointer"
+                      >
+                        <Sparkles className="w-3 h-3 text-[#136846]" />
+                        <span>
+                          {msg.action.type === "navigate"
+                            ? `📍 Menuju ke bagian #${msg.action.payload.section}`
+                            : "✉️ Draf pesan kontak disiapkan"}
+                        </span>
+                        <ArrowUpRight className="w-3 h-3 text-[#136846]" />
+                      </button>
+                    )}
+                  </div>
+                ))}
+
+                {/* Typing Indicator */}
                 {isLoading && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--color-surface)] gap-3 z-0">
-                    <Loader2 className="w-8 h-8 animate-spin text-[var(--color-accent)]" />
-                    <p className="font-inter text-sm font-semibold text-[var(--color-textMain)]">
-                      Memuat Zeera AI...
-                    </p>
+                  <div className="flex items-center gap-2 p-3 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] border border-white/40 w-fit">
+                    <Loader2 className="w-4 h-4 animate-spin text-[#136846]" />
+                    <span className="text-xs font-inter text-[var(--color-textMain)] opacity-80">
+                      Zeera AI sedang berpikir...
+                    </span>
                   </div>
                 )}
-                <iframe
-                  src={url}
-                  title="Zeera AI"
-                  onLoad={() => setIsLoading(false)}
-                  className="w-full h-full border-none block"
-                  style={{ width: "100%", height: "100%" }}
-                  allow="clipboard-write; microphone; camera"
-                />
+
+                <div ref={messagesEndRef} />
               </div>
+
+              {/* Quick Prompt Chips */}
+              <div className="px-4 py-2 border-t border-black/5 bg-[var(--color-surface)]/80 overflow-x-auto no-scrollbar flex items-center gap-2">
+                {QUICK_PROMPTS.map((chip, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleSendMessage(chip.text)}
+                    disabled={isLoading}
+                    className="shrink-0 px-3 py-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] active:scale-95 text-[11px] font-poppins font-medium text-[var(--color-textMain)] border border-white/40 disabled:opacity-50 transition-all cursor-pointer whitespace-nowrap"
+                  >
+                    {chip.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Chat Input Bar */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSendMessage();
+                }}
+                className="p-3 sm:p-4 border-t border-black/5 bg-[var(--color-surface)] flex items-center gap-2"
+              >
+                <div className="relative flex-1">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Tanya Zeera AI tentang portofolio..."
+                    disabled={isLoading}
+                    className="w-full px-4 py-2.5 sm:py-3 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] border border-white/40 text-xs sm:text-sm font-inter text-[var(--color-textMain)] placeholder:text-[var(--color-textMain)]/50 focus:outline-none focus:ring-2 focus:ring-[#136846]/40 disabled:opacity-60 transition-all"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={!input.trim() || isLoading}
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] active:scale-95 flex items-center justify-center text-[#136846] border border-white/40 disabled:opacity-40 disabled:pointer-events-none transition-all cursor-pointer shrink-0"
+                  aria-label="Kirim Pesan"
+                >
+                  <Send className="w-4 h-4 sm:w-5 sm:h-5" />
+                </button>
+              </form>
             </motion.div>
           </div>
 
@@ -214,13 +426,13 @@ export default function ZeeraModal({
               exit={{ opacity: 0, y: 30, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               onClick={() => setIsMinimized(false)}
-              className="fixed bottom-6 right-6 z-[999] flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-[var(--color-surface)] shadow-[0_15px_35px_rgba(0,0,0,0.25)] border border-white/60 cursor-pointer hover:scale-105 transition-all select-none group"
+              className="fixed bottom-6 right-6 z-[999] flex items-center gap-2.5 px-3.5 py-2.5 rounded-full bg-[var(--color-surface)] shadow-[0_15px_35px_rgba(0,0,0,0.25)] border border-white/60 cursor-pointer hover:scale-105 transition-all select-none group"
               title="Buka kembali Zeera AI"
               role="button"
               aria-label="Kembalikan Zeera AI"
             >
               <div className="p-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] text-[var(--color-accent)]">
-                <MessageSquare className="w-3.5 h-3.5 animate-pulse" />
+                <MessageSquare className="w-4 h-4 text-[#136846] animate-pulse" />
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="font-poppins font-bold text-xs text-[var(--color-textMain)]">
@@ -228,7 +440,7 @@ export default function ZeeraModal({
                 </span>
                 <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300/60">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Online
+                  Copilot
                 </span>
               </div>
               <button
