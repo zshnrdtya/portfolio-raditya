@@ -109,8 +109,6 @@ export async function POST(req: NextRequest) {
       parts: [{ text: msg.content }],
     }));
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`;
-
     const geminiPayload = {
       system_instruction: {
         parts: [{ text: SYSTEM_INSTRUCTION }],
@@ -119,17 +117,44 @@ export async function POST(req: NextRequest) {
       tools: TOOLS,
     };
 
-    const response = await fetch(geminiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(geminiPayload),
-    });
+    // Model yang sama persis seperti pada platform Zeera AI
+    const CANDIDATE_MODELS = [
+      "gemini-3.1-flash-lite", // Zeera AI 1.1 (Default)
+      "gemini-3.6-flash",      // Zeera AI 1.2
+      "gemini-3.5-flash-lite", // Zeera AI 1.3
+      "gemini-flash-lite-latest", // Zeera AI 1.4
+    ];
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("[Zeera API Error]", response.status, errText);
+    let response: Response | null = null;
+    let lastError = "";
+
+    for (const model of CANDIDATE_MODELS) {
+      try {
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const res = await fetch(geminiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(geminiPayload),
+        });
+
+        if (res.ok) {
+          response = res;
+          break;
+        } else {
+          const errText = await res.text();
+          lastError = `Model ${model} status ${res.status}: ${errText.slice(0, 120)}`;
+          console.warn(`[Zeera Model Failover] ${lastError}`);
+        }
+      } catch (fetchErr) {
+        lastError = String(fetchErr);
+        console.warn(`[Zeera Fetch Error] ${model}:`, fetchErr);
+      }
+    }
+
+    if (!response || !response.ok) {
+      console.error("[Zeera API Final Error]", lastError);
       return NextResponse.json(
-        { error: "Gagal berkomunikasi dengan layanan Zeera AI." },
+        { error: "Gagal berkomunikasi dengan layanan Zeera AI. Silakan coba kembali." },
         { status: 502 }
       );
     }
