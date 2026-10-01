@@ -163,11 +163,12 @@ export default function ZeeraModal({
         }),
       });
 
-      if (!res.ok) {
-        throw new Error("Gagal mengambil respon dari Zeera AI.");
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok || !data) {
+        throw new Error(data?.error || "Gagal mengambil respon dari Zeera AI.");
       }
 
-      const data = await res.json();
       const assistantMessage: Message = {
         id: `assistant-${++messageIdRef.current}`,
         role: "assistant",
@@ -186,13 +187,18 @@ export default function ZeeraModal({
           }, 1200);
         }
       }
-    } catch {
+    } catch (err: unknown) {
+      const errorMsg =
+        err instanceof Error
+          ? err.message
+          : "Maaf, terjadi gangguan saat menghubungkan ke server. Silakan coba lagi sebentar ya!";
+
       setMessages((prev) => [
         ...prev,
         {
           id: `error-${++messageIdRef.current}`,
           role: "assistant",
-          content: "Maaf, terjadi gangguan saat menghubungkan ke server. Silakan coba lagi sebentar ya!",
+          content: errorMsg,
         },
       ]);
     } finally {
