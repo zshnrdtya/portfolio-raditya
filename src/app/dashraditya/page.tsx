@@ -1,43 +1,55 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
-import { PendingMessage, FilterType, ToastState } from './types';
-import { AdminHeader } from './components/AdminHeader';
-import { AdminMetrics } from './components/AdminMetrics';
-import { AdminFilterBar } from './components/AdminFilterBar';
-import { AdminMessageCard } from './components/AdminMessageCard';
-import {
-  AdminLoadingState,
-  AdminErrorState,
-  AdminEmptyState,
-  AdminFilteredEmptyState,
-} from './components/AdminStates';
-import { AdminBatchModal } from './components/AdminBatchModal';
+import { useSession } from 'next-auth/react';
+import { Loader2 } from 'lucide-react';
+import { PendingMessage, FilterType, ToastState, DashboardTab, ProjectItem } from './types';
+import { AdminSidebar } from './components/AdminSidebar';
+import { AdminTopNav } from './components/AdminTopNav';
 import { AdminToast } from './components/AdminToast';
+import { AdminProjectsTab } from './components/AdminProjectsTab';
+import { AdminGuestbookTab } from './components/AdminGuestbookTab';
+import { AdminLoginForm } from './components/AdminLoginForm';
 
-export default function AdminGuestbookPage() {
-  const router = useRouter();
+const ADMIN_EMAIL = 'radityaraizeeshan@gmail.com';
+
+export default function AdminDashboardPage() {
+  const { data: session, status } = useSession();
+
+  const [activeTab, setActiveTab] = useState<DashboardTab>('PROJECTS');
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+  // Guestbook state
   const [messages, setMessages] = useState<PendingMessage[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMessages, setIsLoadingMessages] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [isBatchProcessing, setIsBatchProcessing] = useState(false);
-  const [toast, setToast] = useState<ToastState | null>(null);
   const [filterType, setFilterType] = useState<FilterType>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [showBatchConfirm, setShowBatchConfirm] = useState(false);
 
+  // Projects state
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
+  const [isLoadingProjects, setIsLoadingProjects] = useState(true);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [projectToEdit, setProjectToEdit] = useState<ProjectItem | null>(null);
+
+  const [toast, setToast] = useState<ToastState | null>(null);
+
+  const showToast = useCallback((message: string, type: 'success' | 'error' = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3500);
+  }, []);
+
   const fetchPending = useCallback(async () => {
-    setIsLoading(true);
+    setIsLoadingMessages(true);
     setErrorMessage(null);
     try {
       const res = await fetch('/api/admin/guestbook');
       if (res.ok) {
         const data = await res.json();
         setMessages(data);
-      } else if (res.status === 401) {
-        router.replace('/');
       } else {
         const errData = await res.json().catch(() => null);
         setErrorMessage(errData?.error || 'Gagal memuat pesan dari server.');
@@ -45,238 +57,217 @@ export default function AdminGuestbookPage() {
     } catch {
       setErrorMessage('Terjadi kendala koneksi saat menghubungi server.');
     } finally {
-      setIsLoading(false);
+      setIsLoadingMessages(false);
     }
-  }, [router]);
+  }, []);
+
+  const fetchProjects = useCallback(async () => {
+    setIsLoadingProjects(true);
+    try {
+      const res = await fetch('/api/admin/projects');
+      if (res.ok) {
+        const data = await res.json();
+        setProjects(data);
+      } else {
+        showToast('Gagal memuat daftar proyek dari server.', 'error');
+      }
+    } catch {
+      showToast('Koneksi terputus saat memuat proyek.', 'error');
+    } finally {
+      setIsLoadingProjects(false);
+    }
+  }, [showToast]);
 
   useEffect(() => {
-    let ignore = false;
-    (async () => {
+    let isMounted = true;
+    if (status !== 'authenticated' || session?.user?.email !== ADMIN_EMAIL) {
+      return;
+    }
+
+    async function loadInitialData() {
+      setIsLoadingMessages(true);
+      setIsLoadingProjects(true);
+      setErrorMessage(null);
       try {
-        const res = await fetch('/api/admin/guestbook');
-        if (res.ok) {
-          const data = await res.json();
-          if (!ignore) {
-            setMessages(data);
-            setErrorMessage(null);
-          }
-        } else if (res.status === 401) {
-          router.replace('/');
-        } else {
-          const errData = await res.json().catch(() => null);
-          if (!ignore) {
-            setErrorMessage(errData?.error || 'Gagal memuat pesan dari server.');
-          }
+        const [guestbookRes, projectsRes] = await Promise.all([
+          fetch('/api/admin/guestbook'),
+          fetch('/api/admin/projects'),
+        ]);
+
+        if (guestbookRes.ok) {
+          const gbData = await guestbookRes.json();
+          if (isMounted) setMessages(gbData);
+        }
+
+        if (projectsRes.ok) {
+          const projData = await projectsRes.json();
+          if (isMounted) setProjects(projData);
         }
       } catch {
-        if (!ignore) {
-          setErrorMessage('Terjadi kendala koneksi saat menghubungi server.');
-        }
+        if (isMounted) setErrorMessage('Terjadi kendala koneksi saat menghubungi server.');
       } finally {
-        if (!ignore) {
-          setIsLoading(false);
+        if (isMounted) {
+          setIsLoadingMessages(false);
+          setIsLoadingProjects(false);
         }
       }
-    })();
+    }
 
-    return () => {
-      ignore = true;
-    };
-  }, [router]);
+    loadInitialData();
+    return () => { isMounted = false; };
+  }, [status, session]);
 
-  const showToast = (message: string, type: 'success' | 'error' = 'success') => {
-    setToast({ message, type });
-    setTimeout(() => {
-      setToast(null);
-    }, 3500);
-  };
-
-  const handleAction = async (id: string, status: 'APPROVED' | 'REJECTED') => {
+  const handleAction = async (id: string, newStatus: 'APPROVED' | 'REJECTED') => {
     setActionLoading(id);
     try {
       const res = await fetch('/api/admin/guestbook', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status }),
+        body: JSON.stringify({ id, status: newStatus }),
       });
-
       if (res.ok) {
         setMessages((prev) => prev.filter((m) => m.id !== id));
         showToast(
-          status === 'APPROVED'
-            ? 'Pesan berhasil disetujui dan diterbitkan.'
-            : 'Pesan berhasil ditolak.',
-          'success'
+          newStatus === 'APPROVED' ? 'Pesan berhasil disetujui.' : 'Pesan berhasil ditolak.'
         );
       } else {
-        showToast('Gagal memperbarui status pesan.', 'error');
+        showToast('Gagal memproses pesan.', 'error');
       }
     } catch {
-      showToast('Terjadi kesalahan jaringan saat memproses aksi.', 'error');
+      showToast('Terjadi kendala jaringan.', 'error');
     } finally {
       setActionLoading(null);
     }
   };
 
-  const handleBatchApprove = async (targetMessages: PendingMessage[]) => {
-    if (targetMessages.length === 0) return;
+  const handleBatchApprove = async (batchMessages: PendingMessage[]) => {
+    if (batchMessages.length === 0) return;
     setIsBatchProcessing(true);
-    setShowBatchConfirm(false);
-
-    let successCount = 0;
-    const failedIds: string[] = [];
-
-    for (const msg of targetMessages) {
-      try {
-        const res = await fetch('/api/admin/guestbook', {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: msg.id, status: 'APPROVED' }),
-        });
-        if (res.ok) {
-          successCount++;
-          setMessages((prev) => prev.filter((m) => m.id !== msg.id));
-        } else {
-          failedIds.push(msg.id);
-        }
-      } catch {
-        failedIds.push(msg.id);
-      }
-    }
-
-    setIsBatchProcessing(false);
-    if (successCount > 0) {
-      showToast(`${successCount} pesan berhasil disetujui sekaligus.`, 'success');
-    }
-    if (failedIds.length > 0) {
-      showToast(`${failedIds.length} pesan mengalami kegagalan proses.`, 'error');
-    }
-  };
-
-  const formatDate = (dateStr: string) => {
     try {
-      return new Date(dateStr).toLocaleDateString('id-ID', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
+      const results = await Promise.allSettled(
+        batchMessages.map((msg) =>
+          fetch('/api/admin/guestbook', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: msg.id, status: 'APPROVED' }),
+          })
+        )
+      );
+      const successfulIds = batchMessages
+        .filter((_, idx) => results[idx].status === 'fulfilled')
+        .map((m) => m.id);
+
+      setMessages((prev) => prev.filter((m) => !successfulIds.includes(m.id)));
+      setShowBatchConfirm(false);
+      showToast(`${successfulIds.length} pesan berhasil disetujui.`);
     } catch {
-      return dateStr;
+      showToast('Terjadi kendala saat menyetujui pesan.', 'error');
+    } finally {
+      setIsBatchProcessing(false);
     }
   };
 
-  const mainMessagesCount = useMemo(
-    () => messages.filter((m) => !m.parentId).length,
-    [messages]
-  );
-  const repliesCount = useMemo(
-    () => messages.filter((m) => !!m.parentId).length,
-    [messages]
-  );
-
-  const filteredMessages = useMemo(() => {
-    return messages.filter((msg) => {
-      const matchFilter =
-        filterType === 'ALL'
-          ? true
-          : filterType === 'MAIN'
-          ? !msg.parentId
-          : !!msg.parentId;
-
-      if (!matchFilter) return false;
-
-      if (!searchQuery.trim()) return true;
-
-      const q = searchQuery.toLowerCase().trim();
-      const matchAuthor = msg.author_name.toLowerCase().includes(q);
-      const matchBody = msg.body.toLowerCase().includes(q);
-      const matchParent = msg.parent?.author_name
-        ? msg.parent.author_name.toLowerCase().includes(q)
-        : false;
-
-      return matchAuthor || matchBody || matchParent;
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('id-ID', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     });
-  }, [messages, filterType, searchQuery]);
+  };
+
+  const pendingCount = useMemo(() => messages.length, [messages]);
+
+  if (status === 'loading') {
+    return (
+      <main className="min-h-screen bg-surface flex flex-col items-center justify-center p-4">
+        <div className="w-16 h-16 rounded-3xl bg-surface shadow-neu-out flex items-center justify-center text-accent animate-pulse">
+          <Loader2 size={24} className="animate-spin" />
+        </div>
+        <p className="font-poppins font-medium text-xs text-textMain/70 mt-3">
+          Memuat sesi administrator...
+        </p>
+      </main>
+    );
+  }
+
+  if (status === 'unauthenticated' || session?.user?.email !== ADMIN_EMAIL) {
+    return <AdminLoginForm currentSession={session} />;
+  }
 
   return (
-    <main className="min-h-screen bg-surface py-8 sm:py-12 px-4 sm:px-6 lg:px-8 text-textMain selection:bg-accent/20">
-      <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-        <AdminHeader
-          isLoading={isLoading}
-          isBatchProcessing={isBatchProcessing}
-          onRefresh={fetchPending}
-        />
+    <div className="min-h-screen bg-surface flex">
+      {/* Desktop & Mobile Responsive Sidebar */}
+      <AdminSidebar
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        isOpenMobile={isMobileSidebarOpen}
+        onCloseMobile={() => setIsMobileSidebarOpen(false)}
+        isLoading={isLoadingMessages || isLoadingProjects}
+        isBatchProcessing={isBatchProcessing}
+        onRefresh={() => {
+          fetchPending();
+          fetchProjects();
+        }}
+        pendingGuestbookCount={pendingCount}
+        totalProjectsCount={projects.length}
+      />
 
-        <AdminMetrics
-          totalCount={messages.length}
-          mainCount={mainMessagesCount}
-          repliesCount={repliesCount}
-          filterType={filterType}
-          onSelectFilter={setFilterType}
-        />
-
-        {messages.length > 0 && (
-          <AdminFilterBar
-            totalCount={messages.length}
-            mainCount={mainMessagesCount}
-            repliesCount={repliesCount}
-            filterType={filterType}
-            searchQuery={searchQuery}
-            hasFilteredMessages={filteredMessages.length > 0}
+      {/* Main Content Area */}
+      <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <AdminTopNav
+            activeTab={activeTab}
+            onOpenMobileSidebar={() => setIsMobileSidebarOpen(true)}
+            isLoading={isLoadingMessages || isLoadingProjects}
             isBatchProcessing={isBatchProcessing}
-            onFilterChange={setFilterType}
-            onSearchChange={setSearchQuery}
-            onOpenBatchConfirm={() => setShowBatchConfirm(true)}
-          />
-        )}
-
-        <AdminBatchModal
-          isOpen={showBatchConfirm}
-          count={filteredMessages.length}
-          isProcessing={isBatchProcessing}
-          onClose={() => setShowBatchConfirm(false)}
-          onConfirm={() => handleBatchApprove(filteredMessages)}
-        />
-
-        {isLoading ? (
-          <AdminLoadingState />
-        ) : errorMessage ? (
-          <AdminErrorState
-            errorMessage={errorMessage}
-            onRetry={fetchPending}
-          />
-        ) : messages.length === 0 ? (
-          <AdminEmptyState />
-        ) : filteredMessages.length === 0 ? (
-          <AdminFilteredEmptyState
-            onReset={() => {
-              setFilterType('ALL');
-              setSearchQuery('');
+            onRefresh={() => {
+              fetchPending();
+              fetchProjects();
+            }}
+            onAddNewProject={() => {
+              setProjectToEdit(null);
+              setIsProjectModalOpen(true);
             }}
           />
-        ) : (
-          <section aria-label="Daftar pesan pending" className="space-y-4 sm:space-y-5">
-            {filteredMessages.map((msg) => (
-              <AdminMessageCard
-                key={msg.id}
-                message={msg}
-                isProcessing={actionLoading === msg.id || isBatchProcessing}
-                actionLoadingId={actionLoading}
-                onApprove={(id) => handleAction(id, 'APPROVED')}
-                onReject={(id) => handleAction(id, 'REJECTED')}
-                formatDate={formatDate}
-              />
-            ))}
-          </section>
-        )}
 
-        <AdminToast
-          toast={toast}
-          onClose={() => setToast(null)}
-        />
-      </div>
-    </main>
+          {activeTab === 'PROJECTS' ? (
+            <AdminProjectsTab
+              projects={projects}
+              isLoading={isLoadingProjects}
+              onRefresh={fetchProjects}
+              showToast={showToast}
+              isModalOpen={isProjectModalOpen}
+              setIsModalOpen={setIsProjectModalOpen}
+              projectToEdit={projectToEdit}
+              setProjectToEdit={setProjectToEdit}
+            />
+          ) : (
+            <AdminGuestbookTab
+              messages={messages}
+              isLoading={isLoadingMessages}
+              errorMessage={errorMessage}
+              actionLoading={actionLoading}
+              isBatchProcessing={isBatchProcessing}
+              filterType={filterType}
+              searchQuery={searchQuery}
+              showBatchConfirm={showBatchConfirm}
+              onAction={handleAction}
+              onBatchApprove={handleBatchApprove}
+              onFilterChange={setFilterType}
+              onSearchChange={setSearchQuery}
+              onOpenBatchConfirm={() => setShowBatchConfirm(true)}
+              onCloseBatchConfirm={() => setShowBatchConfirm(false)}
+              onResetFilter={() => { setFilterType('ALL'); setSearchQuery(''); }}
+              onRetry={fetchPending}
+              formatDate={formatDate}
+            />
+          )}
+
+          <AdminToast toast={toast} onClose={() => setToast(null)} />
+        </div>
+      </main>
+    </div>
   );
 }

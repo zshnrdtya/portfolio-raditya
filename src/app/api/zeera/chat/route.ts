@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getGeminiApiKey } from "@/lib/gemini";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -82,7 +83,7 @@ const TOOLS = [
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = getGeminiApiKey();
     if (!apiKey) {
       return NextResponse.json(
         { error: "GEMINI_API_KEY belum dikonfigurasi di server." },
@@ -119,10 +120,10 @@ export async function POST(req: NextRequest) {
 
     // Model yang sama persis seperti pada platform Zeera AI
     const CANDIDATE_MODELS = [
-      "gemini-3.1-flash-lite", // Zeera AI 1.1 (Default)
-      "gemini-3.6-flash",      // Zeera AI 1.2
-      "gemini-3.5-flash-lite", // Zeera AI 1.3
-      "gemini-flash-lite-latest", // Zeera AI 1.4
+      "gemini-flash-lite-latest",
+      "gemini-3.5-flash-lite",
+      "gemini-flash-latest",
+      "gemini-3.5-flash",
     ];
 
     let response: Response | null = null;

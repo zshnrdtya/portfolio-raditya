@@ -32,3 +32,8 @@ export type ProjectStat = Prisma.ProjectStatModel
  * 
  */
 export type Guestbook = Prisma.GuestbookModel
+/**
+ * Model Project
+ * 
+ */
+export type Project = Prisma.ProjectModel

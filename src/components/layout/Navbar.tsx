@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
 const navLinks = [
@@ -62,6 +63,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [activeSection, setActiveSection] = useState("home");
 
   // Scrollspy logic
@@ -96,6 +98,10 @@ export default function Navbar() {
     const targetId = href.substring(1);
     setActiveSection(targetId);
   };
+
+  if (pathname?.startsWith("/dashraditya")) {
+    return null;
+  }
 
   return (
     <>

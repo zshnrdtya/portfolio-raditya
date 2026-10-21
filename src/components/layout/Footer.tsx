@@ -1,7 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ReplayIntroButton from "@/components/intro/ui/ReplayIntroButton";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/dashraditya")) {
+    return null;
+  }
+
   return (
     <footer className="bg-[var(--color-surface)] mt-auto pt-4 pb-32 md:pb-8 shadow-[inset_0_4px_6px_-1px_rgba(0,0,0,0.05)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

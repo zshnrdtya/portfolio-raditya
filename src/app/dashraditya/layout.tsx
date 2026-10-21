@@ -1,19 +1,9 @@
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import React from 'react';
 
-const ADMIN_EMAIL = "radityaraizeeshan@gmail.com";
-
-export default async function AdminLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
-
-  // Redirect non-admin users to home
-  if (!session?.user?.email || session.user.email !== ADMIN_EMAIL) {
-    redirect("/");
-  }
-
   return <>{children}</>;
 }

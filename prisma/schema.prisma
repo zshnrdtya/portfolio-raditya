@@ -39,3 +39,19 @@ model Guestbook {
   replies     Guestbook[] @relation("GuestbookReplies")
   createdAt   DateTime    @default(now())
 }
+
+// Tabel 4: Data Proyek (Featured Projects)
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  image       String
+  techStack   String[]
+  demoUrl     String?
+  githubUrl   String?
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
