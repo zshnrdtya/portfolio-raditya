@@ -1,44 +1,11 @@
-import IntroWrapper from "@/components/intro/IntroWrapper";
-import Hero from "@/components/sections/Hero";
-import Statistics from "@/components/sections/Statistics";
-import TechSlider from "@/components/sections/TechSlider";
-import Experience from "@/components/sections/Experience";
-import Achievements from "@/components/sections/Achievements";
-import FeaturedProjects from "@/components/sections/FeaturedProjects";
-import DesignCorner from "@/components/sections/DesignCorner";
-import AboutMe from "@/components/sections/AboutMe";
-import Gallery from "@/components/sections/Gallery";
-import Testimonials from "@/components/sections/Testimonials";
-import Guestbook from "@/components/sections/Guestbook";
-import Contact from "@/components/sections/Contact";
-import { SiteContentProvider } from "@/components/cms/SiteContentProvider";
-import { AdminFloatingBar } from "@/components/cms/AdminFloatingBar";
-import { SectionEditModal } from "@/components/cms/SectionEditModal";
+import { TerminalShell } from "@/components/terminal/TerminalShell";
 import { VisitorTracker } from "@/components/telemetry/VisitorTracker";
 
 export default function Home() {
   return (
-    <SiteContentProvider>
+    <main className="min-h-screen bg-[#0b0f17] flex flex-col justify-center items-center p-3 sm:p-6 lg:p-8 font-sans">
       <VisitorTracker />
-      <main className="flex min-h-screen flex-col bg-[var(--color-surface)]">
-        <IntroWrapper />
-        <Hero />
-        <Statistics />
-        <TechSlider />
-        <Experience />
-        <Achievements />
-        <FeaturedProjects />
-        <DesignCorner />
-        <AboutMe />
-        <Gallery />
-        <Testimonials />
-        <Guestbook />
-        <Contact />
-      </main>
-
-      {/* Floating Toolbar & Edit Modal untuk Admin */}
-      <AdminFloatingBar />
-      <SectionEditModal />
-    </SiteContentProvider>
+      <TerminalShell />
+    </main>
   );
 }

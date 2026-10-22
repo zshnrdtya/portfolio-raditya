@@ -1,33 +1,55 @@
 @import "tailwindcss";
 
 @theme {
-  --color-surface: #C6E0D2; /* Soft Mint / Sage Green */
-  --color-textMain: #284435; /* Dark Pine Green for text */
-  --color-accent: #136846; /* Deep Emerald for active/accent - calibrated for WCAG AA (4.84:1) */
-  
-  /* Soft, clean shadows for pastel surface */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+
+  /* Terminal Colors */
+  --color-canvas: #0b0f17;
+  --color-shell: #111827;
+  --color-shell-header: #0f172a;
+  --color-shell-border: #1e293b;
+  --color-text-main: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-term-prompt: #10b981;
+  --color-term-cmd: #38bdf8;
+  --color-term-warn: #f59e0b;
+
+  /* Dashboard Neumorphism Support */
+  --color-surface: #C6E0D2;
+  --color-textMain: #284435;
+  --color-accent: #136846;
   --shadow-neu-out: 10px 10px 20px rgba(150, 175, 161, 0.7), -10px -10px 20px rgba(255, 255, 255, 0.9);
   --shadow-neu-in: inset 10px 10px 20px rgba(150, 175, 161, 0.7), inset -10px -10px 20px rgba(255, 255, 255, 0.9);
-  
-  --font-poppins: var(--font-poppins);
-  --font-inter: var(--font-inter);
-  
-  --animate-marquee: marquee 25s linear infinite;
-  
-  @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+  --font-poppins: var(--font-sans);
+  --font-inter: var(--font-sans);
+}
+
+@keyframes cursor-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
   }
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+.animate-cursor-blink {
+  animation: cursor-blink 1s infinite;
 }
 
-body {
-  background-color: var(--color-surface);
-  color: var(--color-textMain);
-  font-family: var(--font-inter), sans-serif;
-  overflow-x: hidden;
+/* Custom terminal scrollbar */
+.terminal-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.terminal-scrollbar::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+.terminal-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+.terminal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }

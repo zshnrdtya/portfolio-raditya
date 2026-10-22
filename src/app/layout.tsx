@@ -1,33 +1,38 @@
 import type { Metadata } from "next";
-import { Poppins, Inter } from "next/font/google";
+import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import AOSProvider from "@/components/providers/AOSProvider";
 import AuthSessionProvider from "@/components/providers/SessionProvider";
-import { IntroProvider } from "@/components/intro/IntroProvider";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const spaceMono = Space_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Raditya Rai Zeeshan | Fullstack Web Developer",
-  description: "Portofolio resmi Raditya Rai Zeeshan. Seorang Fullstack Web Developer yang berfokus pada pembuatan website modern, responsif, dan interaktif.",
-  keywords: ["Raditya Rai Zeeshan", "Portofolio Raditya", "Web Developer", "Fullstack Developer", "Frontend Next.js", "Z - Project"],
+  title: "Raditya Rai Zeeshan | Developer & AI Engineer Terminal",
+  description:
+    "Portofolio interaktif berbasis developer terminal oleh Raditya Rai Zeeshan. Fullstack Web Developer & AI Enthusiast.",
+  keywords: [
+    "Raditya Rai Zeeshan",
+    "Terminal Portfolio",
+    "Fullstack Developer",
+    "Next.js Developer",
+    "AI Engineer",
+    "Z - Project",
+  ],
   authors: [{ name: "Raditya Rai Zeeshan" }],
   openGraph: {
-    title: "Raditya Rai Zeeshan | Portfolio",
-    description: "Portofolio resmi Raditya Rai Zeeshan. Fullstack Web Developer.",
+    title: "Raditya Rai Zeeshan | Developer Terminal Portfolio",
+    description: "Interactive CLI portfolio showcasing projects, experience, and system architecture.",
     url: "https://radityarz.my.id",
-    siteName: "Raditya Rai Zeeshan Portfolio",
+    siteName: "Raditya Rai Zeeshan Terminal",
     locale: "id_ID",
     type: "website",
   },
@@ -39,19 +44,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${poppins.variable} ${inter.variable} h-full antialiased scroll-smooth`}>
-      <body className="min-h-full flex flex-col font-inter bg-surface text-textMain overflow-x-hidden">
-        <AuthSessionProvider>
-          <IntroProvider>
-            <AOSProvider>
-              <Navbar />
-              <main className="flex-grow">
-                {children}
-              </main>
-              <Footer />
-            </AOSProvider>
-          </IntroProvider>
-        </AuthSessionProvider>
+    <html
+      lang="id"
+      className={`${spaceGrotesk.variable} ${spaceMono.variable} h-full antialiased scroll-smooth`}
+    >
+      <body className="min-h-full flex flex-col font-sans bg-[#0b0f17] text-[#f8fafc] overflow-x-hidden selection:bg-emerald-500/30 selection:text-emerald-300">
+        <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>
   );
