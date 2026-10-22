@@ -57,7 +57,8 @@ export const ModelName = {
   Project: 'Project',
   SiteContent: 'SiteContent',
   PasskeyCredential: 'PasskeyCredential',
-  PasskeyChallenge: 'PasskeyChallenge'
+  PasskeyChallenge: 'PasskeyChallenge',
+  VisitorLog: 'VisitorLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -166,6 +167,22 @@ export const PasskeyChallengeScalarFieldEnum = {
 } as const
 
 export type PasskeyChallengeScalarFieldEnum = (typeof PasskeyChallengeScalarFieldEnum)[keyof typeof PasskeyChallengeScalarFieldEnum]
+
+
+export const VisitorLogScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  path: 'path',
+  referrer: 'referrer',
+  device: 'device',
+  browser: 'browser',
+  country: 'country',
+  city: 'city',
+  createdAt: 'createdAt',
+  lastSeenAt: 'lastSeenAt'
+} as const
+
+export type VisitorLogScalarFieldEnum = (typeof VisitorLogScalarFieldEnum)[keyof typeof VisitorLogScalarFieldEnum]
 
 
 export const SortOrder = {

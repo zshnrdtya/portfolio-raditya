@@ -88,3 +88,22 @@ model PasskeyChallenge {
   createdAt DateTime @default(now())
 }
 
+// Tabel 8: Rekaman Log Kunjungan & Telemetri Real-time
+model VisitorLog {
+  id         String   @id @default(cuid())
+  sessionId  String
+  path       String   @default("/")
+  referrer   String?
+  device     String   @default("Desktop")
+  browser    String   @default("Chrome")
+  country    String   @default("ID")
+  city       String?  @default("Indonesia")
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+
+  @@index([sessionId])
+  @@index([createdAt])
+  @@index([lastSeenAt])
+}
+
+

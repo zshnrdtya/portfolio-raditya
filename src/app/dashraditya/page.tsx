@@ -10,6 +10,7 @@ import { AdminToast } from './components/AdminToast';
 import { AdminProjectsTab } from './components/AdminProjectsTab';
 import { AdminGuestbookTab } from './components/AdminGuestbookTab';
 import { AdminSecurityTab } from './components/AdminSecurityTab';
+import { AdminRadarTab } from './components/AdminRadarTab';
 import { AdminLoginForm } from './components/AdminLoginForm';
 
 const ADMIN_EMAIL = 'radityaraizeeshan@gmail.com';
@@ -264,8 +265,10 @@ export default function AdminDashboardPage() {
               onRetry={fetchPending}
               formatDate={formatDate}
             />
-          ) : (
+          ) : activeTab === 'SECURITY' ? (
             <AdminSecurityTab onShowToast={showToast} />
+          ) : (
+            <AdminRadarTab />
           )}
 
           <AdminToast toast={toast} onClose={() => setToast(null)} />

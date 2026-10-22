@@ -11,6 +11,7 @@ import {
   LogOut,
   ShieldCheck,
   ScanFace,
+  Radio,
   X,
 } from 'lucide-react';
 import { DashboardTab } from '../types';
@@ -60,6 +61,11 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       id: 'SECURITY' as DashboardTab,
       label: 'Keamanan & Face ID',
       icon: ScanFace,
+    },
+    {
+      id: 'RADAR' as DashboardTab,
+      label: 'Traffic Radar',
+      icon: Radio,
     },
   ];
 

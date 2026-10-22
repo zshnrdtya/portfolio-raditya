@@ -52,3 +52,8 @@ export type PasskeyCredential = Prisma.PasskeyCredentialModel
  * 
  */
 export type PasskeyChallenge = Prisma.PasskeyChallengeModel
+/**
+ * Model VisitorLog
+ * 
+ */
+export type VisitorLog = Prisma.VisitorLogModel

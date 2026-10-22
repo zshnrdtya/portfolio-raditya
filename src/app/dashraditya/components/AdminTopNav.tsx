@@ -41,7 +41,9 @@ export const AdminTopNav: React.FC<AdminTopNavProps> = ({
                 ? 'Featured Projects'
                 : activeTab === 'GUESTBOOK'
                 ? 'Buku Tamu'
-                : 'Keamanan & Face ID'}
+                : activeTab === 'SECURITY'
+                ? 'Keamanan & Face ID'
+                : 'Live Traffic Radar'}
             </h1>
             {activeTab === 'PROJECTS' && (
               <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-surface shadow-neu-in text-[11px] font-bold text-accent">
@@ -54,13 +56,21 @@ export const AdminTopNav: React.FC<AdminTopNavProps> = ({
                 WebAuthn Passkey
               </span>
             )}
+            {activeTab === 'RADAR' && (
+              <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-surface shadow-neu-in text-[11px] font-bold text-emerald-800">
+                <span className="w-2 h-2 rounded-full bg-emerald-700 animate-ping" />
+                Live Telemetri
+              </span>
+            )}
           </div>
           <p className="font-inter text-xs sm:text-sm text-textMain/75 mt-0.5">
             {activeTab === 'PROJECTS'
               ? 'Kelola karya unggulan portofolio dan hasilkan deskripsi cerdas.'
               : activeTab === 'GUESTBOOK'
               ? 'Pusat persetujuan moderasi pesan pengunjung.'
-              : 'Kelola perangkat biometrik Face ID & Windows Hello untuk akses cepat.'}
+              : activeTab === 'SECURITY'
+              ? 'Kelola perangkat biometrik Face ID & Windows Hello untuk akses cepat.'
+              : 'Pantau pengunjung aktif, negara asal, dan analitik secara langsung.'}
           </p>
         </div>
       </div>

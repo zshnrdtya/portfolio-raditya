@@ -14,10 +14,12 @@ import Contact from "@/components/sections/Contact";
 import { SiteContentProvider } from "@/components/cms/SiteContentProvider";
 import { AdminFloatingBar } from "@/components/cms/AdminFloatingBar";
 import { SectionEditModal } from "@/components/cms/SectionEditModal";
+import { VisitorTracker } from "@/components/telemetry/VisitorTracker";
 
 export default function Home() {
   return (
     <SiteContentProvider>
+      <VisitorTracker />
       <main className="flex min-h-screen flex-col bg-[var(--color-surface)]">
         <IntroWrapper />
         <Hero />
