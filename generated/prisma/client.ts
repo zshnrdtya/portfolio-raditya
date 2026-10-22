@@ -61,3 +61,8 @@ export type Guestbook = Prisma.GuestbookModel
  * 
  */
 export type Project = Prisma.ProjectModel
+/**
+ * Model SiteContent
+ * 
+ */
+export type SiteContent = Prisma.SiteContentModel

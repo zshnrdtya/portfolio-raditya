@@ -1,10 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useSiteContent } from "@/components/cms/SiteContentProvider";
+import { SectionEditTrigger } from "@/components/cms/SectionEditTrigger";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
 export default function Contact() {
+  const { content } = useSiteContent();
+  const contact = content.contact;
+
   const [form, setForm] = useState({ nama: "", email: "", pesan: "" });
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
@@ -13,8 +18,8 @@ export default function Contact() {
     {
       type: "link",
       title: "Email",
-      value: "radityaraizeeshan@gmail.com",
-      link: "mailto:radityaraizeeshan@gmail.com",
+      value: contact?.email || "radityaraizeeshan@gmail.com",
+      link: `mailto:${contact?.email || "radityaraizeeshan@gmail.com"}`,
       icon: (
         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -24,7 +29,7 @@ export default function Contact() {
     {
       type: "map",
       title: "Location",
-      value: "Jl. Pekapuran, Gg Ancin RT 04/24",
+      value: contact?.location || "Jl. Pekapuran, Gg Ancin RT 04/24",
       link: "https://maps.google.com/maps?q=Jl.+Pekapuran,+Kota+Depok,+Jawa+Barat&t=&z=15&ie=UTF8&iwloc=&output=embed",
     },
   ];
@@ -35,7 +40,6 @@ export default function Contact() {
     setMessage("");
 
     try {
-      // POST ke /api/contact dengan body { nama, email, pesan }
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -49,15 +53,12 @@ export default function Contact() {
       const data = await res.json();
 
       if (!res.ok) {
-        // Tampilkan pesan error dari API (validasi atau server error)
         setStatus("error");
         setMessage(data.error ?? "Terjadi kesalahan. Silakan coba lagi.");
       } else {
-        // res.ok = true (status 200/201) - pesan berhasil tersimpan
         setStatus("success");
         setMessage("Your message has been successfully sent! I will contact you shortly. 🎉");
         setForm({ nama: "", email: "", pesan: "" });
-        // Auto-reset ke idle setelah 5 detik agar user bisa kirim lagi
         setTimeout(() => setStatus("idle"), 5000);
       }
     } catch {
@@ -69,11 +70,13 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 relative bg-[var(--color-surface)]">
       <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
+        <SectionEditTrigger section="contact" label="Edit Contact Section" />
+
         <h2
           className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative mb-6 drop-shadow-sm"
           data-aos="fade-up"
         >
-          Let&apos;s Connect
+          {contact?.title || "Let's Connect"}
         </h2>
 
         <p
@@ -81,8 +84,8 @@ export default function Contact() {
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          Have a project in mind or just want to say hi? Feel free to reach out
-          to me directly through any of the channels below!
+          {contact?.subtitle ||
+            "Have a project in mind or just want to say hi? Feel free to reach out to me directly through any of the channels below!"}
         </p>
 
         {/* Contact Info Cards */}
@@ -106,7 +109,7 @@ export default function Contact() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       className="absolute inset-0 w-full h-full"
-                    ></iframe>
+                    />
                   </div>
                 </div>
                 <div className="text-center mt-auto pb-2">
@@ -122,20 +125,18 @@ export default function Contact() {
               <a
                 key={index}
                 href={info.link}
-                target="_blank"
-                rel="noopener noreferrer"
                 data-aos="fade-up"
                 data-aos-delay={index * 150 + 200}
-                className="group bg-[var(--color-surface)] rounded-3xl p-8 shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] transition-all duration-300 flex flex-col items-center justify-center gap-6 cursor-pointer"
+                className="bg-[var(--color-surface)] rounded-3xl p-8 shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] transition-all duration-300 flex flex-col items-center justify-center gap-4 text-center group cursor-pointer"
               >
-                <div className="w-20 h-20 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] group-hover:shadow-[var(--shadow-neu-in)] group-hover:text-[var(--color-accent)] text-[var(--color-textMain)] flex items-center justify-center transition-all duration-300">
+                <div className="p-5 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] text-[var(--color-accent)] group-hover:scale-110 transition-transform duration-300">
                   {info.icon}
                 </div>
-                <div className="text-center">
-                  <h3 className="font-poppins font-black text-xl text-[var(--color-textMain)] mb-2">
+                <div>
+                  <h3 className="font-poppins font-black text-xl text-[var(--color-textMain)] mb-1">
                     {info.title}
                   </h3>
-                  <p className="font-inter font-medium text-[var(--color-textMain)] opacity-80 group-hover:opacity-100 transition-opacity">
+                  <p className="font-inter font-medium text-[var(--color-textMain)] opacity-80 text-sm">
                     {info.value}
                   </p>
                 </div>
@@ -144,78 +145,71 @@ export default function Contact() {
           )}
         </div>
 
-        {/* Contact Form */}
+        {/* Contact Form Card */}
         <div
-          className="max-w-2xl mx-auto bg-[var(--color-surface)] rounded-3xl p-8 shadow-[var(--shadow-neu-out)]"
           data-aos="fade-up"
           data-aos-delay="400"
+          className="bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] rounded-3xl p-8 md:p-12 max-w-2xl mx-auto"
         >
-          <h3 className="font-poppins font-black text-2xl text-[var(--color-textMain)] mb-6 text-left">
-            Send Message
-          </h3>
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Nama */}
-            <div className="flex flex-col gap-2 text-left">
+            <div>
               <label
                 htmlFor="contact-nama"
-                className="font-inter font-semibold text-sm text-[var(--color-textMain)] opacity-80"
+                className="block text-left font-poppins font-bold text-sm text-[var(--color-textMain)] mb-2"
               >
-                Name
+                Nama
               </label>
               <input
                 id="contact-nama"
                 type="text"
-                placeholder="Your full name"
-                value={form.nama}
-                onChange={(e) => setForm((f) => ({ ...f, nama: e.target.value }))}
-                disabled={status === "loading"}
                 required
-                className="w-full px-4 py-3 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] placeholder:opacity-40 outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all disabled:opacity-50"
+                placeholder="Masukkan nama Anda"
+                value={form.nama}
+                onChange={(e) => setForm({ ...form, nama: e.target.value })}
+                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40"
               />
             </div>
 
             {/* Email */}
-            <div className="flex flex-col gap-2 text-left">
+            <div>
               <label
                 htmlFor="contact-email"
-                className="font-inter font-semibold text-sm text-[var(--color-textMain)] opacity-80"
+                className="block text-left font-poppins font-bold text-sm text-[var(--color-textMain)] mb-2"
               >
                 Email
               </label>
               <input
                 id="contact-email"
                 type="email"
-                placeholder="your@email.com"
-                value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                disabled={status === "loading"}
                 required
-                className="w-full px-4 py-3 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] placeholder:opacity-40 outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all disabled:opacity-50"
+                placeholder="Masukkan email Anda"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40"
               />
             </div>
 
             {/* Pesan */}
-            <div className="flex flex-col gap-2 text-left">
+            <div>
               <label
                 htmlFor="contact-pesan"
-                className="font-inter font-semibold text-sm text-[var(--color-textMain)] opacity-80"
+                className="block text-left font-poppins font-bold text-sm text-[var(--color-textMain)] mb-2"
               >
-                Message
+                Pesan
               </label>
               <textarea
                 id="contact-pesan"
-                rows={5}
-                placeholder="Tell me about your project or idea..."
-                value={form.pesan}
-                onChange={(e) => setForm((f) => ({ ...f, pesan: e.target.value }))}
-                disabled={status === "loading"}
                 required
-                className="w-full px-4 py-3 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] placeholder:opacity-40 outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all resize-none disabled:opacity-50"
+                rows={5}
+                placeholder="Tulis pesan Anda di sini..."
+                value={form.pesan}
+                onChange={(e) => setForm({ ...form, pesan: e.target.value })}
+                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40 resize-none"
               />
             </div>
 
-            {/* Feedback message */}
+            {/* Feedback Message */}
             {status !== "idle" && status !== "loading" && (
               <div
                 className={`rounded-2xl px-4 py-3 text-sm font-inter font-medium text-left transition-all ${

@@ -1,8 +1,18 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useSiteContent } from "@/components/cms/SiteContentProvider";
+import { SectionEditTrigger } from "@/components/cms/SectionEditTrigger";
 
-function Counter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
+function Counter({
+  end,
+  duration = 2000,
+  suffix = "",
+}: {
+  end: number;
+  duration?: number;
+  suffix?: string;
+}) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -46,16 +56,21 @@ function Counter({ end, duration = 2000, suffix = "" }: { end: number; duration?
 }
 
 export default function Statistics() {
+  const { content } = useSiteContent();
+  const s = content.statistics;
+
   const stats = [
-    { label: "Projects Completed", value: 10, suffix: "+" },
-    { label: "Years of Learning", value: 2, suffix: "+" },
-    { label: "Core Technologies", value: 5, suffix: "+" },
-    { label: "Internship Experience", value: 1, suffix: "" },
+    { label: "Projects Completed", value: s?.projectsCompleted ?? 10, suffix: "+" },
+    { label: "Years of Learning", value: s?.yearsLearning ?? 2, suffix: "+" },
+    { label: "Core Technologies", value: s?.coreTechnologies ?? 5, suffix: "+" },
+    { label: "Internship Experience", value: s?.internshipExperience ?? 1, suffix: "" },
   ];
 
   return (
     <section id="statistics" className="pt-4 md:pt-0 pb-20 bg-surface">
       <div className="container mx-auto px-6 max-w-6xl">
+        <SectionEditTrigger section="statistics" label="Edit Statistics" />
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <div

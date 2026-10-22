@@ -11,23 +11,32 @@ import Gallery from "@/components/sections/Gallery";
 import Testimonials from "@/components/sections/Testimonials";
 import Guestbook from "@/components/sections/Guestbook";
 import Contact from "@/components/sections/Contact";
+import { SiteContentProvider } from "@/components/cms/SiteContentProvider";
+import { AdminFloatingBar } from "@/components/cms/AdminFloatingBar";
+import { SectionEditModal } from "@/components/cms/SectionEditModal";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[var(--color-surface)]">
-      <IntroWrapper />
-      <Hero />
-      <Statistics />
-      <TechSlider />
-      <Experience />
-      <Achievements />
-      <FeaturedProjects />
-      <DesignCorner />
-      <AboutMe />
-      <Gallery />
-      <Testimonials />
-      <Guestbook />
-      <Contact />
-    </main>
+    <SiteContentProvider>
+      <main className="flex min-h-screen flex-col bg-[var(--color-surface)]">
+        <IntroWrapper />
+        <Hero />
+        <Statistics />
+        <TechSlider />
+        <Experience />
+        <Achievements />
+        <FeaturedProjects />
+        <DesignCorner />
+        <AboutMe />
+        <Gallery />
+        <Testimonials />
+        <Guestbook />
+        <Contact />
+      </main>
+
+      {/* Floating Toolbar & Edit Modal untuk Admin */}
+      <AdminFloatingBar />
+      <SectionEditModal />
+    </SiteContentProvider>
   );
 }
