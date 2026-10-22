@@ -12,6 +12,8 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
+    "@simplewebauthn/browser": "^9.0.1",
+    "@simplewebauthn/server": "^9.0.3",
     "@types/three": "^0.186.0",
     "aos": "^2.3.4",
     "dotenv": "^17.4.2",

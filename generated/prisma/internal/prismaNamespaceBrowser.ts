@@ -55,7 +55,9 @@ export const ModelName = {
   ProjectStat: 'ProjectStat',
   Guestbook: 'Guestbook',
   Project: 'Project',
-  SiteContent: 'SiteContent'
+  SiteContent: 'SiteContent',
+  PasskeyCredential: 'PasskeyCredential',
+  PasskeyChallenge: 'PasskeyChallenge'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -136,6 +138,34 @@ export const SiteContentScalarFieldEnum = {
 } as const
 
 export type SiteContentScalarFieldEnum = (typeof SiteContentScalarFieldEnum)[keyof typeof SiteContentScalarFieldEnum]
+
+
+export const PasskeyCredentialScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  publicKey: 'publicKey',
+  counter: 'counter',
+  deviceType: 'deviceType',
+  backedUp: 'backedUp',
+  transports: 'transports',
+  deviceName: 'deviceName',
+  createdAt: 'createdAt',
+  lastUsedAt: 'lastUsedAt'
+} as const
+
+export type PasskeyCredentialScalarFieldEnum = (typeof PasskeyCredentialScalarFieldEnum)[keyof typeof PasskeyCredentialScalarFieldEnum]
+
+
+export const PasskeyChallengeScalarFieldEnum = {
+  id: 'id',
+  challenge: 'challenge',
+  type: 'type',
+  userEmail: 'userEmail',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PasskeyChallengeScalarFieldEnum = (typeof PasskeyChallengeScalarFieldEnum)[keyof typeof PasskeyChallengeScalarFieldEnum]
 
 
 export const SortOrder = {

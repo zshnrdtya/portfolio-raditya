@@ -66,3 +66,13 @@ export type Project = Prisma.ProjectModel
  * 
  */
 export type SiteContent = Prisma.SiteContentModel
+/**
+ * Model PasskeyCredential
+ * 
+ */
+export type PasskeyCredential = Prisma.PasskeyCredentialModel
+/**
+ * Model PasskeyChallenge
+ * 
+ */
+export type PasskeyChallenge = Prisma.PasskeyChallengeModel

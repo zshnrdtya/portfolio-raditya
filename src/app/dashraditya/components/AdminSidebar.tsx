@@ -10,6 +10,7 @@ import {
   RefreshCw,
   LogOut,
   ShieldCheck,
+  ScanFace,
   X,
 } from 'lucide-react';
 import { DashboardTab } from '../types';
@@ -54,6 +55,11 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         pendingGuestbookCount > 0
           ? 'bg-amber-200 text-amber-950 font-black'
           : 'bg-surface shadow-neu-in text-textMain/70',
+    },
+    {
+      id: 'SECURITY' as DashboardTab,
+      label: 'Keamanan & Face ID',
+      icon: ScanFace,
     },
   ];
 

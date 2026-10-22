@@ -12,7 +12,7 @@ export interface PendingMessage {
 
 export type FilterType = 'ALL' | 'MAIN' | 'REPLIES';
 
-export type DashboardTab = 'GUESTBOOK' | 'PROJECTS';
+export type DashboardTab = 'GUESTBOOK' | 'PROJECTS' | 'SECURITY';
 
 export interface ProjectItem {
   id: string;

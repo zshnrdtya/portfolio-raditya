@@ -37,7 +37,11 @@ export const AdminTopNav: React.FC<AdminTopNavProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h1 className="font-poppins font-black text-xl sm:text-2xl text-textMain tracking-tight">
-              {activeTab === 'PROJECTS' ? 'Featured Projects' : 'Buku Tamu'}
+              {activeTab === 'PROJECTS'
+                ? 'Featured Projects'
+                : activeTab === 'GUESTBOOK'
+                ? 'Buku Tamu'
+                : 'Keamanan & Face ID'}
             </h1>
             {activeTab === 'PROJECTS' && (
               <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-surface shadow-neu-in text-[11px] font-bold text-accent">
@@ -45,11 +49,18 @@ export const AdminTopNav: React.FC<AdminTopNavProps> = ({
                 Gemini AI Ready
               </span>
             )}
+            {activeTab === 'SECURITY' && (
+              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-surface shadow-neu-in text-[11px] font-bold text-emerald-800">
+                WebAuthn Passkey
+              </span>
+            )}
           </div>
           <p className="font-inter text-xs sm:text-sm text-textMain/75 mt-0.5">
             {activeTab === 'PROJECTS'
               ? 'Kelola karya unggulan portofolio dan hasilkan deskripsi cerdas.'
-              : 'Pusat persetujuan moderasi pesan pengunjung.'}
+              : activeTab === 'GUESTBOOK'
+              ? 'Pusat persetujuan moderasi pesan pengunjung.'
+              : 'Kelola perangkat biometrik Face ID & Windows Hello untuk akses cepat.'}
           </p>
         </div>
       </div>

@@ -401,7 +401,9 @@ export const ModelName = {
   ProjectStat: 'ProjectStat',
   Guestbook: 'Guestbook',
   Project: 'Project',
-  SiteContent: 'SiteContent'
+  SiteContent: 'SiteContent',
+  PasskeyCredential: 'PasskeyCredential',
+  PasskeyChallenge: 'PasskeyChallenge'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -417,7 +419,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "contactMessage" | "projectStat" | "guestbook" | "project" | "siteContent"
+    modelProps: "contactMessage" | "projectStat" | "guestbook" | "project" | "siteContent" | "passkeyCredential" | "passkeyChallenge"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -791,6 +793,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PasskeyCredential: {
+      payload: Prisma.$PasskeyCredentialPayload<ExtArgs>
+      fields: Prisma.PasskeyCredentialFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PasskeyCredentialFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PasskeyCredentialFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>
+        }
+        findFirst: {
+          args: Prisma.PasskeyCredentialFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PasskeyCredentialFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>
+        }
+        findMany: {
+          args: Prisma.PasskeyCredentialFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>[]
+        }
+        create: {
+          args: Prisma.PasskeyCredentialCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>
+        }
+        createMany: {
+          args: Prisma.PasskeyCredentialCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PasskeyCredentialCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>[]
+        }
+        delete: {
+          args: Prisma.PasskeyCredentialDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>
+        }
+        update: {
+          args: Prisma.PasskeyCredentialUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>
+        }
+        deleteMany: {
+          args: Prisma.PasskeyCredentialDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PasskeyCredentialUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PasskeyCredentialUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>[]
+        }
+        upsert: {
+          args: Prisma.PasskeyCredentialUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyCredentialPayload>
+        }
+        aggregate: {
+          args: Prisma.PasskeyCredentialAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePasskeyCredential>
+        }
+        groupBy: {
+          args: Prisma.PasskeyCredentialGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PasskeyCredentialGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PasskeyCredentialCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PasskeyCredentialCountAggregateOutputType> | number
+        }
+      }
+    }
+    PasskeyChallenge: {
+      payload: Prisma.$PasskeyChallengePayload<ExtArgs>
+      fields: Prisma.PasskeyChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PasskeyChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PasskeyChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.PasskeyChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PasskeyChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>
+        }
+        findMany: {
+          args: Prisma.PasskeyChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>[]
+        }
+        create: {
+          args: Prisma.PasskeyChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>
+        }
+        createMany: {
+          args: Prisma.PasskeyChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PasskeyChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.PasskeyChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>
+        }
+        update: {
+          args: Prisma.PasskeyChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.PasskeyChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PasskeyChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PasskeyChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.PasskeyChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PasskeyChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.PasskeyChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePasskeyChallenge>
+        }
+        groupBy: {
+          args: Prisma.PasskeyChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PasskeyChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PasskeyChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PasskeyChallengeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -892,6 +1042,34 @@ export const SiteContentScalarFieldEnum = {
 } as const
 
 export type SiteContentScalarFieldEnum = (typeof SiteContentScalarFieldEnum)[keyof typeof SiteContentScalarFieldEnum]
+
+
+export const PasskeyCredentialScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  publicKey: 'publicKey',
+  counter: 'counter',
+  deviceType: 'deviceType',
+  backedUp: 'backedUp',
+  transports: 'transports',
+  deviceName: 'deviceName',
+  createdAt: 'createdAt',
+  lastUsedAt: 'lastUsedAt'
+} as const
+
+export type PasskeyCredentialScalarFieldEnum = (typeof PasskeyCredentialScalarFieldEnum)[keyof typeof PasskeyCredentialScalarFieldEnum]
+
+
+export const PasskeyChallengeScalarFieldEnum = {
+  id: 'id',
+  challenge: 'challenge',
+  type: 'type',
+  userEmail: 'userEmail',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PasskeyChallengeScalarFieldEnum = (typeof PasskeyChallengeScalarFieldEnum)[keyof typeof PasskeyChallengeScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1000,6 +1178,20 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt[]'
+ */
+export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
 
 
@@ -1172,6 +1364,8 @@ export type GlobalOmitConfig = {
   guestbook?: Prisma.GuestbookOmit
   project?: Prisma.ProjectOmit
   siteContent?: Prisma.SiteContentOmit
+  passkeyCredential?: Prisma.PasskeyCredentialOmit
+  passkeyChallenge?: Prisma.PasskeyChallengeOmit
 }
 
 /* Types for Logging */

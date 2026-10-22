@@ -14,6 +14,7 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import type { Session } from 'next-auth';
+import { BiometricLoginButton } from './BiometricLoginButton';
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -220,9 +221,15 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
             <div className="w-full border-t border-textMain/15" />
           </div>
           <span className="relative px-3 bg-surface font-inter text-xs text-textMain/65 font-medium uppercase tracking-wider">
-            atau
+            atau biometrik / oauth
           </span>
         </div>
+
+        {/* Biometric (Face ID / Passkey) Login */}
+        <BiometricLoginButton
+          onErrorMessage={setErrorMessage}
+          disabled={isLoading || isGithubLoading}
+        />
 
         {/* Sign in with GitHub */}
         <button

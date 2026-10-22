@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import Credentials from 'next-auth/providers/credentials';
+import { prisma } from './prisma';
 
 export const ADMIN_EMAIL = 'radityaraizeeshan@gmail.com';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Raditya301008_';
@@ -38,6 +39,41 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         return null;
+      },
+    }),
+    Credentials({
+      id: 'passkey',
+      name: 'Passkey Biometrics',
+      credentials: {
+        ticket: { label: 'Ticket', type: 'text' },
+      },
+      async authorize(credentials) {
+        if (!credentials?.ticket) {
+          return null;
+        }
+
+        const ticket = String(credentials.ticket);
+        const validTicket = await prisma.passkeyChallenge.findFirst({
+          where: {
+            challenge: ticket,
+            type: 'LOGIN_TICKET',
+            expiresAt: { gt: new Date() },
+          },
+        });
+
+        if (!validTicket) {
+          return null;
+        }
+
+        await prisma.passkeyChallenge.delete({
+          where: { id: validTicket.id },
+        });
+
+        return {
+          id: 'admin-raditya',
+          name: 'Raditya Rai Zeeshan',
+          email: ADMIN_EMAIL,
+        };
       },
     }),
   ],

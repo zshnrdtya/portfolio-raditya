@@ -63,3 +63,28 @@ model SiteContent {
   data      Json
   updatedAt DateTime @updatedAt
 }
+
+// Tabel 6: Kredensial Passkey / Biometrik (WebAuthn / Face ID / Windows Hello)
+model PasskeyCredential {
+  id         String    @id
+  userId     String    @default("radityaraizeeshan@gmail.com")
+  publicKey  String
+  counter    BigInt    @default(0)
+  deviceType String    @default("singleDevice")
+  backedUp   Boolean   @default(false)
+  transports String[]  @default([])
+  deviceName String?   @default("Perangkat Admin")
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime?
+}
+
+// Tabel 7: Challenge Sementara untuk WebAuthn
+model PasskeyChallenge {
+  id        String   @id @default(cuid())
+  challenge String   @unique
+  type      String
+  userEmail String   @default("radityaraizeeshan@gmail.com")
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
