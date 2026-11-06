@@ -1,33 +1,19 @@
 @import "tailwindcss";
 
-@theme {
-  --color-surface: #C6E0D2; /* Soft Mint / Sage Green */
-  --color-textMain: #284435; /* Dark Pine Green for text */
-  --color-accent: #136846; /* Deep Emerald for active/accent - calibrated for WCAG AA (4.84:1) */
-  
-  /* Soft, clean shadows for pastel surface */
-  --shadow-neu-out: 10px 10px 20px rgba(150, 175, 161, 0.7), -10px -10px 20px rgba(255, 255, 255, 0.9);
-  --shadow-neu-in: inset 10px 10px 20px rgba(150, 175, 161, 0.7), inset -10px -10px 20px rgba(255, 255, 255, 0.9);
-  
-  --font-poppins: var(--font-poppins);
-  --font-inter: var(--font-inter);
-  
-  --animate-marquee: marquee 25s linear infinite;
-  
-  @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
-}
-
 body {
-  background-color: var(--color-surface);
-  color: var(--color-textMain);
-  font-family: var(--font-inter), sans-serif;
-  overflow-x: hidden;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
