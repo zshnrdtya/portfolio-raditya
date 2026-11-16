@@ -3,15 +3,24 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { ShieldCheck } from 'lucide-react';
 import './IdentityDisplay.css';
 
 interface CardProps {
   src: string;
   alt: string;
   lanyardColor: 'blue' | 'maroon' | 'amber';
+  onAction?: () => void;
+  actionLabel?: string;
 }
 
-const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
+const LanyardCard: React.FC<CardProps> = ({
+  src,
+  alt,
+  lanyardColor,
+  onAction,
+  actionLabel,
+}) => {
   const strapRef = useRef<HTMLDivElement>(null);
   const [baseHeight, setBaseHeight] = useState(128);
 
@@ -85,11 +94,27 @@ const LanyardCard: React.FC<CardProps> = ({ src, alt, lanyardColor }) => {
           />
         </div>
       </motion.div>
+
+      {actionLabel && onAction && (
+        <button
+          type="button"
+          onClick={onAction}
+          aria-label={actionLabel}
+          className="mt-3.5 min-h-[44px] px-3.5 py-2 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in active:shadow-neu-in text-accent font-poppins text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer border border-white/60 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+        >
+          <ShieldCheck size={16} className="text-accent" />
+          <span>Lihat Sertifikat</span>
+        </button>
+      )}
     </div>
   );
 };
 
-const IdentityDisplay: React.FC = () => {
+interface IdentityDisplayProps {
+  onOpenIndiCert?: () => void;
+}
+
+const IdentityDisplay: React.FC<IdentityDisplayProps> = ({ onOpenIndiCert }) => {
   return (
     <div className="identity-display-section" data-aos="fade-up">
       <div className="identity-heading">
@@ -105,6 +130,8 @@ const IdentityDisplay: React.FC = () => {
           src="/foto-raditya/raditya (1).png"
           alt="ID Card Inditech - Raditya Rai Zeeshan, Fullstack Web Developer Intern"
           lanyardColor="blue"
+          onAction={onOpenIndiCert}
+          actionLabel="Lihat Sertifikat Magang Indi Technology"
         />
         <LanyardCard
           src="/foto-raditya/raditya (2).png"

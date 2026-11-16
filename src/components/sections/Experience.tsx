@@ -1,9 +1,32 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { Award } from 'lucide-react';
 import IdentityDisplay from './IdentityDisplay';
+import { CertificateModal, CertificateData } from './CertificateModal';
+
+interface ExperienceItem {
+  title: string;
+  company: string;
+  description: string;
+  badges: string[];
+  logo: string;
+  logoPosition: 'left' | 'right';
+  certificate?: CertificateData;
+}
 
 const Experience = () => {
-  const experiences = [
+  const [selectedCert, setSelectedCert] = useState<CertificateData | null>(null);
+
+  const indiCertificate: CertificateData = {
+    title: 'Sertifikat Magang Fullstack Developer',
+    issuer: 'Indi Technology',
+    credentialRole: 'FullStack Developer',
+    image: '/logo-asset/sertifikat-intern.jpeg',
+  };
+
+  const experiences: ExperienceItem[] = [
     {
       title: "Founder & Project Manager",
       company: "Z - Project",
@@ -26,7 +49,8 @@ const Experience = () => {
       description: "Responsible as a FullStack Developer intern at Indi Technology in developing a modern company profile application. Actively implemented 3D scrollytelling interactive features, managed the application deployment process to the production environment, and comprehensively conducted Quality Assurance (QA) testing to ensure optimal and bug-free system performance.",
       badges: ["Next.js", "React", "Laravel", "Inertia.js"],
       logo: "/foto-raditya/logoindi.png",
-      logoPosition: "left"
+      logoPosition: "left",
+      certificate: indiCertificate,
     }
   ];
 
@@ -37,8 +61,8 @@ const Experience = () => {
           Experience & Leadership
         </h2>
 
-        {/* Identity Display – Lanyard Nametag Cards */}
-        <IdentityDisplay />
+        {/* Identity Display - Lanyard Nametag Cards */}
+        <IdentityDisplay onOpenIndiCert={() => setSelectedCert(indiCertificate)} />
 
         <div className="relative">
           {/* Main vertical line (Mobile only, hidden on md) */}
@@ -110,6 +134,21 @@ const Experience = () => {
                         ))}
                       </div>
                     )}
+
+                    {exp.certificate && (
+                      <div className={`mt-5 pt-4 border-t border-textMain/15 flex flex-wrap items-center justify-between gap-3 ${index % 2 === 0 ? 'md:justify-end' : 'justify-start'}`}>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedCert(exp.certificate || null)}
+                          className="min-h-[44px] px-4 py-2.5 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in active:shadow-neu-in text-accent font-poppins font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer transition-all border border-white/60 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                          aria-label={`Buka ${exp.certificate.title}`}
+                        >
+                          <Award size={17} className="text-accent shrink-0" />
+                          <span>Lihat Sertifikat Magang</span>
+                          <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse ml-0.5" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -118,6 +157,12 @@ const Experience = () => {
           </div>
         </div>
       </div>
+
+      {/* Lightbox Modal Sertifikat */}
+      <CertificateModal
+        certificate={selectedCert}
+        onClose={() => setSelectedCert(null)}
+      />
     </section>
   );
 };
