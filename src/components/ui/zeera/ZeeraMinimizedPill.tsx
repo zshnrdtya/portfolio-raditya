@@ -29,7 +29,7 @@ export const ZeeraMinimizedPill: React.FC<ZeeraMinimizedPillProps> = ({
         <MessageSquare className="w-4 h-4 text-[#136846] animate-pulse" />
       </div>
       <div className="flex items-center gap-1.5">
-        <span className="font-poppins font-bold text-xs text-[var(--color-textMain)]">
+        <span className="font-space-grotesk font-bold text-xs text-[var(--color-textMain)]">
           Zeera AI
         </span>
         <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300/60">

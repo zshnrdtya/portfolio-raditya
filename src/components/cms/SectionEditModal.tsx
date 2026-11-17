@@ -46,12 +46,12 @@ export function SectionEditModal() {
         {/* Header Modal */}
         <div className="flex items-center justify-between pb-4 border-b border-textMain/10 mb-5">
           <div>
-            <span className="font-poppins font-bold text-[10px] uppercase tracking-wider text-accent">
+            <span className="font-space-grotesk font-bold text-[10px] uppercase tracking-wider text-accent">
               Inline CMS Editor
             </span>
             <h2
               id="inline-cms-modal-title"
-              className="font-poppins font-black text-lg sm:text-xl text-textMain"
+              className="font-space-grotesk font-black text-lg sm:text-xl text-textMain"
             >
               {sectionTitles[editingSection] || `Edit ${editingSection}`}
             </h2>

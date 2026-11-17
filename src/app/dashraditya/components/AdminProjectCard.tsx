@@ -62,7 +62,7 @@ export const AdminProjectCard: React.FC<AdminProjectCardProps> = ({
 
         {/* Info Proyek */}
         <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="font-poppins font-black text-lg text-textMain leading-snug">
+          <h3 className="font-space-grotesk font-black text-lg text-textMain leading-snug">
             {project.title}
           </h3>
           <div className="flex items-center gap-2 shrink-0">
@@ -93,7 +93,7 @@ export const AdminProjectCard: React.FC<AdminProjectCardProps> = ({
           </div>
         </div>
 
-        <p className="font-inter text-xs text-textMain/80 leading-relaxed mb-4 line-clamp-3">
+        <p className="font-space-grotesk text-xs text-textMain/80 leading-relaxed mb-4 line-clamp-3">
           {project.description}
         </p>
 

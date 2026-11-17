@@ -83,7 +83,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
       <div className="w-full max-w-md mb-6">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold font-poppins text-textMain/80 hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-lg py-1.5 px-2 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold font-space-grotesk text-textMain/80 hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none rounded-lg py-1.5 px-2 transition-colors cursor-pointer"
         >
           <ArrowLeft size={16} />
           <span>Kembali ke Beranda</span>
@@ -97,10 +97,10 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
           <div className="w-14 h-14 rounded-2xl bg-surface shadow-neu-out flex items-center justify-center text-accent mb-3.5 border border-white/50">
             <Lock size={24} />
           </div>
-          <h1 className="font-poppins font-bold text-xl sm:text-2xl text-textMain tracking-tight">
+          <h1 className="font-space-grotesk font-bold text-xl sm:text-2xl text-textMain tracking-tight">
             Masuk ke Dashraditya
           </h1>
-          <p className="font-inter text-xs sm:text-sm text-textMain/75 mt-1">
+          <p className="font-space-grotesk text-xs sm:text-sm text-textMain/75 mt-1">
             Portal administrasi portofolio Raditya Rai Zeeshan
           </p>
         </div>
@@ -143,7 +143,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
           <div>
             <label
               htmlFor="admin-email"
-              className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5"
+              className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5"
             >
               Email Administrator
             </label>
@@ -159,7 +159,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@domain.com"
                 required
-                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
               />
             </div>
           </div>
@@ -167,7 +167,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
           <div>
             <label
               htmlFor="admin-password"
-              className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5"
+              className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5"
             >
               Kata Sandi
             </label>
@@ -183,7 +183,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Masukkan kata sandi admin"
                 required
-                className="w-full pl-11 pr-12 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+                className="w-full pl-11 pr-12 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
               />
               <button
                 type="button"
@@ -199,7 +199,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
           <button
             type="submit"
             disabled={isLoading || isGithubLoading || !password}
-            className="w-full min-h-[48px] px-5 py-3 rounded-2xl bg-accent text-white font-poppins font-bold text-sm shadow-neu-out hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
+            className="w-full min-h-[48px] px-5 py-3 rounded-2xl bg-accent text-white font-space-grotesk font-bold text-sm shadow-neu-out hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center justify-center gap-2 cursor-pointer mt-2"
           >
             {isLoading ? (
               <>
@@ -220,7 +220,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-textMain/15" />
           </div>
-          <span className="relative px-3 bg-surface font-inter text-xs text-textMain/65 font-medium uppercase tracking-wider">
+          <span className="relative px-3 bg-surface font-space-grotesk text-xs text-textMain/65 font-medium uppercase tracking-wider">
             atau biometrik / oauth
           </span>
         </div>
@@ -236,7 +236,7 @@ export const AdminLoginForm: React.FC<AdminLoginFormProps> = ({ currentSession }
           type="button"
           onClick={handleGithubSignIn}
           disabled={isLoading || isGithubLoading}
-          className="w-full min-h-[48px] px-5 py-3 rounded-2xl bg-surface text-textMain font-poppins font-bold text-sm shadow-neu-out hover:shadow-neu-in active:shadow-neu-in focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-white/50"
+          className="w-full min-h-[48px] px-5 py-3 rounded-2xl bg-surface text-textMain font-space-grotesk font-bold text-sm shadow-neu-out hover:shadow-neu-in active:shadow-neu-in focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-white/50"
         >
           {isGithubLoading ? (
             <>

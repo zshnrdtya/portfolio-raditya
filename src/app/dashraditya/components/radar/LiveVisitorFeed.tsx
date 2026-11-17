@@ -44,11 +44,11 @@ export const LiveVisitorFeed: React.FC<LiveVisitorFeedProps> = ({ visitors }) =>
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2">
           <Activity size={18} className="text-emerald-700" />
-          <h3 className="font-poppins font-bold text-base text-textMain">
+          <h3 className="font-space-grotesk font-bold text-base text-textMain">
             Sesi Pengunjung Aktif ({visitors.length})
           </h3>
         </div>
-        <span className="text-xs font-inter text-textMain/65 font-medium">
+        <span className="text-xs font-space-grotesk text-textMain/65 font-medium">
           Diperbarui otomatis tiap 3 dtk
         </span>
       </div>
@@ -56,8 +56,8 @@ export const LiveVisitorFeed: React.FC<LiveVisitorFeedProps> = ({ visitors }) =>
       {visitors.length === 0 ? (
         <div className="py-10 text-center rounded-2xl bg-surface shadow-neu-in p-6">
           <Globe size={36} className="mx-auto text-textMain/40 mb-2 animate-pulse" />
-          <p className="font-poppins font-bold text-sm text-textMain">Tidak Ada Pengunjung Aktif</p>
-          <p className="font-inter text-xs text-textMain/65 mt-1 max-w-md mx-auto">
+          <p className="font-space-grotesk font-bold text-sm text-textMain">Tidak Ada Pengunjung Aktif</p>
+          <p className="font-space-grotesk text-xs text-textMain/65 mt-1 max-w-md mx-auto">
             Radar sedang memantau. Coba buka beranda portofolio di tab atau perangkat lain untuk melihat radar mendeteksi kehadiran secara instan.
           </p>
         </div>
@@ -77,17 +77,17 @@ export const LiveVisitorFeed: React.FC<LiveVisitorFeedProps> = ({ visitors }) =>
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="px-1.5 py-0.5 rounded bg-surface shadow-neu-out text-[10px] font-bold text-textMain">
+                      <span className="px-1.5 py-0.5 rounded bg-surface shadow-neu-out text-[10px] font-bold font-space-mono text-textMain">
                         {visitor.country}
                       </span>
-                      <span className="font-poppins font-bold text-sm text-textMain">
+                      <span className="font-space-grotesk font-bold text-sm text-textMain">
                         {visitor.city || 'Indonesia'}
                       </span>
-                      <span className="text-xs text-textMain/60 font-inter">
+                      <span className="text-xs text-textMain/60 font-space-grotesk">
                         ({visitor.browser} - {visitor.device})
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs font-inter text-textMain/70 mt-0.5">
+                    <div className="flex items-center gap-2 text-xs font-space-grotesk text-textMain/70 mt-0.5">
                       <span className="font-mono text-accent">{visitor.path}</span>
                       <span>•</span>
                       <span className="flex items-center gap-1 text-[11px] text-textMain/60">
@@ -99,7 +99,7 @@ export const LiveVisitorFeed: React.FC<LiveVisitorFeedProps> = ({ visitors }) =>
                 </div>
 
                 {/* Status & Relative Time */}
-                <div className="flex items-center gap-2 self-start sm:self-auto text-xs font-inter text-emerald-800 font-semibold bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 self-start sm:self-auto text-xs font-space-grotesk text-emerald-800 font-semibold bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-700 animate-ping" />
                   <Clock size={12} className="text-emerald-700" />
                   <span>Aktif: {formatTime(visitor.lastSeenAt)}</span>

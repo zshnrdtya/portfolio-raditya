@@ -43,7 +43,7 @@ export const AdminMetrics: React.FC<AdminMetricsProps> = ({
           </div>
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl sm:text-3xl font-extrabold font-poppins text-textMain">
+          <span className="text-2xl sm:text-3xl font-extrabold font-space-mono text-textMain">
             {totalCount}
           </span>
           <span className="text-xs font-medium text-textMain/85">pesan</span>
@@ -69,7 +69,7 @@ export const AdminMetrics: React.FC<AdminMetricsProps> = ({
           </div>
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl sm:text-3xl font-extrabold font-poppins text-textMain">
+          <span className="text-2xl sm:text-3xl font-extrabold font-space-mono text-textMain">
             {mainCount}
           </span>
           <span className="text-xs font-medium text-textMain/85">komentar</span>
@@ -95,7 +95,7 @@ export const AdminMetrics: React.FC<AdminMetricsProps> = ({
           </div>
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl sm:text-3xl font-extrabold font-poppins text-textMain">
+          <span className="text-2xl sm:text-3xl font-extrabold font-space-mono text-textMain">
             {repliesCount}
           </span>
           <span className="text-xs font-medium text-textMain/85">balasan</span>

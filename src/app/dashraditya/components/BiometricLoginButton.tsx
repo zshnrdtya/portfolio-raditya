@@ -113,7 +113,7 @@ export const BiometricLoginButton: React.FC<BiometricLoginButtonProps> = ({
       onClick={handleBiometricLogin}
       disabled={isLoading || disabled}
       aria-label="Masuk dengan Face ID atau Biometrik Perangkat"
-      className="w-full min-h-[48px] px-5 py-3 rounded-2xl bg-surface text-textMain font-poppins font-bold text-sm shadow-neu-out hover:shadow-neu-in active:shadow-neu-in focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-white/60 mb-3"
+      className="w-full min-h-[48px] px-5 py-3 rounded-2xl bg-surface text-textMain font-space-grotesk font-bold text-sm shadow-neu-out hover:shadow-neu-in active:shadow-neu-in focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-white/60 mb-3"
     >
       {isLoading ? (
         <>

@@ -100,7 +100,7 @@ const LanyardCard: React.FC<CardProps> = ({
           type="button"
           onClick={onAction}
           aria-label={actionLabel}
-          className="mt-3.5 min-h-[44px] px-3.5 py-2 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in active:shadow-neu-in text-accent font-poppins text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer border border-white/60 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+          className="mt-3.5 min-h-[44px] px-3.5 py-2 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in active:shadow-neu-in text-accent font-space-grotesk text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer border border-white/60 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
         >
           <ShieldCheck size={16} className="text-accent" />
           <span>Lihat Sertifikat</span>
@@ -119,7 +119,7 @@ const IdentityDisplay: React.FC<IdentityDisplayProps> = ({ onOpenIndiCert }) => 
     <div className="identity-display-section" data-aos="fade-up">
       <div className="identity-heading">
         <span className="identity-heading-line" />
-        <h3 className="identity-heading-text font-poppins">
+        <h3 className="identity-heading-text font-space-grotesk">
           PROFESSIONAL & COMMUNITY IDENTITY
         </h3>
         <span className="identity-heading-line" />

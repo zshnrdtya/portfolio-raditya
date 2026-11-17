@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Inter } from "next/font/google";
+import { Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -7,15 +7,16 @@ import AOSProvider from "@/components/providers/AOSProvider";
 import AuthSessionProvider from "@/components/providers/SessionProvider";
 import { IntroProvider } from "@/components/intro/IntroProvider";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -39,8 +40,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${poppins.variable} ${inter.variable} h-full antialiased scroll-smooth`}>
-      <body className="min-h-full flex flex-col font-inter bg-surface text-textMain overflow-x-hidden">
+    <html lang="id" className={`${spaceGrotesk.variable} ${spaceMono.variable} h-full antialiased scroll-smooth`}>
+      <body className="min-h-full flex flex-col font-space-grotesk bg-surface text-textMain overflow-x-hidden">
         <AuthSessionProvider>
           <IntroProvider>
             <AOSProvider>

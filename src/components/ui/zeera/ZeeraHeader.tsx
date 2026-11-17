@@ -37,7 +37,7 @@ export const ZeeraHeader: React.FC<ZeeraHeaderProps> = ({
         </div>
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <h3 className="font-poppins font-bold text-sm sm:text-base text-[var(--color-textMain)] truncate">
+            <h3 className="font-space-grotesk font-bold text-sm sm:text-base text-[var(--color-textMain)] truncate">
               Zeera AI
             </h3>
             <span className="flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300/60 shrink-0">

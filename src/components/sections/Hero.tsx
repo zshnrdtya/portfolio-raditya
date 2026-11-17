@@ -57,7 +57,7 @@ export default function Hero() {
         <div className="flex flex-col-reverse md:flex-row items-center gap-12">
           {/* Text Content */}
           <div className="w-full md:w-1/2 text-center md:text-left" data-aos="fade-right">
-            <h1 className="font-poppins font-black text-5xl md:text-6xl lg:text-7xl tracking-tight text-slate-900 mb-6 leading-tight drop-shadow-sm">
+            <h1 className="font-space-grotesk font-black text-5xl md:text-6xl lg:text-7xl tracking-tight text-slate-900 mb-6 leading-tight drop-shadow-sm">
               {hero?.greeting || "Hi, I am"}{" "}
               <br className="hidden md:block lg:hidden" />
               {hero?.name || "Raditya Rai Zeeshan"}
@@ -73,7 +73,7 @@ export default function Hero() {
               </span>
             </div>
 
-            <div className="font-inter text-xl md:text-3xl text-[var(--color-textMain)] font-bold mb-10 flex flex-wrap justify-center md:justify-start items-center h-12">
+            <div className="font-space-grotesk text-xl md:text-3xl text-[var(--color-textMain)] font-bold mb-10 flex flex-wrap justify-center md:justify-start items-center h-12">
               <span className="mr-3">I am a</span>
               <span className="inline-block px-4 py-2 bg-[var(--color-surface)] rounded-xl shadow-[var(--shadow-neu-in)] text-[var(--color-accent)] min-w-[240px] sm:min-w-[280px] text-left">
                 {displayText}
@@ -85,7 +85,7 @@ export default function Hero() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-5 flex-wrap">
               <Link href="#contact" className="w-full sm:w-auto">
-                <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 cursor-pointer">
+                <button className="w-full sm:w-auto px-7 py-3 font-space-grotesk font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 cursor-pointer">
                   Hire Me
                 </button>
               </Link>
@@ -95,13 +95,13 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto"
               >
-                <button className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-textMain)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 cursor-pointer">
+                <button className="w-full sm:w-auto px-7 py-3 font-space-grotesk font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-textMain)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-accent)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 cursor-pointer">
                   Download CV
                 </button>
               </a>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="w-full sm:w-auto px-7 py-3 font-poppins font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 flex items-center justify-center gap-2.5 group cursor-pointer border border-[var(--color-accent)]/20"
+                className="w-full sm:w-auto px-7 py-3 font-space-grotesk font-bold text-base md:text-lg bg-[var(--color-surface)] text-[var(--color-accent)] rounded-full shadow-[var(--shadow-neu-out)] hover:text-[var(--color-textMain)] active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 flex items-center justify-center gap-2.5 group cursor-pointer border border-[var(--color-accent)]/20"
               >
                 <MessageSquare className="w-5 h-5 text-[var(--color-accent)] group-hover:scale-110 transition-transform duration-200" />
                 <span>Try Zeera AI</span>

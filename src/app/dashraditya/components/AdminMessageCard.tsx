@@ -41,7 +41,7 @@ export const AdminMessageCard: React.FC<AdminMessageCardProps> = ({
           ) : (
             <div
               aria-label={`Avatar inisial ${message.author_name}`}
-              className="w-11 h-11 rounded-2xl bg-surface shadow-neu-in flex items-center justify-center text-accent font-poppins font-bold text-sm shrink-0"
+              className="w-11 h-11 rounded-2xl bg-surface shadow-neu-in flex items-center justify-center text-accent font-space-grotesk font-bold text-sm shrink-0"
             >
               {message.author_name.charAt(0).toUpperCase()}
             </div>
@@ -49,7 +49,7 @@ export const AdminMessageCard: React.FC<AdminMessageCardProps> = ({
 
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-sm sm:text-base font-bold font-poppins text-textMain truncate">
+              <h2 className="text-sm sm:text-base font-bold font-space-grotesk text-textMain truncate">
                 {message.author_name}
               </h2>
               <span
@@ -84,7 +84,7 @@ export const AdminMessageCard: React.FC<AdminMessageCardProps> = ({
       )}
 
       {/* Message Body */}
-      <div className="bg-surface shadow-neu-in rounded-2xl p-4 text-xs sm:text-sm font-inter text-textMain leading-relaxed break-words">
+      <div className="bg-surface shadow-neu-in rounded-2xl p-4 text-xs sm:text-sm font-space-grotesk text-textMain leading-relaxed break-words">
         {message.body}
       </div>
 

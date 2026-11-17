@@ -232,7 +232,7 @@ export default function IntroScene() {
 
       {/* Atmospheric Branding Title (Top Left) */}
       <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-30 pointer-events-none select-none pl-[env(safe-area-inset-left)] pt-[env(safe-area-inset-top)]">
-        <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#C6E0D2]/90 backdrop-blur-sm shadow-[4px_4px_10px_rgba(150,175,161,0.7),-4px_-4px_10px_rgba(255,255,255,0.8)] border border-white/40 text-xs font-poppins font-bold text-[#284435] tracking-wide">
+        <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#C6E0D2]/90 backdrop-blur-sm shadow-[4px_4px_10px_rgba(150,175,161,0.7),-4px_-4px_10px_rgba(255,255,255,0.8)] border border-white/40 text-xs font-space-grotesk font-bold text-[#284435] tracking-wide">
           <span className="hidden sm:inline">Walk to the House</span>
           <span className="sm:hidden">Walk 🏡</span>
         </span>
@@ -242,7 +242,7 @@ export default function IntroScene() {
       {!hasMoved && !isLoading && (
         <div className="absolute top-20 md:top-auto md:bottom-12 left-1/2 -translate-x-1/2 z-30 pointer-events-none text-center px-4 max-w-xs sm:max-w-md animate-bounce duration-1000">
           <div className="inline-block px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl bg-[#C6E0D2]/95 backdrop-blur-md shadow-[8px_8px_18px_rgba(150,175,161,0.8),-8px_-8px_18px_rgba(255,255,255,0.95)] border border-white/50">
-            <p className="font-poppins font-semibold text-xs sm:text-sm text-[#284435]">
+            <p className="font-space-grotesk font-semibold text-xs sm:text-sm text-[#284435]">
               <span className="hidden md:inline">Gunakan tombol <strong>W, A, S, D</strong> atau <strong>Panah</strong></span>
               <span className="md:hidden">Gerakkan joystick virtual</span> untuk berjalan ke rumah 🏡
             </p>

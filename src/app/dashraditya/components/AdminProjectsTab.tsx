@@ -161,12 +161,12 @@ export const AdminProjectsTab: React.FC<AdminProjectsTabProps> = ({
           }`}
         >
           <div className="flex items-center justify-between text-textMain/75 mb-1">
-            <span className="font-poppins font-bold text-xs uppercase tracking-wider">
+            <span className="font-space-grotesk font-bold text-xs uppercase tracking-wider">
               Total Proyek
             </span>
             <Layers size={18} className="text-accent" />
           </div>
-          <p className="font-poppins font-black text-2xl text-textMain">{projects.length}</p>
+          <p className="font-space-grotesk font-black text-2xl text-textMain">{projects.length}</p>
         </button>
 
         <button
@@ -179,12 +179,12 @@ export const AdminProjectsTab: React.FC<AdminProjectsTabProps> = ({
           }`}
         >
           <div className="flex items-center justify-between text-textMain/75 mb-1">
-            <span className="font-poppins font-bold text-xs uppercase tracking-wider">
+            <span className="font-space-grotesk font-bold text-xs uppercase tracking-wider">
               Ditampilkan (Publik)
             </span>
             <Eye size={18} className="text-accent" />
           </div>
-          <p className="font-poppins font-black text-2xl text-accent">{publishedCount}</p>
+          <p className="font-space-grotesk font-black text-2xl text-accent">{publishedCount}</p>
         </button>
 
         <button
@@ -197,12 +197,12 @@ export const AdminProjectsTab: React.FC<AdminProjectsTabProps> = ({
           }`}
         >
           <div className="flex items-center justify-between text-textMain/75 mb-1">
-            <span className="font-poppins font-bold text-xs uppercase tracking-wider">
+            <span className="font-space-grotesk font-bold text-xs uppercase tracking-wider">
               Draf (Sembunyi)
             </span>
             <EyeOff size={18} className="text-amber-800" />
           </div>
-          <p className="font-poppins font-black text-2xl text-amber-800">{draftCount}</p>
+          <p className="font-space-grotesk font-black text-2xl text-amber-800">{draftCount}</p>
         </button>
       </div>
 
@@ -218,14 +218,14 @@ export const AdminProjectsTab: React.FC<AdminProjectsTabProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari berdasarkan judul, teknologi, atau deskripsi..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-xs sm:text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+            className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-xs sm:text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
           />
         </div>
 
         <button
           type="button"
           onClick={handleOpenAddModal}
-          className="min-h-[42px] px-5 py-2 rounded-full bg-accent text-white font-poppins font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
+          className="min-h-[42px] px-5 py-2 rounded-full bg-accent text-white font-space-grotesk font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0"
         >
           <Plus size={16} />
           <span>Tambah Proyek Baru</span>
@@ -235,17 +235,17 @@ export const AdminProjectsTab: React.FC<AdminProjectsTabProps> = ({
       {/* List / Grid Proyek */}
       {isLoading ? (
         <div className="py-16 text-center">
-          <p className="font-inter text-sm text-textMain/70 animate-pulse">
+          <p className="font-space-grotesk text-sm text-textMain/70 animate-pulse">
             Memuat daftar proyek...
           </p>
         </div>
       ) : filteredProjects.length === 0 ? (
         <div className="py-16 text-center bg-surface rounded-3xl p-8 shadow-neu-in">
           <FolderGit2 size={36} className="mx-auto text-textMain/40 mb-3" />
-          <h3 className="font-poppins font-bold text-base text-textMain mb-1">
+          <h3 className="font-space-grotesk font-bold text-base text-textMain mb-1">
             {searchQuery ? 'Tidak Ada Proyek yang Cocok' : 'Belum Ada Proyek'}
           </h3>
-          <p className="font-inter text-xs text-textMain/70 max-w-sm mx-auto mb-4">
+          <p className="font-space-grotesk text-xs text-textMain/70 max-w-sm mx-auto mb-4">
             {searchQuery
               ? `Tidak ditemukan proyek dengan kata kunci "${searchQuery}". Coba kata kunci lain.`
               : 'Tambahkan proyek portofolio pertama Anda untuk mulai menampilkannya.'}
@@ -254,7 +254,7 @@ export const AdminProjectsTab: React.FC<AdminProjectsTabProps> = ({
             <button
               type="button"
               onClick={handleOpenAddModal}
-              className="px-5 py-2 rounded-full bg-accent text-white font-poppins font-bold text-xs shadow-neu-out hover:brightness-110 cursor-pointer"
+              className="px-5 py-2 rounded-full bg-accent text-white font-space-grotesk font-bold text-xs shadow-neu-out hover:brightness-110 cursor-pointer"
             >
               Tambah Sekarang
             </button>

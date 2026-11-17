@@ -11,10 +11,10 @@ export default function LoadingOverlay() {
           <Loader2 className="w-8 h-8 text-[#136846] animate-spin" />
         </div>
         <div className="text-center">
-          <p className="font-poppins font-bold text-sm text-[#284435] tracking-wide">
+          <p className="font-space-grotesk font-bold text-sm text-[#284435] tracking-wide">
             Memuat Dunia 3D...
           </p>
-          <p className="font-inter text-xs text-[#284435]/60 mt-1">
+          <p className="font-space-grotesk text-xs text-[#284435]/60 mt-1">
             Menyiapkan perjalanan ke rumah
           </p>
         </div>

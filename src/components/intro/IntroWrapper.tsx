@@ -14,7 +14,7 @@ const IntroScene = dynamic(() => import("./IntroScene"), {
         <div className="w-16 h-16 rounded-2xl bg-[#C6E0D2] shadow-[8px_8px_16px_rgba(150,175,161,0.8),-8px_-8px_16px_rgba(255,255,255,0.9)] flex items-center justify-center">
           <div className="w-8 h-8 rounded-full border-2 border-[#136846] border-t-transparent animate-spin" />
         </div>
-        <p className="font-poppins font-bold text-sm text-[#284435] tracking-wide">
+        <p className="font-space-grotesk font-bold text-sm text-[#284435] tracking-wide">
           Memuat Dunia 3D...
         </p>
       </div>

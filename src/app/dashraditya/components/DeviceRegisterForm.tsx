@@ -100,17 +100,17 @@ export const DeviceRegisterForm: React.FC<DeviceRegisterFormProps> = ({
 
   return (
     <div className="bg-surface rounded-3xl p-6 sm:p-8 shadow-neu-out border border-white/60">
-      <h3 className="font-poppins font-bold text-base text-textMain mb-2 flex items-center gap-2">
+      <h3 className="font-space-grotesk font-bold text-base text-textMain mb-2 flex items-center gap-2">
         <Plus size={18} className="text-accent" />
         <span>Daftarkan Perangkat Ini</span>
       </h3>
-      <p className="font-inter text-xs sm:text-sm text-textMain/70 mb-5">
+      <p className="font-space-grotesk text-xs sm:text-sm text-textMain/70 mb-5">
         Perangkat ini akan didaftarkan sebagai autentikator resmi. Pastikan perangkat Anda memiliki sensor biometrik aktif.
       </p>
 
       <form onSubmit={handleRegisterDevice} className="space-y-4">
         <div>
-          <label htmlFor="device-name" className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+          <label htmlFor="device-name" className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
             Nama Label Perangkat
           </label>
           <input
@@ -120,14 +120,14 @@ export const DeviceRegisterForm: React.FC<DeviceRegisterFormProps> = ({
             onChange={(e) => setDeviceName(e.target.value)}
             placeholder="Contoh: iPhone 15 Pro Max Raditya"
             required
-            className="w-full max-w-lg px-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+            className="w-full max-w-lg px-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
           />
         </div>
 
         <button
           type="submit"
           disabled={isRegistering || !deviceName.trim()}
-          className="min-h-[48px] px-6 py-3 rounded-2xl bg-accent text-white font-poppins font-bold text-sm shadow-neu-out hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          className="min-h-[48px] px-6 py-3 rounded-2xl bg-accent text-white font-space-grotesk font-bold text-sm shadow-neu-out hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           {isRegistering ? (
             <>

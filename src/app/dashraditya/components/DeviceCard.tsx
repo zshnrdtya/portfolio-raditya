@@ -29,10 +29,10 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onDelete, isDele
             <DeviceIcon size={18} />
           </div>
           <div>
-            <h4 className="font-poppins font-bold text-sm text-textMain">
+            <h4 className="font-space-grotesk font-bold text-sm text-textMain">
               {device.deviceName}
             </h4>
-            <span className="inline-block mt-0.5 px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-950 font-inter text-[11px] font-semibold">
+            <span className="inline-block mt-0.5 px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-950 font-space-grotesk text-[11px] font-semibold">
               Aktif & Terverifikasi
             </span>
           </div>
@@ -53,7 +53,7 @@ export const DeviceCard: React.FC<DeviceCardProps> = ({ device, onDelete, isDele
         </button>
       </div>
 
-      <div className="pt-3 border-t border-textMain/10 grid grid-cols-2 gap-2 text-[11px] font-inter text-textMain/70">
+      <div className="pt-3 border-t border-textMain/10 grid grid-cols-2 gap-2 text-[11px] font-space-grotesk text-textMain/70">
         <div className="flex items-center gap-1.5">
           <Calendar size={13} className="text-textMain/50" />
           <span>

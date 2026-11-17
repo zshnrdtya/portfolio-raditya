@@ -35,7 +35,7 @@ export function AdminFloatingBar() {
             <div className="w-7 h-7 rounded-full bg-accent text-white flex items-center justify-center shrink-0">
               <Check size={14} />
             </div>
-            <p className="font-poppins font-bold text-xs">{toastMessage}</p>
+            <p className="font-space-grotesk font-bold text-xs">{toastMessage}</p>
             <button
               type="button"
               onClick={clearToast}
@@ -57,7 +57,7 @@ export function AdminFloatingBar() {
               <ShieldCheck size={15} />
             </div>
             {!isCollapsed && (
-              <span className="hidden sm:inline font-poppins font-bold text-xs text-textMain tracking-tight">
+              <span className="hidden sm:inline font-space-grotesk font-bold text-xs text-textMain tracking-tight">
                 Inline CMS
               </span>
             )}
@@ -69,7 +69,7 @@ export function AdminFloatingBar() {
               <button
                 type="button"
                 onClick={() => setIsEditMode((prev) => !prev)}
-                className={`min-h-[42px] px-3.5 py-1.5 rounded-full font-poppins font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${
+                className={`min-h-[42px] px-3.5 py-1.5 rounded-full font-space-grotesk font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${
                   isEditMode
                     ? 'bg-accent text-white shadow-neu-in'
                     : 'bg-surface text-textMain/80 shadow-neu-out hover:shadow-neu-in'
@@ -88,7 +88,7 @@ export function AdminFloatingBar() {
               {/* Tautan Dashraditya */}
               <Link
                 href="/dashraditya"
-                className="min-h-[42px] px-3 py-1.5 rounded-full bg-surface shadow-neu-out hover:shadow-neu-in font-poppins font-bold text-xs text-textMain flex items-center gap-1.5 transition-all cursor-pointer"
+                className="min-h-[42px] px-3 py-1.5 rounded-full bg-surface shadow-neu-out hover:shadow-neu-in font-space-grotesk font-bold text-xs text-textMain flex items-center gap-1.5 transition-all cursor-pointer"
                 title="Buka Dashboard Admin Lengkap"
               >
                 <LayoutDashboard size={13} className="text-accent" />

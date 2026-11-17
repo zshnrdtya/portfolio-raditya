@@ -73,14 +73,14 @@ export default function Contact() {
         <SectionEditTrigger section="contact" label="Edit Contact Section" />
 
         <h2
-          className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative mb-6 drop-shadow-sm"
+          className="font-space-grotesk font-black text-4xl md:text-5xl text-slate-900 inline-block relative mb-6 drop-shadow-sm"
           data-aos="fade-up"
         >
           {contact?.title || "Let's Connect"}
         </h2>
 
         <p
-          className="font-inter font-medium text-lg text-[var(--color-textMain)] mb-16 max-w-2xl mx-auto bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-2xl p-6"
+          className="font-space-grotesk font-medium text-lg text-[var(--color-textMain)] mb-16 max-w-2xl mx-auto bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-2xl p-6"
           data-aos="fade-up"
           data-aos-delay="100"
         >
@@ -113,10 +113,10 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="text-center mt-auto pb-2">
-                  <h3 className="font-poppins font-black text-xl text-[var(--color-textMain)] mb-1">
+                  <h3 className="font-space-grotesk font-black text-xl text-[var(--color-textMain)] mb-1">
                     {info.title}
                   </h3>
-                  <p className="font-inter font-medium text-[var(--color-textMain)] opacity-80 text-sm">
+                  <p className="font-space-grotesk font-medium text-[var(--color-textMain)] opacity-80 text-sm">
                     {info.value}
                   </p>
                 </div>
@@ -133,10 +133,10 @@ export default function Contact() {
                   {info.icon}
                 </div>
                 <div>
-                  <h3 className="font-poppins font-black text-xl text-[var(--color-textMain)] mb-1">
+                  <h3 className="font-space-grotesk font-black text-xl text-[var(--color-textMain)] mb-1">
                     {info.title}
                   </h3>
-                  <p className="font-inter font-medium text-[var(--color-textMain)] opacity-80 text-sm">
+                  <p className="font-space-grotesk font-medium text-[var(--color-textMain)] opacity-80 text-sm">
                     {info.value}
                   </p>
                 </div>
@@ -156,7 +156,7 @@ export default function Contact() {
             <div>
               <label
                 htmlFor="contact-nama"
-                className="block text-left font-poppins font-bold text-sm text-[var(--color-textMain)] mb-2"
+                className="block text-left font-space-grotesk font-bold text-sm text-[var(--color-textMain)] mb-2"
               >
                 Nama
               </label>
@@ -167,7 +167,7 @@ export default function Contact() {
                 placeholder="Masukkan nama Anda"
                 value={form.nama}
                 onChange={(e) => setForm({ ...form, nama: e.target.value })}
-                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40"
+                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-space-grotesk text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40"
               />
             </div>
 
@@ -175,7 +175,7 @@ export default function Contact() {
             <div>
               <label
                 htmlFor="contact-email"
-                className="block text-left font-poppins font-bold text-sm text-[var(--color-textMain)] mb-2"
+                className="block text-left font-space-grotesk font-bold text-sm text-[var(--color-textMain)] mb-2"
               >
                 Email
               </label>
@@ -186,7 +186,7 @@ export default function Contact() {
                 placeholder="Masukkan email Anda"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40"
+                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-space-grotesk text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40"
               />
             </div>
 
@@ -194,7 +194,7 @@ export default function Contact() {
             <div>
               <label
                 htmlFor="contact-pesan"
-                className="block text-left font-poppins font-bold text-sm text-[var(--color-textMain)] mb-2"
+                className="block text-left font-space-grotesk font-bold text-sm text-[var(--color-textMain)] mb-2"
               >
                 Pesan
               </label>
@@ -205,14 +205,14 @@ export default function Contact() {
                 placeholder="Tulis pesan Anda di sini..."
                 value={form.pesan}
                 onChange={(e) => setForm({ ...form, pesan: e.target.value })}
-                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-inter text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40 resize-none"
+                className="w-full px-5 py-4 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] font-space-grotesk text-[var(--color-textMain)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all placeholder:text-[var(--color-textMain)]/40 resize-none"
               />
             </div>
 
             {/* Feedback Message */}
             {status !== "idle" && status !== "loading" && (
               <div
-                className={`rounded-2xl px-4 py-3 text-sm font-inter font-medium text-left transition-all ${
+                className={`rounded-2xl px-4 py-3 text-sm font-space-grotesk font-medium text-left transition-all ${
                   status === "success"
                     ? "bg-emerald-50 text-emerald-700 shadow-[var(--shadow-neu-in)]"
                     : "bg-red-50 text-red-600 shadow-[var(--shadow-neu-in)]"
@@ -227,7 +227,7 @@ export default function Contact() {
               id="contact-submit-btn"
               type="submit"
               disabled={status === "loading" || status === "success"}
-              className="w-full py-3 px-6 rounded-2xl font-poppins font-bold text-white bg-[var(--color-accent)] shadow-[var(--shadow-neu-out)] hover:brightness-110 active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-3 px-6 rounded-2xl font-space-grotesk font-bold text-white bg-[var(--color-accent)] shadow-[var(--shadow-neu-out)] hover:brightness-110 active:shadow-[var(--shadow-neu-in)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
             >
               {status === "loading" ? (
                 <>

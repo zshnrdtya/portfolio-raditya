@@ -26,7 +26,7 @@ export const LiveRadarHeader: React.FC<LiveRadarHeaderProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="font-poppins font-bold text-base sm:text-lg text-textMain tracking-tight">
+              <h2 className="font-space-grotesk font-bold text-base sm:text-lg text-textMain tracking-tight">
                 Live Traffic Radar
               </h2>
               <span
@@ -38,7 +38,7 @@ export const LiveRadarHeader: React.FC<LiveRadarHeaderProps> = ({
                 <span>{isConnected ? 'Realtime SSE Aktif' : 'Menghubungkan Radar...'}</span>
               </span>
             </div>
-            <p className="font-inter text-xs text-textMain/70 mt-0.5">
+            <p className="font-space-grotesk text-xs text-textMain/70 mt-0.5">
               Pemantauan aktivitas pengunjung portofolio secara instan detik per detik.
             </p>
           </div>
@@ -50,14 +50,14 @@ export const LiveRadarHeader: React.FC<LiveRadarHeaderProps> = ({
         {/* Active Now */}
         <div className="p-5 rounded-3xl bg-surface shadow-neu-out border border-white/50 flex items-center justify-between">
           <div>
-            <p className="font-poppins font-bold text-xs uppercase tracking-wider text-textMain/60">
+            <p className="font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain/60">
               Online Saat Ini
             </p>
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="font-poppins font-black text-3xl sm:text-4xl text-emerald-800">
+              <span className="font-space-grotesk font-black text-3xl sm:text-4xl text-emerald-800">
                 {activeCount}
               </span>
-              <span className="text-xs font-inter text-textMain/70 font-semibold">pengunjung</span>
+              <span className="text-xs font-space-grotesk text-textMain/70 font-semibold">pengunjung</span>
             </div>
           </div>
           <div className="w-12 h-12 rounded-2xl bg-surface shadow-neu-in flex items-center justify-center text-emerald-800">
@@ -68,14 +68,14 @@ export const LiveRadarHeader: React.FC<LiveRadarHeaderProps> = ({
         {/* Total Views Today */}
         <div className="p-5 rounded-3xl bg-surface shadow-neu-out border border-white/50 flex items-center justify-between">
           <div>
-            <p className="font-poppins font-bold text-xs uppercase tracking-wider text-textMain/60">
+            <p className="font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain/60">
               Kunjungan Hari Ini
             </p>
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="font-poppins font-black text-3xl sm:text-4xl text-accent">
+              <span className="font-space-grotesk font-black text-3xl sm:text-4xl text-accent">
                 {totalViews}
               </span>
-              <span className="text-xs font-inter text-textMain/70 font-semibold">tampilan</span>
+              <span className="text-xs font-space-grotesk text-textMain/70 font-semibold">tampilan</span>
             </div>
           </div>
           <div className="w-12 h-12 rounded-2xl bg-surface shadow-neu-in flex items-center justify-center text-accent">
@@ -86,14 +86,14 @@ export const LiveRadarHeader: React.FC<LiveRadarHeaderProps> = ({
         {/* Unique Visitors */}
         <div className="p-5 rounded-3xl bg-surface shadow-neu-out border border-white/50 flex items-center justify-between">
           <div>
-            <p className="font-poppins font-bold text-xs uppercase tracking-wider text-textMain/60">
+            <p className="font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain/60">
               Pengunjung Unik
             </p>
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="font-poppins font-black text-3xl sm:text-4xl text-textMain">
+              <span className="font-space-grotesk font-black text-3xl sm:text-4xl text-textMain">
                 {uniqueVisitors}
               </span>
-              <span className="text-xs font-inter text-textMain/70 font-semibold">sesi</span>
+              <span className="text-xs font-space-grotesk text-textMain/70 font-semibold">sesi</span>
             </div>
           </div>
           <div className="w-12 h-12 rounded-2xl bg-surface shadow-neu-in flex items-center justify-center text-textMain">

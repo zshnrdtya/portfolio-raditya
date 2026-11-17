@@ -136,7 +136,7 @@ export default function FeaturedProjects() {
     <section id="projects" className="py-24 relative bg-[var(--color-surface)] scroll-mt-6">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-12 text-center md:text-left" data-aos="fade-up">
-          <h2 className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative pb-2 drop-shadow-sm">
+          <h2 className="font-space-grotesk font-black text-4xl md:text-5xl text-slate-900 inline-block relative pb-2 drop-shadow-sm">
             Featured Projects
           </h2>
         </div>
@@ -171,7 +171,7 @@ export default function FeaturedProjects() {
 
                 <div className="pt-6 flex-grow flex flex-col">
                   <div className="flex items-start justify-between gap-2 mb-3">
-                    <h3 className="font-poppins font-black text-2xl text-[var(--color-textMain)]">
+                    <h3 className="font-space-grotesk font-black text-2xl text-[var(--color-textMain)]">
                       {project.title}
                     </h3>
                     <div className="flex items-center gap-2 shrink-0 pt-1">
@@ -202,7 +202,7 @@ export default function FeaturedProjects() {
                     </div>
                   </div>
 
-                  <p className="font-inter text-base font-medium text-[var(--color-textMain)] leading-relaxed mb-6 flex-grow opacity-80">
+                  <p className="font-space-grotesk text-base font-medium text-[var(--color-textMain)] leading-relaxed mb-6 flex-grow opacity-80">
                     {project.description}
                   </p>
 
@@ -230,7 +230,7 @@ export default function FeaturedProjects() {
               type="button"
               onClick={handlePrev}
               disabled={currentPage === 1}
-              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
+              className={`w-12 h-12 flex items-center justify-center font-space-grotesk font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                 ${
                   currentPage === 1
                     ? "bg-[var(--color-surface)] text-gray-400 shadow-[var(--shadow-neu-in)] cursor-not-allowed opacity-50"
@@ -241,7 +241,7 @@ export default function FeaturedProjects() {
               &lt;
             </button>
 
-            <span className="font-inter font-black text-xl text-[var(--color-accent)] px-6 py-3 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)]">
+            <span className="font-space-grotesk font-black text-xl text-[var(--color-accent)] px-6 py-3 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)]">
               {currentPage} / {totalPages}
             </span>
 
@@ -249,7 +249,7 @@ export default function FeaturedProjects() {
               type="button"
               onClick={handleNext}
               disabled={currentPage === totalPages}
-              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
+              className={`w-12 h-12 flex items-center justify-center font-space-grotesk font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                 ${
                   currentPage === totalPages
                     ? "bg-[var(--color-surface)] text-gray-400 shadow-[var(--shadow-neu-in)] cursor-not-allowed opacity-50"

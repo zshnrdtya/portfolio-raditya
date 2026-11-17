@@ -36,7 +36,7 @@ export const AdminTopNav: React.FC<AdminTopNavProps> = ({
 
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="font-poppins font-black text-xl sm:text-2xl text-textMain tracking-tight">
+            <h1 className="font-space-grotesk font-black text-xl sm:text-2xl text-textMain tracking-tight">
               {activeTab === 'PROJECTS'
                 ? 'Featured Projects'
                 : activeTab === 'GUESTBOOK'
@@ -63,7 +63,7 @@ export const AdminTopNav: React.FC<AdminTopNavProps> = ({
               </span>
             )}
           </div>
-          <p className="font-inter text-xs sm:text-sm text-textMain/75 mt-0.5">
+          <p className="font-space-grotesk text-xs sm:text-sm text-textMain/75 mt-0.5">
             {activeTab === 'PROJECTS'
               ? 'Kelola karya unggulan portofolio dan hasilkan deskripsi cerdas.'
               : activeTab === 'GUESTBOOK'
@@ -81,7 +81,7 @@ export const AdminTopNav: React.FC<AdminTopNavProps> = ({
           <button
             type="button"
             onClick={onAddNewProject}
-            className="min-h-[44px] px-4 py-2 text-xs sm:text-sm font-poppins font-bold bg-accent text-white shadow-neu-out rounded-2xl hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-all flex items-center gap-2 cursor-pointer"
+            className="min-h-[44px] px-4 py-2 text-xs sm:text-sm font-space-grotesk font-bold bg-accent text-white shadow-neu-out rounded-2xl hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-all flex items-center gap-2 cursor-pointer"
           >
             <Plus size={16} />
             <span>Tambah Proyek</span>
@@ -93,7 +93,7 @@ export const AdminTopNav: React.FC<AdminTopNavProps> = ({
           onClick={onRefresh}
           disabled={isLoading || isBatchProcessing}
           aria-label="Segarkan data saat ini"
-          className="min-h-[44px] px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-poppins font-bold bg-surface shadow-neu-out rounded-2xl text-textMain hover:shadow-neu-in focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center gap-2 cursor-pointer"
+          className="min-h-[44px] px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-space-grotesk font-bold bg-surface shadow-neu-out rounded-2xl text-textMain hover:shadow-neu-in focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 transition-all flex items-center gap-2 cursor-pointer"
         >
           <RefreshCw
             size={14}

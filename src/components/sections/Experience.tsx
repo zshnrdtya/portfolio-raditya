@@ -57,7 +57,7 @@ const Experience = () => {
   return (
     <section id="experience" className="py-20 bg-surface">
       <div className="container mx-auto px-6 max-w-4xl">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-16 font-poppins text-slate-900 whitespace-nowrap" data-aos="fade-up">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-16 font-space-grotesk text-slate-900 whitespace-nowrap" data-aos="fade-up">
           Experience & Leadership
         </h2>
 
@@ -114,7 +114,7 @@ const Experience = () => {
                         </div>
                       )}
                       <div className={exp.logoPosition === 'left' ? 'text-left' : 'text-left sm:text-right'}>
-                        <h3 className="text-xl font-bold font-poppins text-textMain mb-1">{exp.title}</h3>
+                        <h3 className="text-xl font-bold font-space-grotesk text-textMain mb-1">{exp.title}</h3>
                         <h4 className="text-accent font-medium">{exp.company}</h4>
                       </div>
                     </div>
@@ -140,7 +140,7 @@ const Experience = () => {
                         <button
                           type="button"
                           onClick={() => setSelectedCert(exp.certificate || null)}
-                          className="min-h-[44px] px-4 py-2.5 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in active:shadow-neu-in text-accent font-poppins font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer transition-all border border-white/60 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                          className="min-h-[44px] px-4 py-2.5 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in active:shadow-neu-in text-accent font-space-grotesk font-bold text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer transition-all border border-white/60 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
                           aria-label={`Buka ${exp.certificate.title}`}
                         >
                           <Award size={17} className="text-accent shrink-0" />

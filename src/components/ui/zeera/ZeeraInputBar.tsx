@@ -28,7 +28,7 @@ export const ZeeraInputBar: React.FC<ZeeraInputBarProps> = ({
             key={idx}
             onClick={() => onSubmit(chip.text)}
             disabled={isLoading}
-            className="shrink-0 px-3 py-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] active:scale-95 text-[11px] font-poppins font-medium text-[var(--color-textMain)] border border-white/40 disabled:opacity-50 transition-all cursor-pointer whitespace-nowrap"
+            className="shrink-0 px-3 py-1.5 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-out)] hover:shadow-[var(--shadow-neu-in)] active:scale-95 text-[11px] font-space-grotesk font-medium text-[var(--color-textMain)] border border-white/40 disabled:opacity-50 transition-all cursor-pointer whitespace-nowrap"
           >
             {chip.label}
           </button>
@@ -51,7 +51,7 @@ export const ZeeraInputBar: React.FC<ZeeraInputBarProps> = ({
             onChange={(e) => onInputChange(e.target.value)}
             placeholder="Tanya Zeera AI tentang portofolio..."
             disabled={isLoading}
-            className="w-full px-4 py-2.5 sm:py-3 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] border border-white/40 text-xs sm:text-sm font-inter text-[var(--color-textMain)] placeholder:text-[var(--color-textMain)]/50 focus:outline-none focus:ring-2 focus:ring-[#136846]/40 disabled:opacity-60 transition-all"
+            className="w-full px-4 py-2.5 sm:py-3 rounded-2xl bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] border border-white/40 text-xs sm:text-sm font-space-grotesk text-[var(--color-textMain)] placeholder:text-[var(--color-textMain)]/50 focus:outline-none focus:ring-2 focus:ring-[#136846]/40 disabled:opacity-60 transition-all"
           />
         </div>
 

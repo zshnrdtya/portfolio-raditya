@@ -55,7 +55,7 @@ export function HeroEditForm({ initialData, onSave, onClose }: HeroEditFormProps
       )}
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Teks Sapaan Awal
         </label>
         <input
@@ -63,12 +63,12 @@ export function HeroEditForm({ initialData, onSave, onClose }: HeroEditFormProps
           value={greeting}
           onChange={(e) => setGreeting(e.target.value)}
           placeholder="Hi, I am"
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Nama Lengkap <span className="text-red-700">*</span>
         </label>
         <input
@@ -77,12 +77,12 @@ export function HeroEditForm({ initialData, onSave, onClose }: HeroEditFormProps
           onChange={(e) => setName(e.target.value)}
           placeholder="Raditya Rai Zeeshan"
           required
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Badge / Tagline Posisi
         </label>
         <input
@@ -90,12 +90,12 @@ export function HeroEditForm({ initialData, onSave, onClose }: HeroEditFormProps
           value={tagline}
           onChange={(e) => setTagline(e.target.value)}
           placeholder="Founder & Lead Developer at Z - Project"
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Daftar Peran Efek Ketik (Pisahkan dengan koma)
         </label>
         <textarea
@@ -103,9 +103,9 @@ export function HeroEditForm({ initialData, onSave, onClose }: HeroEditFormProps
           value={rolesInput}
           onChange={(e) => setRolesInput(e.target.value)}
           placeholder="Fullstack Developer, UI/UX Designer, Founder of Z - Project"
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
         />
-        <p className="font-inter text-[11px] text-textMain/65 mt-1">
+        <p className="font-space-grotesk text-[11px] text-textMain/65 mt-1">
           Contoh: Fullstack Developer, UI/UX Designer, Mobile App Developer
         </p>
       </div>
@@ -122,7 +122,7 @@ export function HeroEditForm({ initialData, onSave, onClose }: HeroEditFormProps
         <button
           type="submit"
           disabled={isSubmitting}
-          className="min-h-[44px] px-6 py-2 rounded-full bg-accent text-white font-poppins font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+          className="min-h-[44px] px-6 py-2 rounded-full bg-accent text-white font-space-grotesk font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
         >
           {isSubmitting ? (
             <>

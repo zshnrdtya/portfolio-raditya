@@ -116,7 +116,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className={`relative font-inter text-sm font-bold px-5 py-2 transition-colors duration-300 z-10 ${
+                  className={`relative font-space-grotesk text-sm font-bold px-5 py-2 transition-colors duration-300 z-10 ${
                     isActive ? "text-[var(--color-accent)]" : "text-[var(--color-textMain)] hover:text-[var(--color-accent)]"
                   }`}
                 >

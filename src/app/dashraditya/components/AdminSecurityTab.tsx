@@ -89,10 +89,10 @@ export const AdminSecurityTab: React.FC<AdminSecurityTabProps> = ({ onShowToast 
               <ScanFace size={24} />
             </div>
             <div>
-              <h2 className="font-poppins font-bold text-lg sm:text-xl text-textMain tracking-tight">
+              <h2 className="font-space-grotesk font-bold text-lg sm:text-xl text-textMain tracking-tight">
                 Keamanan & Autentikasi Biometrik
               </h2>
-              <p className="font-inter text-xs sm:text-sm text-textMain/70 mt-0.5">
+              <p className="font-space-grotesk text-xs sm:text-sm text-textMain/70 mt-0.5">
                 Gunakan Apple Face ID, Touch ID, atau Windows Hello untuk masuk ke Dashraditya tanpa kata sandi.
               </p>
             </div>
@@ -109,20 +109,20 @@ export const AdminSecurityTab: React.FC<AdminSecurityTabProps> = ({ onShowToast 
 
       {/* Daftar Perangkat Terdaftar */}
       <div className="bg-surface rounded-3xl p-6 sm:p-8 shadow-neu-out border border-white/60">
-        <h3 className="font-poppins font-bold text-base text-textMain mb-4">
+        <h3 className="font-space-grotesk font-bold text-base text-textMain mb-4">
           Daftar Perangkat Terdaftar ({devices.length})
         </h3>
 
         {isLoading ? (
           <div className="py-12 flex flex-col items-center justify-center text-textMain/70">
             <Loader2 size={24} className="animate-spin text-accent mb-2" />
-            <p className="font-inter text-xs">Memuat daftar perangkat...</p>
+            <p className="font-space-grotesk text-xs">Memuat daftar perangkat...</p>
           </div>
         ) : devices.length === 0 ? (
           <div className="py-10 text-center rounded-2xl bg-surface shadow-neu-in p-6">
             <ScanFace size={36} className="mx-auto text-textMain/40 mb-2" />
-            <p className="font-poppins font-bold text-sm text-textMain">Belum Ada Perangkat Terdaftar</p>
-            <p className="font-inter text-xs text-textMain/65 mt-1 max-w-md mx-auto">
+            <p className="font-space-grotesk font-bold text-sm text-textMain">Belum Ada Perangkat Terdaftar</p>
+            <p className="font-space-grotesk text-xs text-textMain/65 mt-1 max-w-md mx-auto">
               Daftarkan perangkat pertama Anda di form atas untuk mengaktifkan login instan dengan Face ID atau Windows Hello.
             </p>
           </div>

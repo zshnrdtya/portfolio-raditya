@@ -76,19 +76,19 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         {/* Brand / Logo */}
         <div className="flex items-center justify-between pb-4 border-b border-textMain/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-surface shadow-neu-out border border-white/50 flex items-center justify-center text-accent font-poppins font-black text-lg">
+            <div className="w-10 h-10 rounded-2xl bg-surface shadow-neu-out border border-white/50 flex items-center justify-center text-accent font-space-grotesk font-black text-lg">
               R
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-poppins font-bold text-base text-textMain tracking-tight">
+                <span className="font-space-grotesk font-bold text-base text-textMain tracking-tight">
                   Dashraditya
                 </span>
                 <span className="px-1.5 py-0.5 rounded-md bg-surface shadow-neu-in text-[10px] font-bold text-accent">
                   Admin
                 </span>
               </div>
-              <p className="font-inter text-[11px] text-textMain/65">
+              <p className="font-space-grotesk text-[11px] text-textMain/65">
                 Panel Moderasi Portofolio
               </p>
             </div>
@@ -107,7 +107,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
 
         {/* Navigation Section */}
         <div>
-          <p className="font-poppins font-bold text-[10px] uppercase tracking-wider text-textMain/55 px-2 mb-2">
+          <p className="font-space-grotesk font-bold text-[10px] uppercase tracking-wider text-textMain/55 px-2 mb-2">
             Menu Utama
           </p>
           <nav className="space-y-2">
@@ -122,7 +122,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
                     onTabChange(item.id);
                     onCloseMobile();
                   }}
-                  className={`w-full min-h-[46px] px-3.5 py-2.5 rounded-2xl font-poppins font-bold text-xs sm:text-sm flex items-center justify-between transition-all cursor-pointer ${
+                  className={`w-full min-h-[46px] px-3.5 py-2.5 rounded-2xl font-space-grotesk font-bold text-xs sm:text-sm flex items-center justify-between transition-all cursor-pointer ${
                     isActive
                       ? 'bg-surface shadow-neu-in text-accent border border-accent/25'
                       : 'bg-surface shadow-neu-out hover:shadow-neu-in text-textMain/75 hover:text-textMain'
@@ -145,12 +145,12 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
 
         {/* Public Site Link */}
         <div>
-          <p className="font-poppins font-bold text-[10px] uppercase tracking-wider text-textMain/55 px-2 mb-2">
+          <p className="font-space-grotesk font-bold text-[10px] uppercase tracking-wider text-textMain/55 px-2 mb-2">
             Navigasi Luar
           </p>
           <Link
             href="/"
-            className="w-full min-h-[44px] px-3.5 py-2.5 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in font-poppins font-medium text-xs text-textMain/80 flex items-center gap-2.5 transition-all cursor-pointer"
+            className="w-full min-h-[44px] px-3.5 py-2.5 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in font-space-grotesk font-medium text-xs text-textMain/80 flex items-center gap-2.5 transition-all cursor-pointer"
           >
             <ArrowLeft size={16} />
             <span>Kembali ke Beranda</span>
@@ -166,10 +166,10 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
             <ShieldCheck size={16} />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="font-poppins font-bold text-xs text-textMain truncate">
+            <p className="font-space-grotesk font-bold text-xs text-textMain truncate">
               Raditya Rai Zeeshan
             </p>
-            <p className="font-inter text-[10px] text-textMain/65 truncate">
+            <p className="font-space-grotesk text-[10px] text-textMain/65 truncate">
               radityaraizeeshan@gmail.com
             </p>
           </div>
@@ -182,7 +182,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
             onClick={onRefresh}
             disabled={isLoading || isBatchProcessing}
             aria-label="Segarkan data dashboard"
-            className="min-h-[42px] px-3 py-2 rounded-xl bg-surface shadow-neu-out hover:shadow-neu-in text-textMain font-poppins font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+            className="min-h-[42px] px-3 py-2 rounded-xl bg-surface shadow-neu-out hover:shadow-neu-in text-textMain font-space-grotesk font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
           >
             <RefreshCw
               size={13}
@@ -195,7 +195,7 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
             type="button"
             onClick={() => signOut({ callbackUrl: '/dashraditya' })}
             aria-label="Keluar dari akun admin"
-            className="min-h-[42px] px-3 py-2 rounded-xl bg-surface shadow-neu-out hover:shadow-neu-in text-red-700 hover:text-red-900 font-poppins font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+            className="min-h-[42px] px-3 py-2 rounded-xl bg-surface shadow-neu-out hover:shadow-neu-in text-red-700 hover:text-red-900 font-space-grotesk font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
           >
             <LogOut size={13} />
             <span>Keluar</span>

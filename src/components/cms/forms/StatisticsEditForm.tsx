@@ -46,7 +46,7 @@ export function StatisticsEditForm({ initialData, onSave, onClose }: StatisticsE
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+          <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
             Projects Completed
           </label>
           <input
@@ -54,12 +54,12 @@ export function StatisticsEditForm({ initialData, onSave, onClose }: StatisticsE
             min={0}
             value={projectsCompleted}
             onChange={(e) => setProjectsCompleted(Number(e.target.value))}
-            className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+            className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
           />
         </div>
 
         <div>
-          <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+          <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
             Years of Learning
           </label>
           <input
@@ -67,12 +67,12 @@ export function StatisticsEditForm({ initialData, onSave, onClose }: StatisticsE
             min={0}
             value={yearsLearning}
             onChange={(e) => setYearsLearning(Number(e.target.value))}
-            className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+            className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
           />
         </div>
 
         <div>
-          <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+          <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
             Core Technologies
           </label>
           <input
@@ -80,12 +80,12 @@ export function StatisticsEditForm({ initialData, onSave, onClose }: StatisticsE
             min={0}
             value={coreTechnologies}
             onChange={(e) => setCoreTechnologies(Number(e.target.value))}
-            className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+            className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
           />
         </div>
 
         <div>
-          <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+          <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
             Internship Experience
           </label>
           <input
@@ -93,7 +93,7 @@ export function StatisticsEditForm({ initialData, onSave, onClose }: StatisticsE
             min={0}
             value={internshipExperience}
             onChange={(e) => setInternshipExperience(Number(e.target.value))}
-            className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+            className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
           />
         </div>
       </div>
@@ -110,7 +110,7 @@ export function StatisticsEditForm({ initialData, onSave, onClose }: StatisticsE
         <button
           type="submit"
           disabled={isSubmitting}
-          className="min-h-[44px] px-6 py-2 rounded-full bg-accent text-white font-poppins font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+          className="min-h-[44px] px-6 py-2 rounded-full bg-accent text-white font-space-grotesk font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
         >
           {isSubmitting ? (
             <>

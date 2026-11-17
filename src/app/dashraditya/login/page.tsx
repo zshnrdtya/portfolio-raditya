@@ -24,7 +24,7 @@ export default function AdminLoginPage() {
         <div className="w-16 h-16 rounded-3xl bg-surface shadow-neu-out flex items-center justify-center text-accent animate-pulse">
           <Loader2 size={24} className="animate-spin" />
         </div>
-        <p className="font-poppins font-medium text-xs text-textMain/70 mt-3">
+        <p className="font-space-grotesk font-medium text-xs text-textMain/70 mt-3">
           Memuat sesi administrator...
         </p>
       </main>

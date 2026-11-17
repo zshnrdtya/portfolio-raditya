@@ -25,7 +25,7 @@ export const TechStackField: React.FC<TechStackFieldProps> = ({
   techStack, tagInput, setTagInput, handleAddTag, handleRemoveTag,
 }) => (
   <div>
-    <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-2">
+    <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-2">
       Tech Stack
     </label>
     <div className="flex gap-2 mb-2.5">
@@ -35,7 +35,7 @@ export const TechStackField: React.FC<TechStackFieldProps> = ({
         onChange={(e) => setTagInput(e.target.value)}
         onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddTag(tagInput); } }}
         placeholder="Ketik teknologi lalu tekan Enter (cth: Next.js)"
-        className="flex-grow px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+        className="flex-grow px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
       />
       <button type="button" onClick={() => handleAddTag(tagInput)}
         className="px-4 py-2.5 rounded-2xl bg-surface shadow-neu-out hover:shadow-neu-in text-textMain font-bold text-xs flex items-center gap-1 cursor-pointer shrink-0">
@@ -84,7 +84,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
 }) => (
   <div>
     <div className="flex items-center justify-between mb-2">
-      <label className="font-poppins font-bold text-xs uppercase tracking-wider text-textMain">
+      <label className="font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain">
         Foto Proyek <span className="text-red-700">*</span>
       </label>
       <div className="flex items-center gap-1 text-[11px] font-semibold text-textMain">
@@ -110,8 +110,8 @@ export const ImageField: React.FC<ImageFieldProps> = ({
           ) : (
             <div className="py-2">
               <Upload size={22} className="mx-auto text-accent mb-1.5" />
-              <p className="font-poppins font-bold text-xs text-textMain">Klik untuk memilih foto proyek</p>
-              <p className="font-inter text-[11px] text-textMain/70 mt-0.5">PNG, JPG, WebP, atau SVG (maksimal 5MB)</p>
+              <p className="font-space-grotesk font-bold text-xs text-textMain">Klik untuk memilih foto proyek</p>
+              <p className="font-space-grotesk text-[11px] text-textMain/70 mt-0.5">PNG, JPG, WebP, atau SVG (maksimal 5MB)</p>
             </div>
           )}
         </label>
@@ -121,7 +121,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
         <LinkIcon size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-textMain/60" />
         <input type="text" value={image} onChange={(e) => setImage(e.target.value)}
           placeholder="https://example.com/project-image.webp"
-          className="w-full pl-10 pr-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all" />
+          className="w-full pl-10 pr-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all" />
       </div>
     )}
 

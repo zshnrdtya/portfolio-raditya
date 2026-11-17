@@ -36,17 +36,17 @@ export const AdminProjectDeleteModal: React.FC<AdminProjectDeleteModalProps> = (
           <div>
             <h3
               id="delete-project-modal-title"
-              className="font-poppins font-black text-lg text-textMain"
+              className="font-space-grotesk font-black text-lg text-textMain"
             >
               Hapus Proyek?
             </h3>
-            <p className="font-inter text-xs text-textMain/80">
+            <p className="font-space-grotesk text-xs text-textMain/80">
               Tindakan ini tidak dapat dibatalkan.
             </p>
           </div>
         </div>
 
-        <p className="font-inter text-sm text-textMain/90 mb-6 bg-surface shadow-neu-in p-3.5 rounded-xl">
+        <p className="font-space-grotesk text-sm text-textMain/90 mb-6 bg-surface shadow-neu-in p-3.5 rounded-xl">
           Apakah Anda yakin ingin menghapus proyek{' '}
           <strong className="text-textMain font-bold">&ldquo;{project.title}&rdquo;</strong> dari portofolio?
         </p>
@@ -64,7 +64,7 @@ export const AdminProjectDeleteModal: React.FC<AdminProjectDeleteModalProps> = (
             type="button"
             onClick={onConfirm}
             disabled={isLoading}
-            className="min-h-[44px] px-5 py-2.5 rounded-full bg-red-700 text-white font-poppins font-bold text-xs shadow-neu-out hover:bg-red-800 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            className="min-h-[44px] px-5 py-2.5 rounded-full bg-red-700 text-white font-space-grotesk font-bold text-xs shadow-neu-out hover:bg-red-800 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
           >
             {isLoading ? (
               <>

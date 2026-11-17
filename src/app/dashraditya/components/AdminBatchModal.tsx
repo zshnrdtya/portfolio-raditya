@@ -47,11 +47,11 @@ export const AdminBatchModal: React.FC<AdminBatchModalProps> = ({
         <div className="text-center">
           <h2
             id="batch-confirm-title"
-            className="text-lg font-bold font-poppins text-textMain"
+            className="text-lg font-bold font-space-grotesk text-textMain"
           >
             Konfirmasi Setujui Sekaligus
           </h2>
-          <p className="text-xs sm:text-sm text-textMain/85 font-inter mt-1.5">
+          <p className="text-xs sm:text-sm text-textMain/85 font-space-grotesk mt-1.5">
             Anda akan menyetujui dan menerbitkan{' '}
             <strong className="text-textMain font-semibold">
               {count} pesan

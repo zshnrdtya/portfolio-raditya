@@ -50,7 +50,7 @@ export function AboutEditForm({ initialData, onSave, onClose }: AboutEditFormPro
       )}
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Judul Section
         </label>
         <input
@@ -58,12 +58,12 @@ export function AboutEditForm({ initialData, onSave, onClose }: AboutEditFormPro
           value={heading}
           onChange={(e) => setHeading(e.target.value)}
           placeholder="About Me"
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Bio Paragraf 1 (Perkenalan & Usia) <span className="text-red-700">*</span>
         </label>
         <textarea
@@ -71,31 +71,31 @@ export function AboutEditForm({ initialData, onSave, onClose }: AboutEditFormPro
           value={bioParagraph1}
           onChange={(e) => setBioParagraph1(e.target.value)}
           required
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Bio Paragraf 2 (Keahlian & Pengalaman Z - Project)
         </label>
         <textarea
           rows={3}
           value={bioParagraph2}
           onChange={(e) => setBioParagraph2(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Bio Paragraf 3 (Filosofi & Mindset)
         </label>
         <textarea
           rows={3}
           value={bioParagraph3}
           onChange={(e) => setBioParagraph3(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
         />
       </div>
 
@@ -111,7 +111,7 @@ export function AboutEditForm({ initialData, onSave, onClose }: AboutEditFormPro
         <button
           type="submit"
           disabled={isSubmitting}
-          className="min-h-[44px] px-6 py-2 rounded-full bg-accent text-white font-poppins font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+          className="min-h-[44px] px-6 py-2 rounded-full bg-accent text-white font-space-grotesk font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
         >
           {isSubmitting ? (
             <>

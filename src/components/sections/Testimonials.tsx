@@ -45,7 +45,7 @@ const Testimonials = () => {
   return (
     <section id="testimonials" className="py-20 bg-surface overflow-hidden relative">
       <div className="container mx-auto px-6 max-w-6xl mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-center font-poppins text-slate-900" data-aos="fade-up">
+        <h2 className="text-3xl md:text-4xl font-bold text-center font-space-grotesk text-slate-900" data-aos="fade-up">
           Client Testimonials
         </h2>
       </div>
@@ -74,10 +74,10 @@ const Testimonials = () => {
                 
                 <div className="flex items-center gap-4 mt-auto">
                   <div className="w-12 h-12 rounded-full shadow-neu-in flex items-center justify-center bg-surface shrink-0">
-                    <span className="font-bold text-accent font-poppins">{testi.author.charAt(0)}</span>
+                    <span className="font-bold text-accent font-space-grotesk">{testi.author.charAt(0)}</span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-textMain font-poppins">{testi.author}</h4>
+                    <h4 className="font-bold text-textMain font-space-grotesk">{testi.author}</h4>
                     <p className="text-xs md:text-sm text-textMain/70">{testi.company}</p>
                   </div>
                 </div>

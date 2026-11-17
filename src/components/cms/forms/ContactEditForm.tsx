@@ -50,7 +50,7 @@ export function ContactEditForm({ initialData, onSave, onClose }: ContactEditFor
       )}
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Judul Section Kontak <span className="text-red-700">*</span>
         </label>
         <input
@@ -59,12 +59,12 @@ export function ContactEditForm({ initialData, onSave, onClose }: ContactEditFor
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Get In Touch"
           required
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Subjudul / Teks Ajakan Kolaborasi
         </label>
         <textarea
@@ -72,12 +72,12 @@ export function ContactEditForm({ initialData, onSave, onClose }: ContactEditFor
           value={subtitle}
           onChange={(e) => setSubtitle(e.target.value)}
           placeholder="Have a project in mind or want to collaborate? Feel free to reach out!"
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Alamat Email Resmi <span className="text-red-700">*</span>
         </label>
         <input
@@ -86,12 +86,12 @@ export function ContactEditForm({ initialData, onSave, onClose }: ContactEditFor
           onChange={(e) => setEmail(e.target.value)}
           placeholder="nama@domain.com"
           required
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
         />
       </div>
 
       <div>
-        <label className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+        <label className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
           Teks Lokasi
         </label>
         <input
@@ -99,7 +99,7 @@ export function ContactEditForm({ initialData, onSave, onClose }: ContactEditFor
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           placeholder="Jl. Pekapuran, Gg Ancin RT 04/24"
-          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
+          className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all"
         />
       </div>
 
@@ -115,7 +115,7 @@ export function ContactEditForm({ initialData, onSave, onClose }: ContactEditFor
         <button
           type="submit"
           disabled={isSubmitting}
-          className="min-h-[44px] px-6 py-2 rounded-full bg-accent text-white font-poppins font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+          className="min-h-[44px] px-6 py-2 rounded-full bg-accent text-white font-space-grotesk font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
         >
           {isSubmitting ? (
             <>

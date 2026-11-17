@@ -52,7 +52,7 @@ export default function TechSlider() {
                   />
                 </div>
               </div>
-              <span className="mt-6 font-poppins font-bold text-sm md:text-base text-[var(--color-textMain)] opacity-0 group-hover:opacity-100 group-hover:text-[var(--color-accent)] transition-all duration-300 whitespace-nowrap">
+              <span className="mt-6 font-space-grotesk font-bold text-sm md:text-base text-[var(--color-textMain)] opacity-0 group-hover:opacity-100 group-hover:text-[var(--color-accent)] transition-all duration-300 whitespace-nowrap">
                 {tech.name}
               </span>
             </div>

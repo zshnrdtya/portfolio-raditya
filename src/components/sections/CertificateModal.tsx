@@ -64,11 +64,11 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
             <div>
               <h3
                 id="cert-modal-title"
-                className="font-poppins font-bold text-base sm:text-lg text-textMain tracking-tight leading-snug"
+                className="font-space-grotesk font-bold text-base sm:text-lg text-textMain tracking-tight leading-snug"
               >
                 {certificate.title}
               </h3>
-              <p className="font-inter text-xs text-textMain/75 mt-0.5">
+              <p className="font-space-grotesk text-xs text-textMain/75 mt-0.5">
                 {certificate.issuer}
                 {certificate.credentialRole ? ` • ${certificate.credentialRole}` : ''}
               </p>
@@ -102,7 +102,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
 
         {/* Modal Footer */}
         <div className="pt-3 border-t border-textMain/15 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-xs font-inter text-emerald-800 font-semibold bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
+          <div className="flex items-center gap-2 text-xs font-space-grotesk text-emerald-800 font-semibold bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping" />
             <span>Dokumen Resmi Terverifikasi</span>
           </div>
@@ -111,7 +111,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
             href={certificate.image}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-h-[44px] px-4 py-2.5 rounded-2xl bg-accent text-white font-poppins font-bold text-xs sm:text-sm shadow-neu-out hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-all flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+            className="min-h-[44px] px-4 py-2.5 rounded-2xl bg-accent text-white font-space-grotesk font-bold text-xs sm:text-sm shadow-neu-out hover:brightness-110 active:brightness-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none transition-all flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
           >
             <ExternalLink size={15} />
             <span>Buka Gambar Penuh</span>

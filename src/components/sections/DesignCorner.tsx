@@ -63,10 +63,10 @@ export default function DesignCorner() {
     <section id="design" className="py-24 relative bg-[var(--color-surface)] scroll-mt-6">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-16 text-center" data-aos="fade-up">
-          <h2 className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative pb-2 drop-shadow-sm">
+          <h2 className="font-space-grotesk font-black text-4xl md:text-5xl text-slate-900 inline-block relative pb-2 drop-shadow-sm">
             Design Corner
           </h2>
-          <p className="font-inter font-medium text-[var(--color-textMain)] mt-6 max-w-2xl mx-auto opacity-80">
+          <p className="font-space-grotesk font-medium text-[var(--color-textMain)] mt-6 max-w-2xl mx-auto opacity-80">
             A glimpse into my creative side, featuring graphic design, logo edits, and vector art.
           </p>
         </div>
@@ -91,10 +91,10 @@ export default function DesignCorner() {
                 
                 {/* Overlay gradient and text */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-surface)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                  <span className="font-poppins font-bold text-lg text-[var(--color-textMain)] translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="font-space-grotesk font-bold text-lg text-[var(--color-textMain)] translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     {design.title}
                   </span>
-                  <span className="font-inter font-medium text-sm text-[var(--color-accent)] translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
+                  <span className="font-space-grotesk font-medium text-sm text-[var(--color-accent)] translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
                     Made with {design.tools}
                   </span>
                 </div>
@@ -110,7 +110,7 @@ export default function DesignCorner() {
               type="button"
               onClick={handlePrev}
               disabled={currentPage === 1}
-              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
+              className={`w-12 h-12 flex items-center justify-center font-space-grotesk font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                 ${currentPage === 1 
                   ? 'bg-[var(--color-surface)] text-gray-400 shadow-[var(--shadow-neu-in)] cursor-not-allowed opacity-50' 
                   : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)] cursor-pointer'
@@ -120,7 +120,7 @@ export default function DesignCorner() {
               &lt;
             </button>
             
-            <span className="font-inter font-black text-xl text-[var(--color-accent)] px-6 py-3 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)]">
+            <span className="font-space-grotesk font-black text-xl text-[var(--color-accent)] px-6 py-3 rounded-full bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)]">
               {currentPage} / {totalPages}
             </span>
 
@@ -128,7 +128,7 @@ export default function DesignCorner() {
               type="button"
               onClick={handleNext}
               disabled={currentPage === totalPages}
-              className={`w-12 h-12 flex items-center justify-center font-poppins font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
+              className={`w-12 h-12 flex items-center justify-center font-space-grotesk font-black text-xl rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2
                 ${currentPage === totalPages 
                   ? 'bg-[var(--color-surface)] text-gray-400 shadow-[var(--shadow-neu-in)] cursor-not-allowed opacity-50' 
                   : 'bg-[var(--color-surface)] text-[var(--color-textMain)] shadow-[var(--shadow-neu-out)] active:shadow-[var(--shadow-neu-in)] hover:text-[var(--color-accent)] cursor-pointer'

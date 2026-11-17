@@ -153,7 +153,7 @@ const Guestbook = () => {
   return (
     <section id="guestbook" className="py-20 bg-surface">
       <div className="container mx-auto px-6 max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 font-poppins text-slate-900" data-aos="fade-up">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 font-space-grotesk text-slate-900" data-aos="fade-up">
           Guestbook
         </h2>
         <p className="text-center text-textMain/60 mb-12 text-sm md:text-base" data-aos="fade-up" data-aos-delay="100">
@@ -231,7 +231,7 @@ const Guestbook = () => {
         <div data-aos="fade-up" data-aos-delay="300">
           <div className="flex items-center gap-2 mb-6">
             <MessageSquare size={18} className="text-accent" />
-            <h3 className="text-lg font-semibold font-poppins text-textMain">Recent Messages</h3>
+            <h3 className="text-lg font-semibold font-space-grotesk text-textMain">Recent Messages</h3>
             <span className="ml-auto text-xs text-textMain/40">{messages.length} messages</span>
           </div>
 

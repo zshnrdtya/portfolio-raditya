@@ -39,7 +39,7 @@ export default function AboutMe() {
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           {/* Profile & Bio Section */}
           <div className="w-full lg:w-5/12" data-aos="fade-up">
-            <h2 className="font-poppins font-black text-4xl md:text-5xl text-slate-900 inline-block relative mb-12 pb-2 drop-shadow-sm">
+            <h2 className="font-space-grotesk font-black text-4xl md:text-5xl text-slate-900 inline-block relative mb-12 pb-2 drop-shadow-sm">
               {about?.heading || "About Me"}
             </h2>
 
@@ -55,7 +55,7 @@ export default function AboutMe() {
               </div>
             </div>
 
-            <div className="font-inter text-[var(--color-textMain)] font-medium leading-relaxed text-lg bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-2xl p-6 text-justify space-y-4">
+            <div className="font-space-grotesk text-[var(--color-textMain)] font-medium leading-relaxed text-lg bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-2xl p-6 text-justify space-y-4">
               <p>
                 {about?.bioParagraph1 || (
                   <>
@@ -74,7 +74,7 @@ export default function AboutMe() {
 
           {/* Timeline Section */}
           <div className="w-full lg:w-7/12 lg:pt-24" data-aos="fade-up" data-aos-delay="200">
-            <h3 className="font-poppins font-black text-3xl text-[var(--color-textMain)] mb-12 drop-shadow-sm">
+            <h3 className="font-space-grotesk font-black text-3xl text-[var(--color-textMain)] mb-12 drop-shadow-sm">
               Education History
             </h3>
 
@@ -108,10 +108,10 @@ export default function AboutMe() {
                     <span className="inline-block px-4 py-2 bg-[var(--color-surface)] text-[var(--color-accent)] text-sm font-bold shadow-[var(--shadow-neu-in)] rounded-full mb-4">
                       {item.period}
                     </span>
-                    <h4 className="font-poppins font-black text-2xl text-[var(--color-textMain)] mb-3 pr-16 md:pr-20">
+                    <h4 className="font-space-grotesk font-black text-2xl text-[var(--color-textMain)] mb-3 pr-16 md:pr-20">
                       {item.school}
                     </h4>
-                    <p className="font-inter text-lg font-medium text-[var(--color-textMain)] leading-relaxed opacity-80 text-justify">
+                    <p className="font-space-grotesk text-lg font-medium text-[var(--color-textMain)] leading-relaxed opacity-80 text-justify">
                       {item.description}
                     </p>
                   </div>

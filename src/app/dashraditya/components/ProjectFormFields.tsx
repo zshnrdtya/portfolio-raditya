@@ -77,10 +77,10 @@ export const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
       {/* Header */}
       <div className="flex items-center justify-between pb-4 border-b border-textMain/10">
         <div>
-          <h2 id="modal-project-title" className="font-poppins font-black text-xl sm:text-2xl text-textMain">
+          <h2 id="modal-project-title" className="font-space-grotesk font-black text-xl sm:text-2xl text-textMain">
             {projectToEdit ? 'Edit Proyek' : 'Tambah Proyek Baru'}
           </h2>
-          <p className="font-inter text-xs sm:text-sm text-textMain/75 mt-0.5">
+          <p className="font-space-grotesk text-xs sm:text-sm text-textMain/75 mt-0.5">
             Isi data detail proyek untuk ditampilkan pada section Featured Projects.
           </p>
         </div>
@@ -99,18 +99,18 @@ export const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
       <form onSubmit={handleSubmit} className="mt-6 space-y-5">
         {/* Judul Proyek */}
         <div>
-          <label htmlFor="project-title" className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-2">
+          <label htmlFor="project-title" className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-2">
             Judul / Nama Proyek <span className="text-red-700">*</span>
           </label>
           <input id="project-title" type="text" value={title} onChange={(e) => setTitle(e.target.value)}
             placeholder="Contoh: Platform Booking Futsal Real-time"
-            className="w-full px-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all" required />
+            className="w-full px-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all" required />
         </div>
 
         {/* Deskripsi & Gemini AI Generator */}
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-            <label htmlFor="project-description" className="font-poppins font-bold text-xs uppercase tracking-wider text-textMain">
+            <label htmlFor="project-description" className="font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain">
               Deskripsi Proyek <span className="text-red-700">*</span>
             </label>
             <div className="flex items-center gap-1.5 self-start sm:self-auto">
@@ -135,8 +135,8 @@ export const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
           <textarea id="project-description" rows={3} value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Deskripsi singkat, faktual, dan padat (1-2 kalimat)..."
-            className="w-full px-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y" required />
-          <p className="font-inter text-[11px] text-textMain/70 mt-1">
+            className="w-full px-4 py-3 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all resize-y" required />
+          <p className="font-space-grotesk text-[11px] text-textMain/70 mt-1">
             Dipandu aturan antislop: tanpa kata klise AI, tanpa klaim palsu, dan tanpa tanda em dash.
           </p>
         </div>
@@ -151,37 +151,37 @@ export const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
         {/* Demo URL & GitHub URL */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="project-demourl" className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+            <label htmlFor="project-demourl" className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
               Live Demo URL (Opsional)
             </label>
             <input id="project-demourl" type="url" value={demoUrl} onChange={(e) => setDemoUrl(e.target.value)}
               placeholder="https://zeeraai.radityarz.my.id"
-              className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all" />
+              className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all" />
           </div>
           <div>
-            <label htmlFor="project-githuburl" className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+            <label htmlFor="project-githuburl" className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
               GitHub Repo (Opsional)
             </label>
             <input id="project-githuburl" type="url" value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)}
               placeholder="https://github.com/zshnrdtya/..."
-              className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all" />
+              className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all" />
           </div>
         </div>
 
         {/* Urutan & Status Publikasi */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
           <div>
-            <label htmlFor="project-order" className="block font-poppins font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
+            <label htmlFor="project-order" className="block font-space-grotesk font-bold text-xs uppercase tracking-wider text-textMain mb-1.5">
               Urutan Tampil (Order)
             </label>
             <input id="project-order" type="number" value={order} onChange={(e) => setOrder(Number(e.target.value))}
-              className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-inter text-sm outline-none focus:ring-2 focus:ring-accent transition-all" />
+              className="w-full px-4 py-2.5 rounded-2xl bg-surface shadow-neu-in text-textMain font-space-grotesk text-sm outline-none focus:ring-2 focus:ring-accent transition-all" />
           </div>
           <div className="flex items-center sm:pt-6">
             <label className="flex items-center gap-3 cursor-pointer select-none">
               <input type="checkbox" checked={published} onChange={(e) => setPublished(e.target.checked)}
                 className="w-5 h-5 rounded-md accent-[#136846] cursor-pointer" />
-              <span className="font-poppins font-bold text-sm text-textMain">Publikasikan ke Website</span>
+              <span className="font-space-grotesk font-bold text-sm text-textMain">Publikasikan ke Website</span>
             </label>
           </div>
         </div>
@@ -193,7 +193,7 @@ export const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
             Batal
           </button>
           <button type="submit" disabled={isSubmitting || isUploading || isGeneratingAi}
-            className="min-h-[44px] px-6 py-2.5 rounded-full bg-accent text-white font-poppins font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50">
+            className="min-h-[44px] px-6 py-2.5 rounded-full bg-accent text-white font-space-grotesk font-bold text-xs shadow-neu-out hover:brightness-110 active:brightness-95 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50">
             {isSubmitting
               ? (<><Loader2 size={14} className="animate-spin" /><span>Menyimpan...</span></>)
               : (<><Check size={14} /><span>{projectToEdit ? 'Simpan Perubahan' : 'Tambahkan Proyek'}</span></>)}

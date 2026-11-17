@@ -55,7 +55,7 @@ const ReplyCard = ({
       <p className="flex-1 min-w-0 text-xs font-semibold text-textMain truncate">{reply.author_name}</p>
       <div className="flex items-center gap-1 text-textMain/35 shrink-0">
         <Clock size={10} />
-        <span className="text-[10px]">{timeAgo(reply.createdAt)}</span>
+        <span className="text-[11px] font-space-mono">{timeAgo(reply.createdAt)}</span>
       </div>
     </div>
     <p className="text-xs text-textMain/80 leading-relaxed pl-8 mb-3">{reply.body}</p>
@@ -135,7 +135,7 @@ export const GuestbookMessageList: React.FC<MessageListProps> = ({
                 <p className="flex-1 min-w-0 text-sm font-semibold text-textMain truncate">{msg.author_name}</p>
                 <div className="flex items-center gap-1 text-textMain/35 shrink-0">
                   <Clock size={11} />
-                  <span className="text-[11px]">{timeAgo(msg.createdAt)}</span>
+                  <span className="text-[11px] font-space-mono">{timeAgo(msg.createdAt)}</span>
                 </div>
               </div>
               <p className="text-sm text-textMain/80 leading-relaxed pl-11 mb-4">{msg.body}</p>
@@ -215,7 +215,7 @@ export const GuestbookMessageList: React.FC<MessageListProps> = ({
           >
             <ChevronLeft size={18} />
           </button>
-          <span className="text-sm font-medium text-textMain/70 font-poppins">
+          <span className="text-sm font-medium text-textMain/70 font-space-grotesk">
             {currentPage} / {totalPages}
           </span>
           <button

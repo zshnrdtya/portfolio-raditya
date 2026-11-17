@@ -48,7 +48,7 @@ function Counter({
   }, [inView, end, duration]);
 
   return (
-    <div ref={ref} className="text-4xl md:text-5xl font-bold font-poppins text-accent">
+    <div ref={ref} className="text-4xl md:text-5xl font-bold font-space-mono text-accent">
       {count}
       {suffix}
     </div>

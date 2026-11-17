@@ -52,10 +52,10 @@ export const AdminErrorState: React.FC<AdminErrorStateProps> = ({
         <AlertCircle size={28} />
       </div>
       <div>
-        <h2 className="text-lg sm:text-xl font-bold font-poppins text-textMain">
+        <h2 className="text-lg sm:text-xl font-bold font-space-grotesk text-textMain">
           Kendala Memuat Data
         </h2>
-        <p className="text-xs sm:text-sm text-textMain/85 font-inter mt-1.5">
+        <p className="text-xs sm:text-sm text-textMain/85 font-space-grotesk mt-1.5">
           {errorMessage}
         </p>
       </div>
@@ -81,10 +81,10 @@ export const AdminEmptyState: React.FC = () => {
         <Check size={32} />
       </div>
       <div>
-        <h2 className="text-lg sm:text-xl font-bold font-poppins text-textMain">
+        <h2 className="text-lg sm:text-xl font-bold font-space-grotesk text-textMain">
           Semua Pesan Sudah Dimoderasi
         </h2>
-        <p className="text-xs sm:text-sm text-textMain/85 font-inter mt-1.5">
+        <p className="text-xs sm:text-sm text-textMain/85 font-space-grotesk mt-1.5">
           Tidak ada antrean pesan pending saat ini. Komentar atau balasan baru yang dikirimkan pengunjung akan tampil otomatis di panel ini.
         </p>
       </div>
@@ -116,10 +116,10 @@ export const AdminFilteredEmptyState: React.FC<AdminFilteredEmptyStateProps> = (
         <Search size={20} />
       </div>
       <div>
-        <h2 className="text-base sm:text-lg font-bold font-poppins text-textMain">
+        <h2 className="text-base sm:text-lg font-bold font-space-grotesk text-textMain">
           Tidak Ada Pesan yang Cocok
         </h2>
-        <p className="text-xs sm:text-sm text-textMain/85 font-inter mt-1">
+        <p className="text-xs sm:text-sm text-textMain/85 font-space-grotesk mt-1">
           Tidak ditemukan pesan pending untuk filter atau kata kunci saat ini.
         </p>
       </div>

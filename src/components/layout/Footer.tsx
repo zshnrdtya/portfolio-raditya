@@ -17,7 +17,7 @@ export default function Footer() {
         <ReplayIntroButton />
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 mt-4">
         <div className="text-center md:text-left bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] px-6 py-3 rounded-2xl">
-          <p className="font-inter font-bold text-sm text-[var(--color-textMain)] opacity-80">
+          <p className="font-space-grotesk font-bold text-sm text-[var(--color-textMain)] opacity-80">
             &copy; 2026 Raditya Rai Zeeshan. All rights reserved.
           </p>
         </div>
