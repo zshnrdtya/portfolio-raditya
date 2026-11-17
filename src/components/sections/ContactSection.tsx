@@ -6,7 +6,7 @@ import TiltedCard from "@/components/primitives/TiltedCard";
 
 /**
  * ContactSection — Jalur komunikasi langsung tanpa form palsu.
- * Mengikuti standar antislop-copywriting & antislop-logic (bebas mock data tak berfungsi).
+ * Mengikuti standar antislop-copywriting & antislop-human (kontras WCAG AA, tap targets).
  */
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
@@ -41,14 +41,14 @@ export default function ContactSection() {
 
             {/* Email Address Display with Copy Button */}
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <span className="rounded-lg border border-[#1E2433] bg-[#08090C] px-4 py-2.5 font-mono text-sm text-[#F1F5F9]">
+              <span className="rounded-lg border border-[#1E2433] bg-[#08090C] px-4 py-2.5 font-mono text-sm text-[#F1F5F9] break-all sm:break-normal">
                 {email}
               </span>
               <button
                 type="button"
                 onClick={handleCopy}
-                aria-label="Salin alamat email"
-                className="rounded-lg border border-[#1E2433] bg-[#151922] px-3.5 py-2.5 font-mono text-xs text-[#94A3B8] transition-colors hover:border-[#00F59B] hover:text-[#00F59B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F59B]"
+                aria-label="Salin alamat email ke clipboard"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-[#1E2433] bg-[#151922] px-4 py-2.5 font-mono text-xs text-[#94A3B8] transition-colors hover:border-[#00F59B] hover:text-[#00F59B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F59B] cursor-pointer"
               >
                 {copied ? "Tersalin!" : "Salin Email"}
               </button>
@@ -75,8 +75,8 @@ export default function ContactSection() {
               </MagnetButton>
             </div>
 
-            {/* Metadata Lokasi */}
-            <p className="mt-8 font-mono text-xs text-[#64748B]">
+            {/* Metadata Lokasi dengan rasio kontras 6.30:1 (WCAG AA PASS) */}
+            <p className="mt-8 font-mono text-xs text-[#8492A6]">
               Berdomisili di Kota Depok, Jawa Barat, Indonesia (GMT+7)
             </p>
           </div>

@@ -14,11 +14,11 @@ export default function Home() {
       {/* Canvas Partikel Spasial 3D Interaktif */}
       <AmbientCanvas />
 
-      {/* Header & Navigasi Floating */}
+      {/* Header & Navigasi Floating (menyertakan skip to content) */}
       <Navbar />
 
       {/* Rangkaian Section Utama */}
-      <main className="relative z-10 flex flex-col">
+      <main id="main-content" className="relative z-10 flex flex-col focus:outline-none">
         <HeroSection />
         <MetricsSection />
         <ProjectsSection />

@@ -35,13 +35,15 @@ Sesuai aturan `antislop-ui` (R-29), palet dibatasi ketat: 2 warna netral dasar +
 - **Warna Aksen Tunggal (Cyber Emerald):** `#00F59B` (Aksen hidup terkalibrasi)
 - **Teks Utama (Primary):** `#F1F5F9`
 - **Teks Sekunder (Muted):** `#94A3B8`
-- **Teks Tersier / Subtle:** `#64748B`
+- **Teks Tersier / Subtle:** `#8492A6` (Terkalibrasi WCAG AA min 4.5:1)
 
 ### Hasil Uji Kontras Resmi (`contrast-check.py`)
 | Pasangan Warna | Rasio Terukur | Standar WCAG AA Normal (4.5:1) | Status |
 |---|:---:|:---:|:---:|
 | `#F1F5F9` (Teks Utama) di atas `#08090C` (Base) | **18.17 : 1** | Lulus (Melebihi AAA) | **PASS** |
 | `#94A3B8` (Teks Sekunder) di atas `#08090C` (Base) | **7.77 : 1** | Lulus (Melebihi AA) | **PASS** |
+| `#8492A6` (Teks Tersier) di atas `#08090C` (Base) | **6.30 : 1** | Lulus (Melebihi AA) | **PASS** |
+| `#8492A6` (Teks Tersier) di atas `#11141B` (Surface) | **5.83 : 1** | Lulus (Melebihi AA) | **PASS** |
 | `#00F59B` (Aksen) di atas `#08090C` (Base) | **13.78 : 1** | Lulus (Melebihi AAA) | **PASS** |
 | `#F1F5F9` (Teks Utama) di atas `#11141B` (Surface) | **16.82 : 1** | Lulus (Melebihi AAA) | **PASS** |
 | `#94A3B8` (Teks Sekunder) di atas `#11141B` (Surface) | **7.19 : 1** | Lulus (Melebihi AA) | **PASS** |

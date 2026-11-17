@@ -2,7 +2,7 @@ import React from "react";
 
 /**
  * Footer — Penutup halaman minimalis dan bersih.
- * Mengikuti standar antislop-ui & antislop-human.
+ * Mengikuti standar antislop-ui & antislop-human (kontras WCAG AA min 4.5:1).
  */
 export default function Footer() {
   return (
@@ -13,7 +13,7 @@ export default function Footer() {
           dilindungi.
         </p>
 
-        <p className="font-mono text-xs text-[#64748B]">
+        <p className="font-mono text-xs text-[#8492A6]">
           Dirancang dengan Next.js App Router & Tailwind CSS v4.
         </p>
       </div>

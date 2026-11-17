@@ -10,7 +10,7 @@
   --color-accent-hover: #10B981;
   --color-text-primary: #F1F5F9;
   --color-text-secondary: #94A3B8;
-  --color-text-muted: #64748B;
+  --color-text-muted: #8492A6;
 
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
@@ -54,4 +54,16 @@ body {
 :focus-visible {
   outline: 2px solid #00F59B;
   outline-offset: 3px;
+}
+
+/* Fallback aksesibilitas global untuk prefers-reduced-motion (antislop-human) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

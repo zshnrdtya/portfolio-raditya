@@ -74,7 +74,7 @@ export default function MagnetButton({
   };
 
   const baseStyles =
-    "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F59B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090C] cursor-pointer";
+    "inline-flex items-center justify-center gap-2 min-h-[44px] rounded-lg px-5 py-2.5 text-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F59B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#08090C] cursor-pointer";
 
   const transformStyle = {
     transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
