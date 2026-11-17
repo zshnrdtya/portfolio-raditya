@@ -18,4 +18,5 @@ Gunakan aturan dari Rules-Raditya CODE sebelum memodifikasi UI, menulis copy, me
 - Aksesibilitas & Kontras: `Rules-Raditya CODE/skills/antislop-human/SKILL.md`
 - Layout & Mobile: `Rules-Raditya CODE/skills/antislop-layoutmobile/SKILL.md`
 - Komentar Kode: `Rules-Raditya CODE/skills/antislop-code/SKILL.md`
+- Audit Keamanan: `Rules-Raditya CODE/skills/security-audit/SKILL.md`
 <!-- antislop:end -->
