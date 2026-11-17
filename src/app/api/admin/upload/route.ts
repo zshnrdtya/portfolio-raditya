@@ -2,18 +2,60 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import path from "path";
 import fs from "fs/promises";
+import crypto from "crypto";
 
 const ADMIN_EMAIL = "radityaraizeeshan@gmail.com";
 
-const ALLOWED_MIME_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif",
-  "image/svg+xml",
-];
+const MIME_EXTENSION_MAP: Record<string, string> = {
+  "image/jpeg": ".jpg",
+  "image/png": ".png",
+  "image/webp": ".webp",
+  "image/gif": ".gif",
+};
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+function isValidImageSignature(buffer: Buffer, mimeType: string): boolean {
+  if (buffer.length < 12) return false;
+
+  if (mimeType === "image/jpeg") {
+    return buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+  }
+  if (mimeType === "image/png") {
+    return (
+      buffer[0] === 0x89 &&
+      buffer[1] === 0x50 &&
+      buffer[2] === 0x4e &&
+      buffer[3] === 0x47 &&
+      buffer[4] === 0x0d &&
+      buffer[5] === 0x0a &&
+      buffer[6] === 0x1a &&
+      buffer[7] === 0x0a
+    );
+  }
+  if (mimeType === "image/gif") {
+    return (
+      buffer[0] === 0x47 &&
+      buffer[1] === 0x49 &&
+      buffer[2] === 0x46 &&
+      buffer[3] === 0x38
+    );
+  }
+  if (mimeType === "image/webp") {
+    const isRiff =
+      buffer[0] === 0x52 &&
+      buffer[1] === 0x49 &&
+      buffer[2] === 0x46 &&
+      buffer[3] === 0x46;
+    const isWebp =
+      buffer[8] === 0x57 &&
+      buffer[9] === 0x45 &&
+      buffer[10] === 0x42 &&
+      buffer[11] === 0x50;
+    return isRiff && isWebp;
+  }
+  return false;
+}
 
 export async function POST(req: NextRequest) {
   const session = await auth();
@@ -32,9 +74,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+    const safeExtension = MIME_EXTENSION_MAP[file.type];
+    if (!safeExtension) {
       return NextResponse.json(
-        { error: "Format file tidak didukung. Harap unggah PNG, JPG, WebP, atau SVG." },
+        { error: "Format file tidak didukung. Harap unggah PNG, JPG, JPEG, WebP, atau GIF." },
         { status: 400 }
       );
     }
@@ -49,21 +92,34 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ambil ekstensi asli yang aman
-    const originalExt = path.extname(file.name).toLowerCase() || ".png";
+    if (!isValidImageSignature(buffer, file.type)) {
+      return NextResponse.json(
+        { error: "File yang diunggah rusak atau bukan format gambar valid." },
+        { status: 400 }
+      );
+    }
+
+    const originalExt = path.extname(file.name).toLowerCase();
     const baseName = path
       .basename(file.name, originalExt)
       .toLowerCase()
       .replace(/[^a-z0-9_-]/g, "-")
       .slice(0, 30);
 
-    const safeFileName = `project-${Date.now()}-${baseName}${originalExt}`;
-    const uploadDir = path.join(process.cwd(), "public", "foto-project");
+    const randomSuffix = crypto.randomBytes(4).toString("hex");
+    const safeFileName = `project-${Date.now()}-${randomSuffix}-${baseName}${safeExtension}`;
 
-    // Pastikan folder ada
+    const uploadDir = path.resolve(process.cwd(), "public", "foto-project");
+    const filePath = path.resolve(uploadDir, safeFileName);
+
+    if (!filePath.startsWith(uploadDir)) {
+      return NextResponse.json(
+        { error: "Path file traversal terdeteksi." },
+        { status: 400 }
+      );
+    }
+
     await fs.mkdir(uploadDir, { recursive: true });
-
-    const filePath = path.join(uploadDir, safeFileName);
     await fs.writeFile(filePath, buffer);
 
     return NextResponse.json({

@@ -1,10 +1,21 @@
+import { timingSafeEqual } from 'crypto';
 import NextAuth from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import Credentials from 'next-auth/providers/credentials';
 import { prisma } from './prisma';
 
 export const ADMIN_EMAIL = 'radityaraizeeshan@gmail.com';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Raditya301008_';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+function safeCompare(input: string, target: string): boolean {
+  const bufInput = Buffer.from(input);
+  const bufTarget = Buffer.from(target);
+  if (bufInput.length !== bufTarget.length) {
+    timingSafeEqual(bufInput, bufInput);
+    return false;
+  }
+  return timingSafeEqual(bufInput, bufTarget);
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -24,13 +35,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return null;
         }
 
+        if (!ADMIN_PASSWORD) {
+          console.error('[AUTH] ADMIN_PASSWORD belum dikonfigurasi di environment variables.');
+          return null;
+        }
+
         const inputEmail = String(credentials.email).trim().toLowerCase();
         const inputPassword = String(credentials.password);
 
-        if (
-          inputEmail === ADMIN_EMAIL.toLowerCase() &&
-          inputPassword === ADMIN_PASSWORD
-        ) {
+        const isEmailValid = safeCompare(inputEmail, ADMIN_EMAIL.toLowerCase());
+        const isPasswordValid = safeCompare(inputPassword, ADMIN_PASSWORD);
+
+        if (isEmailValid && isPasswordValid) {
           return {
             id: 'admin-raditya',
             name: 'Raditya Rai Zeeshan',

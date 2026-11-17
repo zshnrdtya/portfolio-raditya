@@ -1,9 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 // PATCH /api/guestbook/like - Increment likes on a message
 export async function PATCH(req: NextRequest) {
   try {
+    const clientIp = getClientIp(req);
+    const rateLimit = checkRateLimit(`like_${clientIp}`, 20, 60 * 1000);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        {
+          error: `Terlalu banyak aktivitas like. Silakan tunggu ${rateLimit.resetSeconds} detik.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetSeconds),
+          },
+        }
+      );
+    }
+
     const { id } = await req.json();
 
     if (!id || typeof id !== "string") {

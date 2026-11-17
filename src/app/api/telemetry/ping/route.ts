@@ -1,9 +1,16 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { extractVisitorMetadata, cleanReferrer } from '@/lib/telemetry';
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function POST(request: Request) {
   try {
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`telemetry_ping_${clientIp}`, 30, 60 * 1000);
+    if (!rateLimit.success) {
+      return NextResponse.json({ success: false, error: 'Rate limit exceeded' }, { status: 429 });
+    }
+
     const body = (await request.json().catch(() => ({}))) as {
       sessionId?: string;
       path?: string;

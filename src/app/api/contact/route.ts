@@ -1,32 +1,50 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import prisma from "@/lib/prisma";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 export async function POST(req: NextRequest) {
   try {
+    const clientIp = getClientIp(req);
+    const rateLimit = checkRateLimit(`contact_${clientIp}`, 5, 10 * 60 * 1000);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        {
+          error: `Terlalu banyak pengiriman pesan. Silakan coba kembali dalam ${rateLimit.resetSeconds} detik.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetSeconds),
+          },
+        }
+      );
+    }
+
     const body = await req.json();
     const { nama, email, pesan } = body;
 
     // Validasi input
-    if (!nama || typeof nama !== "string" || nama.trim().length < 2) {
+    if (!nama || typeof nama !== "string" || nama.trim().length < 2 || nama.trim().length > 100) {
       return NextResponse.json(
-        { error: "Nama harus diisi minimal 2 karakter." },
+        { error: "Nama harus diisi antara 2 hingga 100 karakter." },
         { status: 400 }
       );
     }
     if (
       !email ||
       typeof email !== "string" ||
+      email.length > 150 ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     ) {
       return NextResponse.json(
-        { error: "Format email tidak valid." },
+        { error: "Format email tidak valid (maksimal 150 karakter)." },
         { status: 400 }
       );
     }
-    if (!pesan || typeof pesan !== "string" || pesan.trim().length < 10) {
+    if (!pesan || typeof pesan !== "string" || pesan.trim().length < 10 || pesan.trim().length > 2000) {
       return NextResponse.json(
-        { error: "Pesan harus diisi minimal 10 karakter." },
+        { error: "Pesan harus diisi antara 10 hingga 2.000 karakter." },
         { status: 400 }
       );
     }

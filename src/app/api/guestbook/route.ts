@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 // GET /api/guestbook - Fetch approved messages with replies
 export async function GET() {
@@ -32,6 +33,22 @@ export async function GET() {
 // POST /api/guestbook - Submit a new message (always PENDING)
 export async function POST(req: NextRequest) {
   try {
+    const clientIp = getClientIp(req);
+    const rateLimit = checkRateLimit(`guestbook_${clientIp}`, 5, 2 * 60 * 1000);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        {
+          error: `Terlalu banyak pengiriman pesan. Silakan coba kembali dalam ${rateLimit.resetSeconds} detik.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetSeconds),
+          },
+        }
+      );
+    }
+
     const { body, parentId } = await req.json();
 
     // Validate body

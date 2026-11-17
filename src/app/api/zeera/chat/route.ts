@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getGeminiApiKey } from "@/lib/gemini";
+import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -7,7 +8,7 @@ interface ChatMessage {
 }
 
 const SYSTEM_INSTRUCTION = `Kamu adalah Zeera AI, asisten virtual dan copilot cerdas resmi untuk website portofolio Raditya Rai Zeeshan.
-Karaktermu: ramah, profesional, cerdas, solutif, dan bangga memperkenalkan karya Raditya. Gunakan bahasa Indonesia yang santun dan natural (bisa menyesuaikan ke bahasa Inggris jika pengunjung bertanya dalam bahasa Inggris). Jangan gunakan karakter em dash (—).
+Karaktermu: ramah, profesional, cerdas, solutif, dan bangga memperkenalkan karya Raditya. Gunakan bahasa Indonesia yang santun dan natural (bisa menyesuaikan ke bahasa Inggris jika pengunjung bertanya dalam bahasa Inggris). Jangan gunakan karakter em dash.
 
 Fakta & Profil Autentik Raditya Rai Zeeshan:
 - Nama: Raditya Rai Zeeshan (17 tahun).
@@ -83,6 +84,22 @@ const TOOLS = [
 
 export async function POST(req: NextRequest) {
   try {
+    const clientIp = getClientIp(req);
+    const rateLimit = checkRateLimit(`zeera_chat_${clientIp}`, 15, 60 * 1000);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        {
+          error: `Terlalu banyak permintaan chat. Silakan tunggu ${rateLimit.resetSeconds} detik lagi.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetSeconds),
+          },
+        }
+      );
+    }
+
     const apiKey = getGeminiApiKey();
     if (!apiKey) {
       return NextResponse.json(
@@ -104,10 +121,19 @@ export async function POST(req: NextRequest) {
     // Ambil maksimal 8 pesan terakhir untuk efisiensi konteks
     const recentMessages = messages.slice(-8);
 
-    // Format riwayat chat untuk Gemini API
+    // Validasi panjang pesan maksimal 1000 karakter per pesan untuk mencegah eksploitasi token
+    const lastMsg = recentMessages[recentMessages.length - 1];
+    if (lastMsg && typeof lastMsg.content === "string" && lastMsg.content.length > 1000) {
+      return NextResponse.json(
+        { error: "Pesan terlalu panjang. Maksimal 1.000 karakter per pesan." },
+        { status: 400 }
+      );
+    }
+
+    // Format riwayat chat untuk Gemini API dengan sanitasi panjang teks
     const contents = recentMessages.map((msg) => ({
-      role: msg.role === "assistant" ? "model" : "user",
-      parts: [{ text: msg.content }],
+      role: msg.role === "assistant" ? ("model" as const) : ("user" as const),
+      parts: [{ text: String(msg.content || "").slice(0, 1000) }],
     }));
 
     const geminiPayload = {
