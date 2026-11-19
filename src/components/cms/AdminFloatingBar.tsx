@@ -30,7 +30,7 @@ export function AdminFloatingBar() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-50 bg-surface shadow-neu-out border border-white/60 rounded-2xl px-4 py-3 flex items-center gap-3 text-textMain"
+            className="fixed bottom-36 right-4 md:bottom-24 md:right-6 z-50 bg-surface shadow-neu-out border border-white/60 rounded-2xl px-4 py-3 flex items-center gap-3 text-textMain max-w-[calc(100vw-2rem)]"
           >
             <div className="w-7 h-7 rounded-full bg-accent text-white flex items-center justify-center shrink-0">
               <Check size={14} />
@@ -49,11 +49,11 @@ export function AdminFloatingBar() {
       </AnimatePresence>
 
       {/* Floating Toolbar */}
-      <div className="fixed bottom-6 right-6 z-40 select-none">
-        <div className="bg-surface shadow-[0_15px_35px_rgba(0,0,0,0.25)] border border-white/70 rounded-full p-1.5 flex items-center gap-2">
+      <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-40 select-none max-w-[calc(100vw-2rem)]">
+        <div className="bg-surface shadow-[0_15px_35px_rgba(0,0,0,0.25)] border border-white/70 rounded-full p-1.5 flex items-center gap-1.5 sm:gap-2">
           {/* Admin Badge */}
-          <div className="flex items-center gap-1.5 pl-3 pr-1 py-1">
-            <div className="w-7 h-7 rounded-full bg-accent/15 text-accent flex items-center justify-center">
+          <div className="flex items-center gap-1.5 pl-2 sm:pl-3 pr-1 py-1">
+            <div className="w-7 h-7 rounded-full bg-accent/15 text-accent flex items-center justify-center shrink-0">
               <ShieldCheck size={15} />
             </div>
             {!isCollapsed && (
@@ -69,7 +69,7 @@ export function AdminFloatingBar() {
               <button
                 type="button"
                 onClick={() => setIsEditMode((prev) => !prev)}
-                className={`min-h-[42px] px-3.5 py-1.5 rounded-full font-space-grotesk font-bold text-xs flex items-center gap-2 transition-all cursor-pointer ${
+                className={`min-h-[42px] px-3 sm:px-3.5 py-1.5 rounded-full font-space-grotesk font-bold text-xs flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${
                   isEditMode
                     ? 'bg-accent text-white shadow-neu-in'
                     : 'bg-surface text-textMain/80 shadow-neu-out hover:shadow-neu-in'
@@ -77,9 +77,10 @@ export function AdminFloatingBar() {
                 title={isEditMode ? 'Nonaktifkan Mode Edit' : 'Aktifkan Mode Edit'}
               >
                 <Pencil size={13} className={isEditMode ? 'animate-bounce' : ''} />
-                <span>{isEditMode ? 'Mode Edit: AKTIF' : 'Mode Edit: NONAKTIF'}</span>
+                <span className="hidden sm:inline">{isEditMode ? 'Mode Edit: AKTIF' : 'Mode Edit: NONAKTIF'}</span>
+                <span className="sm:hidden">{isEditMode ? 'Edit: AKTIF' : 'Edit: OFF'}</span>
                 <span
-                  className={`w-2 h-2 rounded-full ${
+                  className={`w-2 h-2 rounded-full shrink-0 ${
                     isEditMode ? 'bg-emerald-300 animate-pulse' : 'bg-gray-400'
                   }`}
                 />
@@ -88,7 +89,7 @@ export function AdminFloatingBar() {
               {/* Tautan Dashraditya */}
               <Link
                 href="/dashraditya"
-                className="min-h-[42px] px-3 py-1.5 rounded-full bg-surface shadow-neu-out hover:shadow-neu-in font-space-grotesk font-bold text-xs text-textMain flex items-center gap-1.5 transition-all cursor-pointer"
+                className="min-h-[42px] px-2.5 sm:px-3 py-1.5 rounded-full bg-surface shadow-neu-out hover:shadow-neu-in font-space-grotesk font-bold text-xs text-textMain flex items-center gap-1.5 transition-all cursor-pointer"
                 title="Buka Dashboard Admin Lengkap"
               >
                 <LayoutDashboard size={13} className="text-accent" />
@@ -102,7 +103,7 @@ export function AdminFloatingBar() {
             type="button"
             onClick={() => setIsCollapsed((prev) => !prev)}
             aria-label={isCollapsed ? 'Buka bilah admin' : 'Perkecil bilah admin'}
-            className="w-8 h-8 rounded-full bg-surface shadow-neu-out hover:shadow-neu-in flex items-center justify-center text-textMain/75 hover:text-textMain transition-all cursor-pointer"
+            className="w-8 h-8 rounded-full bg-surface shadow-neu-out hover:shadow-neu-in flex items-center justify-center text-textMain/75 hover:text-textMain transition-all cursor-pointer shrink-0"
           >
             {isCollapsed ? <ChevronLeft size={15} /> : <ChevronRight size={15} />}
           </button>
