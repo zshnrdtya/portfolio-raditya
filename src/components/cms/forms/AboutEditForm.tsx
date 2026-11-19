@@ -184,6 +184,7 @@ export function AboutEditForm({ initialData, onSave, onClose }: AboutEditFormPro
                   src={photoUrl}
                   alt={`Foto Profil ${idx + 1}`}
                   fill
+                  unoptimized={photoUrl.startsWith('data:')}
                   className="object-cover"
                   sizes="120px"
                 />

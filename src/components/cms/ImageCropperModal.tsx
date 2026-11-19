@@ -76,8 +76,8 @@ export function ImageCropperModal({
     setIsProcessing(true);
     try {
       const img = imageRef.current;
-      const targetWidth = 1000;
-      const targetHeight = Math.round(targetWidth / aspectRatio);
+      const targetWidth = 800;
+      const targetHeight = Math.round(targetWidth / aspectRatio); // 1000px untuk 4:5
 
       const canvas = document.createElement('canvas');
       canvas.width = targetWidth;
@@ -106,7 +106,7 @@ export function ImageCropperModal({
           setIsProcessing(false);
         },
         'image/jpeg',
-        0.92
+        0.85
       );
     } catch {
       setIsProcessing(false);

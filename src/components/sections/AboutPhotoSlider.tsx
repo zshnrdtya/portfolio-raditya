@@ -61,6 +61,7 @@ export function AboutPhotoSlider({ photos, alt = 'Raditya Rai Zeeshan' }: AboutP
                 alt={`${alt} (Foto ${idx + 1})`}
                 fill
                 priority={idx === 0}
+                unoptimized={photoUrl.startsWith('data:')}
                 className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />

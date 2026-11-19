@@ -124,14 +124,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    await fs.mkdir(uploadDir, { recursive: true });
-    await fs.writeFile(filePath, buffer);
+    try {
+      await fs.mkdir(uploadDir, { recursive: true });
+      await fs.writeFile(filePath, buffer);
 
-    return NextResponse.json({
-      success: true,
-      fileName: safeFileName,
-      url: `/${targetSubdir}/${safeFileName}`,
-    });
+      return NextResponse.json({
+        success: true,
+        fileName: safeFileName,
+        url: `/${targetSubdir}/${safeFileName}`,
+      });
+    } catch (fsError) {
+      console.warn(
+        "[Upload API] Filesystem serverless/read-only terdeteksi. Beralih ke Data URL Base64:",
+        fsError
+      );
+      const dataUrl = `data:${file.type};base64,${buffer.toString("base64")}`;
+      return NextResponse.json({
+        success: true,
+        fileName: safeFileName,
+        url: dataUrl,
+      });
+    }
   } catch (error) {
     console.error("[Upload API Error]", error);
     return NextResponse.json(
