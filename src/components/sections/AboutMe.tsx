@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useSiteContent } from "@/components/cms/SiteContentProvider";
 import { SectionEditTrigger } from "@/components/cms/SectionEditTrigger";
+import { AboutPhotoSlider } from "./AboutPhotoSlider";
 
 export default function AboutMe() {
   const { content } = useSiteContent();
@@ -43,17 +44,7 @@ export default function AboutMe() {
               {about?.heading || "About Me"}
             </h2>
 
-            <div className="relative w-full aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden shadow-[var(--shadow-neu-out)] mb-10 p-3 bg-[var(--color-surface)]">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[var(--shadow-neu-in)]">
-                <Image
-                  src="/foto-raditya/raditya.jpeg"
-                  alt="Raditya Rai Zeeshan"
-                  fill
-                  className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                />
-              </div>
-            </div>
+            <AboutPhotoSlider photos={about?.photos} alt="Raditya Rai Zeeshan" />
 
             <div className="font-space-grotesk text-[var(--color-textMain)] font-medium leading-relaxed text-lg bg-[var(--color-surface)] shadow-[var(--shadow-neu-in)] rounded-2xl p-6 text-justify space-y-4">
               <p>

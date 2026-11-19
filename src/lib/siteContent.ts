@@ -17,6 +17,7 @@ export interface AboutContent {
   bioParagraph1: string;
   bioParagraph2: string;
   bioParagraph3: string;
+  photos?: string[];
 }
 
 export interface ContactContent {
@@ -54,6 +55,9 @@ export const DEFAULT_SITE_CONTENT: SiteContentMap = {
   },
   about: {
     heading: "About Me",
+    photos: [
+      "/foto-raditya/raditya.jpeg",
+    ],
     bioParagraph1:
       "My name is Raditya Rai Zeeshan, a 17-year-old Software and Game Development (PPLG) student at SMKN 1 Depok. Since being introduced to programming, I have been fascinated by how digital systems can provide meaningful, real-world solutions.",
     bioParagraph2:

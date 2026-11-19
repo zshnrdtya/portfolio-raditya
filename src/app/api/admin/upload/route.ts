@@ -106,10 +106,15 @@ export async function POST(req: NextRequest) {
       .replace(/[^a-z0-9_-]/g, "-")
       .slice(0, 30);
 
-    const randomSuffix = crypto.randomBytes(4).toString("hex");
-    const safeFileName = `project-${Date.now()}-${randomSuffix}-${baseName}${safeExtension}`;
+    const folder = (formData.get("folder") as string | null)?.toLowerCase() || "project";
+    const isAboutFolder = folder === "about" || folder === "raditya";
+    const targetSubdir = isAboutFolder ? "foto-raditya" : "foto-project";
+    const filePrefix = isAboutFolder ? "raditya" : "project";
 
-    const uploadDir = path.resolve(process.cwd(), "public", "foto-project");
+    const randomSuffix = crypto.randomBytes(4).toString("hex");
+    const safeFileName = `${filePrefix}-${Date.now()}-${randomSuffix}-${baseName}${safeExtension}`;
+
+    const uploadDir = path.resolve(process.cwd(), "public", targetSubdir);
     const filePath = path.resolve(uploadDir, safeFileName);
 
     if (!filePath.startsWith(uploadDir)) {
@@ -125,7 +130,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       fileName: safeFileName,
-      url: `/foto-project/${safeFileName}`,
+      url: `/${targetSubdir}/${safeFileName}`,
     });
   } catch (error) {
     console.error("[Upload API Error]", error);
